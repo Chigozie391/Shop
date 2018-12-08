@@ -29,11 +29,12 @@ namespace Shop
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 			services.AddAutoMapper();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddCors();
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 		}
 
