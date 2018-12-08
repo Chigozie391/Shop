@@ -1,6 +1,9 @@
 using AutoMapper;
 using Shop.API.Core.Models;
-using Shop.API.Dtos;
+using Shop.API.Dtos.CategoryDto;
+using Shop.API.Dtos.PhotosDto;
+using Shop.API.Dtos.ProductDto;
+using System.Collections.Generic;
 
 namespace Shop.API.Mapping
 {
@@ -9,15 +12,31 @@ namespace Shop.API.Mapping
 		public MappingProfile()
 		{
 
-			// api to user
-			CreateMap<Category, CategoryForReturn>();
-			CreateMap<ChildCategory, KeyValuePair>();
+			// API TO USER
 
-			//user to api
+			// category
+			CreateMap<Category, CategoryForReturn>();
+			CreateMap<ChildCategory, Dtos.CategoryDto.KeyValuePair>();
+
+			// product
+			CreateMap<Product, ProductToReturn>();
+			CreateMap<Product, IEnumerable<ProductForList>>();
+
+			//Photo
+			CreateMap<Photo, IEnumerable<PhotoForReturn>>();
+
+
+
+			// USER TO API
+
+			// category
 			CreateMap<CategoryForCreation, Category>();
 			CreateMap<ChildCategoryForCreation, ChildCategory>();
 			CreateMap<CategoryOrChildCategoryForUpdate, Category>();
 			CreateMap<CategoryOrChildCategoryForUpdate, ChildCategory>();
+
+			// product
+			CreateMap<ProductForCreationOrUpdate, Product>();
 		}
 	}
 }

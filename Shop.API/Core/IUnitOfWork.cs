@@ -4,7 +4,7 @@ namespace Shop.API.Core
 {
 	public interface IUnitOfWork
 	{
-		Task CompleteAsync();
+		Task<bool> CompleteAsync();
 		void Add<T>(T entity) where T : class;
 		void Remove<T>(T entity) where T : class;
 

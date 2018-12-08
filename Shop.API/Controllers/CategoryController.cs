@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.API.Core;
 using Shop.API.Core.Models;
-using Shop.API.Dtos;
+using Shop.API.Dtos.CategoryDto;
 using Shop.API.Mapping;
 using Shop.API.Persistance;
 
@@ -42,14 +43,15 @@ namespace Shop.API.Controllers
 		{
 			var category = this.mapper.Map<Category>(categoryForCreation);
 			this.unitOfWork.Add(category);
-			await this.unitOfWork.CompleteAsync();
 
-			category = await this.repo.GetCategory(category.Id, includeChildren: false);
+			if (await this.unitOfWork.CompleteAsync())
+			{
+				category = await this.repo.GetCategory(category.Id, includeChildren: false);
+				var result = this.mapper.Map<CategoryForReturn>(category);
+				return Ok(result);
+			}
 
-			var result = this.mapper.Map<CategoryForReturn>(category);
-
-			return Ok(result);
-
+			return BadRequest("Could not create the category");
 		}
 
 		// create child category of a parent

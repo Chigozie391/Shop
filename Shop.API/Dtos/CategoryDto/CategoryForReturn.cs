@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Shop.API.Dtos
+namespace Shop.API.Dtos.CategoryDto
 {
 	public class CategoryForReturn : KeyValuePair
 	{

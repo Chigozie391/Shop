@@ -1,4 +1,4 @@
-namespace Shop.API.Dtos
+namespace Shop.API.Dtos.CategoryDto
 {
 	public class CategoryOrChildCategoryForUpdate
 	{

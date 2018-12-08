@@ -22,9 +22,9 @@ namespace Shop.API.Persistance
 			this.context.Remove(entity);
 		}
 
-		public async Task CompleteAsync()
+		public async Task<bool> CompleteAsync()
 		{
-			await this.context.SaveChangesAsync();
+			return await this.context.SaveChangesAsync() > 0;
 		}
 	}
 }
