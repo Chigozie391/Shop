@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 my-3"><h4 class="text-center">Category</h4></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form #form="ngForm" (submit)="add(form)">
+        <div class="form-group ">
+          <mat-form-field>
+            <mat-select
+              placeholder="Category"
+              required
+              [disabled]="isSelectDisable"
+              name="parent"
+              [(ngModel)]="parentId"
+              (selectionChange)="onSelectChange()"
+            >
+              <mat-option value="0">Main Category</mat-option>
+              <mat-option *ngFor="let parent of categories" value="{{parent.id}}">{{
+                parent.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="{{placeholderForInput}}"
+              required
+              name="name"
+              [(ngModel)]="obj.name"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+            {{ buttonText }}
+          </button>
+
+          <button
+            type="button"
+            class="mx-2"
+            mat-raised-button
+            [disabled]="!form.touched && form.invalid"
+            (click)="resetForm(form)"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-striped table-bordered">
+        <thead class="text-center">
+          <th>Main Category</th>
+          <th>Sub Category</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let parent of categories">
+            <td class=" ">
+              <h6 class="mt-2 mb-0 d-inline-block font-weight-bold">{{ parent.name }}</h6>
+              <span class="d-inline-block float-right">
+                <button mat-icon-button (click)="populateForCategory(parent.id)">
+                  <mat-icon>border_color</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteCategory(parent.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </span>
+            </td>
+            <td class="py-0">
+              <div
+                class="row justify-content-between px-3 last-border"
+                *ngFor="let child of parent['childCategories']"
+              >
+                <h6 class="d-inline mt-3 mb-0 mx-3">{{ child.name }}</h6>
+                <span class="d-inline-block mt-2">
+                  <button mat-icon-button (click)="populateForChild(child.id, parent.id)">
+                    <mat-icon>border_color</mat-icon>
+                  </button>
+                  <button
+                    class="ml-3"
+                    mat-icon-button
+                    color="warn"
+                    (click)="deleteChildCategory(child.id, parent.id)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+div.last-border:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #d9edf7;
+}

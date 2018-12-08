@@ -74,7 +74,7 @@ namespace Shop.API.Controllers
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UodateCaegory(int Id, CategoryOrChildCategoryForUpdate categoryOrChild)
+		public async Task<IActionResult> UpdateCategory(int Id, CategoryOrChildCategoryForUpdate categoryOrChild)
 		{
 			var category = await this.repo.GetCategory(Id);
 			this.mapper.Map(categoryOrChild, category);
@@ -88,7 +88,7 @@ namespace Shop.API.Controllers
 		}
 
 		[HttpPut("updateChildCategory/{id}")]
-		public async Task<IActionResult> UodateChildCategory(int Id, CategoryOrChildCategoryForUpdate childCategoryForUpdate)
+		public async Task<IActionResult> UpdateChildCategory(int Id, CategoryOrChildCategoryForUpdate childCategoryForUpdate)
 		{
 			var childCategory = await this.repo.GetChildCategory(Id);
 

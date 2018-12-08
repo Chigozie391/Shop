@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <div class="d-md-none d-sm-none">
+    <button mat-icon-button><mat-icon>menu</mat-icon></button>
+  </div>
+  <div><a [routerLink]="['/admin']">Admin Panel</a></div>
+  <div fxHide.xs class="d-none d-sm-flex justify-content-end flex-grow-1 ">
+    <ul class="navigation-items d-flex">
+      <li class="mx-3" routerLinkActive="active">
+        <a [routerLink]="['/admin/category']">Category</a>
+      </li>
+      <li class="mx-3"><a [routerLink]="['/']">Goto Site</a></li>
+    </ul>
+  </div>
+</mat-toolbar>

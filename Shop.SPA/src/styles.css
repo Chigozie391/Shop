@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import './assets/css/bootstrap.min.css';
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+
+html,
+body {
+  font-family: 'Roboto', 'sans-serif';
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+button:focus {
+  outline: none;
+}
+.material-icons {
+  font-size: 18px;
+}

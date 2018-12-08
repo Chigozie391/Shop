@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <div class="d-md-none d-sm-none">
+    <button mat-icon-button><mat-icon>menu</mat-icon></button>
+  </div>
+  <span>User Nav Bar</span>
+  <div class="d-none d-sm-flex justify-content-end flex-grow-1 ">
+    <ul class="navigation-items d-flex">
+      <div><a [routerLink]="['/admin']">Admin</a></div>
+    </ul>
+  </div>
+</mat-toolbar>
