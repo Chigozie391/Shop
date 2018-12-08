@@ -100,6 +100,7 @@ export class CategoryComponent implements OnInit {
       () => {
         this.adminCatService.deleteChildCategory(childid).subscribe(() => {
           childCategory.splice(_.findIndex(childCategory, child), 1);
+          this.alertify.success('Deleted Successfully');
         });
       }
     );
@@ -111,6 +112,7 @@ export class CategoryComponent implements OnInit {
       () => {
         this.adminCatService.deleteCategory(pid).subscribe(x => {
           this.categories.splice(_.indexOf(this.categories, x), 1);
+          this.alertify.success('Deleted Succesfully');
         });
       }
     );
