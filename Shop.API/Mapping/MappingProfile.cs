@@ -48,6 +48,10 @@ namespace Shop.API.Mapping
 
 			// product
 			CreateMap<ProductForCreationOrUpdate, Product>();
+
+			// Photo
+			CreateMap<PhotoForCreation, Photo>();
+
 		}
 	}
 }
