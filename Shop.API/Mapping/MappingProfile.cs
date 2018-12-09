@@ -4,6 +4,7 @@ using Shop.API.Dtos.CategoryDto;
 using Shop.API.Dtos.PhotosDto;
 using Shop.API.Dtos.ProductDto;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shop.API.Mapping
 {
@@ -20,7 +21,17 @@ namespace Shop.API.Mapping
 
 			// product
 			CreateMap<Product, ProductToReturn>();
-			CreateMap<Product, IEnumerable<ProductForList>>();
+			CreateMap<Product, ProductForList>()
+			.ForMember(des => des.PhotoUrl, opt =>
+			{
+				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+			});
+
+			CreateMap<Product, ProductForDetail>()
+			.ForMember(des => des.PhotoUrl, opt =>
+			{
+				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+			});
 
 			//Photo
 			CreateMap<Photo, IEnumerable<PhotoForReturn>>();

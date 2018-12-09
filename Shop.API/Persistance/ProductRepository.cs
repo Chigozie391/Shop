@@ -18,11 +18,13 @@ namespace Shop.API.Persistance
 		{
 			return await this.context.Products
 			.Include(x => x.Photos)
+			.IgnoreQueryFilters()
 			.FirstOrDefaultAsync(x => x.Id == id);
 		}
 		public async Task<ICollection<Product>> GetProducts()
 		{
-			return await this.context.Products.Include(x => x.Photos).ToListAsync();
+			return await this.context.Products
+			.Include(x => x.Photos).ToListAsync();
 		}
 	}
 }

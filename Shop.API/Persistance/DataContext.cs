@@ -14,5 +14,10 @@ namespace Shop.API.Persistance
 		public DbSet<ChildCategory> ChildCategories { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Photo> Photos { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.Entity<Photo>().HasQueryFilter(p => p.IsMain);
+		}
 	}
 }

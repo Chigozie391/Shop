@@ -11,6 +11,7 @@ namespace Shop.API.Dtos.ProductDto
 		public int Id { get; set; }
 		public string Title { get; set; }
 		public decimal Price { get; set; }
+		public string PhotoUrl { get; set; }
 		public bool Featured { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime LastUpdated { get; set; }
