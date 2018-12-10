@@ -65,7 +65,7 @@ namespace Shop.API.Controllers
 
 			var childCat = this.mapper.Map<ChildCategory>(childCategoryDto);
 
-			childCat.Catogories = category;
+			childCat.Category = category;
 			category.ChildCategories.Add(childCat);
 
 			await this.unitOfWork.CompleteAsync();

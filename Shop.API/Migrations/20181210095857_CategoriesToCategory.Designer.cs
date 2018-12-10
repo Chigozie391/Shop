@@ -10,8 +10,8 @@ using Shop.API.Persistance;
 namespace Shop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181209133456_ModifiedPhotoModel")]
-    partial class ModifiedPhotoModel
+    [Migration("20181210095857_CategoriesToCategory")]
+    partial class CategoriesToCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Shop.API.Core.Models.ChildCategory", b =>
@@ -96,7 +96,8 @@ namespace Shop.Migrations
 
                     b.Property<DateTime>("LastUpdated");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<string>("Sizes");
 
@@ -126,7 +127,7 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("Shop.API.Core.Models.ChildCategory", b =>
                 {
-                    b.HasOne("Shop.API.Core.Models.Category", "Catogories")
+                    b.HasOne("Shop.API.Core.Models.Category", "Category")
                         .WithMany("ChildCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);

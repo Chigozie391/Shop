@@ -9,7 +9,7 @@ namespace Shop.API.Core.Models
 		[Required]
 		[StringLength(255)]
 		public string Name { get; set; }
-		public Category Catogories { get; set; }
+		public Category Category { get; set; }
 		public int CategoryId { get; set; }
 	}
 }

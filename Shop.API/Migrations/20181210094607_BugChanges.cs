@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shop.Migrations
 {
-    public partial class ModifiedPhotoModel : Migration
+    public partial class BugChanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

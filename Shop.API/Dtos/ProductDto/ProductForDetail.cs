@@ -12,6 +12,9 @@ namespace Shop.API.Dtos.ProductDto
 		public string Sizes { get; set; }
 		public string PhotoUrl { get; set; }
 		public int ChildCategoryId { get; set; }
+		public string ChildCategoryName { get; set; }
+		public int CategoryId { get; set; }
+		public string CategoryName { get; set; }
 		public ICollection<PhotoForReturn> Photos { get; set; }
 		public string Description { get; set; }
 		public bool Featured { get; set; }

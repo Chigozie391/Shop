@@ -10,7 +10,7 @@ namespace Shop.API.Persistance
 		}
 
 		public DbSet<Values> Values { get; set; }
-		public DbSet<Category> Categories { get; set; }
+		public DbSet<Category> Category { get; set; }
 		public DbSet<ChildCategory> ChildCategories { get; set; }
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Photo> Photos { get; set; }

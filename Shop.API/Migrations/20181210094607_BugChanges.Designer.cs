@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.API.Persistance;
 
 namespace Shop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20181210094607_BugChanges")]
+    partial class BugChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Shop.API.Core.Models.ChildCategory", b =>
@@ -125,7 +127,7 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("Shop.API.Core.Models.ChildCategory", b =>
                 {
-                    b.HasOne("Shop.API.Core.Models.Category", "Category")
+                    b.HasOne("Shop.API.Core.Models.Category", "Categories")
                         .WithMany("ChildCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -20,22 +20,49 @@ namespace Shop.API.Mapping
 			CreateMap<ChildCategory, Dtos.CategoryDto.KeyValuePair>();
 
 			// product
-			CreateMap<Product, ProductToReturn>();
 			CreateMap<Product, ProductForList>()
 			.ForMember(des => des.PhotoUrl, opt =>
 			{
 				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+			})
+			.ForMember(des => des.ChildCategoryName, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Name);
+			})
+			.ForMember(des => des.ChildCategoryId, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Id);
+			})
+			.ForMember(des => des.CategoryId, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Category.Id);
+			})
+			.ForMember(des => des.CategoryName, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Category.Name);
 			});
 
 			CreateMap<Product, ProductForDetail>()
 			.ForMember(des => des.PhotoUrl, opt =>
 			{
 				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+			})
+			.ForMember(des => des.ChildCategoryName, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Name);
+			})
+			.ForMember(des => des.ChildCategoryId, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Id);
+			})
+			.ForMember(des => des.CategoryId, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Category.Id);
+			})
+			.ForMember(des => des.CategoryName, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Category.Name);
 			});
-
-			//Photo
-			CreateMap<Photo, IEnumerable<PhotoForReturn>>();
-
 
 
 			// USER TO API
