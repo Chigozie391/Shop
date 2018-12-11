@@ -17,6 +17,3 @@ body {
 button:focus {
   outline: none;
 }
-.material-icons {
-  font-size: 18px;
-}

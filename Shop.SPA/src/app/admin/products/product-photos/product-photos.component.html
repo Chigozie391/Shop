@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+      <ng-container *ngIf="photos.length; else: elseTemplate">
+        <div *ngFor="let photo of photos" class="d-inline-block mt-3 mx-3 text-center">
+          <img src="{{photo.url}}" alt="" class="img-thumbnail" />
+          <div class="text-center">
+            <button
+              mat-mini-fab
+              color="basic"
+              disabled="{{photo.isMain}}"
+              class="m-1"
+              (click)="setMainPhoto(productId, photo)"
+            >
+              <mat-icon class="fas fa-plus mt-1" aria-hidden="true"></mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" class="m-1 " (click)="deletePhoto(productId, photo)">
+              <mat-icon class="far fa-trash-alt mt-1" aria-hidden="true"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate> <h4>No Photos has been uploaded yet</h4> </ng-template>
+    </div>
+  </div>
+</div>

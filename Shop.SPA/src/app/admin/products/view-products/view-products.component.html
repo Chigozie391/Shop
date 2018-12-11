@@ -1,0 +1,7 @@
+<mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+  <mat-tab label="Product Details"> <p>Details</p> </mat-tab>
+  <mat-tab label="Product Photos">
+    <app-product-photos [photos]="product.photos" [productId]="product.id"> </app-product-photos>
+  </mat-tab>
+  <mat-tab label="Product ***"> <p>...</p> </mat-tab>
+</mat-tab-group>

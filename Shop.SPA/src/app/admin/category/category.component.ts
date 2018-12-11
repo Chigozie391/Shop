@@ -28,7 +28,6 @@ export class CategoryComponent implements OnInit {
   getCategoryWithChildren() {
     this.adminCatService.getCategoryWithChildren().subscribe((category: []) => {
       this.categories = category;
-      console.log(this.categories);
     });
   }
 

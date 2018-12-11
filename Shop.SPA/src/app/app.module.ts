@@ -15,6 +15,10 @@ import { UserNavComponent } from './user/user-nav/user-nav.component';
 import { UserPanelComponent } from './user/user-panel/user-panel.component';
 import { HomeComponent } from './user/home/home.component';
 import { AlertifyService } from './_services/gloabal/alertify.service';
+import { ViewProductsComponent } from './admin/products/view-products/view-products.component';
+import { ProductListComponent } from './admin/products/product-list/product-list.component';
+import { ProductViewResolver } from './_resolver/product-view.resolver';
+import { ProductPhotosComponent } from './admin/products/product-photos/product-photos.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,9 @@ import { AlertifyService } from './_services/gloabal/alertify.service';
     AdminDashboardComponent,
     AdminPanelComponent,
     AdminNavComponent,
+    ViewProductsComponent,
+    ProductListComponent,
+    ProductPhotosComponent,
     CategoryComponent,
     HomeComponent,
     UserNavComponent,
@@ -35,7 +42,7 @@ import { AlertifyService } from './_services/gloabal/alertify.service';
     RouterModule.forRoot(appRoutes),
     MaterialModule
   ],
-  providers: [AlertifyService],
+  providers: [AlertifyService, ProductViewResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

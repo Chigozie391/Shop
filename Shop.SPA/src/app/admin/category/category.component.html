@@ -63,10 +63,10 @@
               <h6 class="mt-2 mb-0 d-inline-block font-weight-bold">{{ parent.name }}</h6>
               <span class="d-inline-block float-right">
                 <button mat-icon-button (click)="populateForCategory(parent.id)">
-                  <mat-icon>border_color</mat-icon>
+                  <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="deleteCategory(parent.id)">
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
                 </button>
               </span>
             </td>
@@ -78,7 +78,7 @@
                 <h6 class="d-inline mt-3 mb-0 mx-3">{{ child.name }}</h6>
                 <span class="d-inline-block mt-2">
                   <button mat-icon-button (click)="populateForChild(child.id, parent.id)">
-                    <mat-icon>border_color</mat-icon>
+                    <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
                   </button>
                   <button
                     class="ml-3"
@@ -86,7 +86,7 @@
                     color="warn"
                     (click)="deleteChildCategory(child.id, parent.id)"
                   >
-                    <mat-icon>delete</mat-icon>
+                    <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
                   </button>
                 </span>
               </div>
