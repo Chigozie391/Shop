@@ -80,20 +80,37 @@ namespace Shop.API.Controllers
 
 			if (await this.unitOfWork.CompleteAsync())
 			{
-				var createdproduct = await this.repo.GetProduct(product.Id);
-
-				var productToReturn = this.mapper.Map<ProductForDetail>(createdproduct);
-
+				var productToReturn = this.mapper.Map<ProductForDetail>(product);
 				return CreatedAtRoute("GetProduct", new { id = product.Id }, productToReturn);
 			}
 			return BadRequest("Could not update the product");
 
 		}
 
+		[HttpPost("{id}")]
+		public async Task<IActionResult> SetFeature(int id)
+		{
+			var product = await this.repo.GetProduct(id, false);
+			if (product == null)
+				return NotFound();
+
+
+			if (product.Featured)
+			{
+				product.Featured = false;
+			}
+			else
+			{
+				product.Featured = true;
+			}
+			await this.unitOfWork.CompleteAsync();
+			return Ok();
+		}
+
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
-			var product = await this.repo.GetProduct(id);
+			var product = await this.repo.GetProduct(id, false);
 			this.unitOfWork.Remove(product);
 
 			if (await this.unitOfWork.CompleteAsync())

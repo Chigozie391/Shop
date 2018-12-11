@@ -16,11 +16,14 @@ namespace Shop.API.Persistance
 
 		public Task<Photo> GetPhoto(int id)
 		{
-			return this.context.Photos.FirstOrDefaultAsync(x => x.Id == id);
+			return this.context.Photos
+			.IgnoreQueryFilters()
+			.FirstOrDefaultAsync(x => x.Id == id);
 		}
 		public async Task<Photo> GetMainPhotoForProduct(int photoid)
 		{
 			return await this.context.Photos
+				.IgnoreQueryFilters()
 				.Where(u => u.ProductId == photoid)
 				.FirstOrDefaultAsync(p => p.IsMain);
 		}

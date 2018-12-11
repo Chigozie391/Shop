@@ -14,14 +14,25 @@ namespace Shop.API.Persistance
 			this.context = context;
 		}
 
-		public async Task<Product> GetProduct(int id)
+		public async Task<Product> GetProduct(int id, bool includePhoto)
 		{
-			return await this.context.Products
-			.Include(x => x.Photos)
-			.IgnoreQueryFilters()
-			.Include(ch => ch.ChildCategory)
-			.ThenInclude(c => c.Category)
-			.FirstOrDefaultAsync(x => x.Id == id);
+			if (includePhoto)
+			{
+				return await this.context.Products
+						.Include(x => x.Photos)
+						.IgnoreQueryFilters()
+						.Include(ch => ch.ChildCategory)
+						.ThenInclude(c => c.Category)
+						.FirstOrDefaultAsync(x => x.Id == id);
+			}
+			else
+			{
+				return await this.context.Products
+						.Include(ch => ch.ChildCategory)
+						.ThenInclude(c => c.Category)
+						.FirstOrDefaultAsync(x => x.Id == id);
+			}
+
 		}
 		public async Task<ICollection<Product>> GetProducts()
 		{

@@ -6,7 +6,7 @@ namespace Shop.API.Core
 {
 	public interface IProductRepository
 	{
-		Task<Product> GetProduct(int id);
+		Task<Product> GetProduct(int id, bool includePhoto = true);
 		Task<ICollection<Product>> GetProducts();
 	}
 }

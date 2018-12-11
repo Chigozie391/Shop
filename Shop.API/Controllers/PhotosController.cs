@@ -51,9 +51,9 @@ namespace Shop.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddPhotoForProduct(int productId, PhotoForCreation photoForCreation)
 		{
-			var product = await this.productRepo.GetProduct(productId);
+			var product = await this.productRepo.GetProduct(productId, true);
 			if (product == null)
-				return BadRequest("Could not find user");
+				return BadRequest("Could not find product");
 
 
 			var file = photoForCreation.File;
@@ -97,7 +97,7 @@ namespace Shop.API.Controllers
 
 
 		[HttpPost("{photoid}/setMain")]
-		public async Task<IActionResult> SetMainPhoto(int photoid)
+		public async Task<IActionResult> SetMainPhoto(int productId, int photoid)
 		{
 			var photo = await this.photoRepo.GetPhoto(photoid);
 
@@ -107,7 +107,7 @@ namespace Shop.API.Controllers
 			if (photo.IsMain)
 				BadRequest("This is already the  main photo");
 
-			var currentMainPhoto = await this.photoRepo.GetMainPhotoForProduct(photoid);
+			var currentMainPhoto = await this.photoRepo.GetMainPhotoForProduct(productId);
 			if (currentMainPhoto != null)
 				currentMainPhoto.IsMain = false;
 
