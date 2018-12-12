@@ -18,6 +18,7 @@ namespace Shop.API.Core.Models
 		[Column(TypeName = "decimal(18, 2)")]
 		public decimal Price { get; set; }
 		public string Sizes { get; set; }
+		public int Sold { get; set; }
 		public ChildCategory ChildCategory { get; set; }
 		public int ChildCategoryId { get; set; }
 		public ICollection<Photo> Photos { get; set; }
