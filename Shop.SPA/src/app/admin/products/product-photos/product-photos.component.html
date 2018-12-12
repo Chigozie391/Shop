@@ -1,7 +1,98 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-5"></div>
-    <div class="col-md-7">
+    <div class="col-md-6">
+      <div class="row mt-3 ml-3">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="multiple">Multiple Upload</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="multiple"
+              ng2FileSelect
+              [uploader]="uploader"
+              multiple
+            />
+          </div>
+          <div class="form-group">
+            <label for="single">Single Upload</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="single"
+              ng2FileSelect
+              [uploader]="uploader"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-12  justify-content-center" *ngIf="uploader?.queue?.length">
+          <h5>Upload queue</h5>
+          <p>Queue length: {{ uploader?.queue?.length }}</p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of uploader.queue">
+                <td>
+                  <strong>{{ item?.file?.name }}</strong>
+                </td>
+                <td nowrap>{{ item?.file?.size / 1024 / 1024 | number: '.2' }} MB</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div>
+            <div class="mb-4 mt-2">
+              Queue progress:
+              <mat-progress-bar
+                mode="determinate"
+                value="{{uploader.progress}}"
+                role="progressbar"
+              ></mat-progress-bar>
+            </div>
+            <button
+              class="mx-1"
+              cplor="primary"
+              mat-raised-button
+              type="button"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length"
+            >
+              <mat-icon class="fas fa-cloud-upload-alt mt-2" aria-hidden="true"></mat-icon> Upload
+            </button>
+            <button
+              class="mx-1"
+              color="basic"
+              mat-raised-button
+              type="button"
+              (click)="uploader.cancelAll()"
+              [disabled]="!uploader.isUploading"
+            >
+              <mat-icon class="fas fa-stop-circle mt-2" aria-hidden="true"></mat-icon> Cancel
+            </button>
+            <button
+              class="mx-1"
+              color="warn"
+              mat-raised-button
+              type="button"
+              (click)="uploader.clearQueue()"
+              [disabled]="!uploader.queue.length"
+            >
+              <mat-icon class="far fa-trash-alt mt-2" aria-hidden="true"></mat-icon> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- vsdvsv -->
+    <div class="col-md-6 border-left">
       <ng-container *ngIf="photos.length; else: elseTemplate">
         <div *ngFor="let photo of photos" class="d-inline-block mt-3 mx-3 text-center">
           <img src="{{photo.url}}" alt="" class="img-thumbnail" />

@@ -19,6 +19,7 @@ import { ViewProductsComponent } from './admin/products/view-products/view-produ
 import { ProductListComponent } from './admin/products/product-list/product-list.component';
 import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { ProductPhotosComponent } from './admin/products/product-photos/product-photos.component';
+import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ProductPhotosComponent } from './admin/products/product-photos/product-
     FormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
-    MaterialModule
+    MaterialModule,
+    FileUploadModule
   ],
   providers: [AlertifyService, ProductViewResolver],
   bootstrap: [AppComponent]
