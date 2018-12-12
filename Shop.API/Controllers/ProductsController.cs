@@ -116,8 +116,35 @@ namespace Shop.API.Controllers
 			if (await this.unitOfWork.CompleteAsync())
 				return Ok(id);
 
-			return BadRequest("Could not create the product");
+			return BadRequest("Could not delete the product");
 
+		}
+
+		[HttpPost("{id}/archive")]
+		public async Task<IActionResult> ArchiveProduct(int id)
+		{
+			var product = await this.repo.GetProduct(id, false);
+
+			if (product.Featured)
+				return BadRequest("Can not archive featured product");
+
+			product.Deleted = true;
+
+			if (await this.unitOfWork.CompleteAsync())
+				return Ok(id);
+
+			return BadRequest("Could not archive the product");
+
+		}
+
+		[HttpGet("archive")]
+		public async Task<IActionResult> GetArchiveProducts()
+		{
+			var products = await this.repo.GetArchiveProduct();
+
+			var productToList = this.mapper.Map<IEnumerable<ProductForList>>(products);
+
+			return Ok(productToList);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shop.API.Core;
@@ -37,6 +38,17 @@ namespace Shop.API.Persistance
 		public async Task<ICollection<Product>> GetProducts()
 		{
 			return await this.context.Products
+			.Where(p => !p.Deleted)
+			.Include(x => x.Photos)
+			.Include(ch => ch.ChildCategory)
+			.ThenInclude(c => c.Category)
+			.ToListAsync();
+		}
+
+		public async Task<ICollection<Product>> GetArchiveProduct()
+		{
+			return await this.context.Products
+			.Where(p => p.Deleted)
 			.Include(x => x.Photos)
 			.Include(ch => ch.ChildCategory)
 			.ThenInclude(c => c.Category)

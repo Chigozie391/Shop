@@ -8,5 +8,6 @@ namespace Shop.API.Core
 	{
 		Task<Product> GetProduct(int id, bool includePhoto = true);
 		Task<ICollection<Product>> GetProducts();
+		Task<ICollection<Product>> GetArchiveProduct();
 	}
 }
