@@ -5,8 +5,8 @@
       <a mat-icon-button [routerLink]="['/admin/products', element.id]">
         <mat-icon class="far fa-eye" aria-hidden="true"></mat-icon>
       </a>
-      <button mat-icon-button color="warn" (click)="deleteProduct(element.id)">
-        <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
+      <button mat-icon-button color="warn" (click)="archiveProduct(element.id)">
+        <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
       </button>
     </mat-cell>
   </ng-container>
@@ -21,12 +21,12 @@
   <ng-container matColumnDef="featured">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Featured </mat-header-cell>
     <mat-cell *matCellDef="let element">
-      <button mat-icon-button *ngIf="element.featured == true" (click)="setFeatured(element.id)">
-        <mat-icon class="fas fa-plus" aria-hidden="true"></mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="element.featured == false" (click)="setFeatured(element.id)">
-        <mat-icon class="fas fa-minus" aria-hidden="true"></mat-icon>
-      </button>
+      <mat-slide-toggle
+        color="primary"
+        (toggleChange)="setFeatured(element.id)"
+        checked="{{element.featured}}"
+        >Featured</mat-slide-toggle
+      >
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="sold">

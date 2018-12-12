@@ -44,26 +44,22 @@ export class ProductListComponent implements OnInit {
         this.alertify.success('Successful');
         this.table.renderRows();
       },
-      error => this.error()
+      error => this.alertify.error(error.error)
     );
   }
 
-  deleteProduct(id) {
-    this.alertify.confirm('Are you sure you want to delete the product', () => {
-      this.productService.deleteProduct(id).subscribe(
+  archiveProduct(id) {
+    this.alertify.confirm('Are you sure you want to archive the product', () => {
+      this.productService.achiveProduct(id).subscribe(
         x => {
           const index = this.dataSource.data.findIndex(p => p.id == id);
 
           this.dataSource.data.splice(index, 1);
-          this.alertify.success('Successfully deleted');
+          this.alertify.success('Successfully archived');
           this.table.renderRows();
         },
-        error => this.error()
+        error => this.alertify.error(error.error)
       );
     });
-  }
-
-  error() {
-    this.alertify.error('Something went wrong');
   }
 }

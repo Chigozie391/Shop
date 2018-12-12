@@ -27,6 +27,10 @@ export class ProductService {
     return this.http.delete(this.baseUrl + 'products/' + id);
   }
 
+  achiveProduct(id: number) {
+    return this.http.post(this.baseUrl + 'products/' + id + '/archive', {});
+  }
+
   setMainPhoto(productId: number, photoId: number) {
     return this.http.post(
       this.baseUrl + 'products/' + productId + '/photos/' + photoId + '/setmain',

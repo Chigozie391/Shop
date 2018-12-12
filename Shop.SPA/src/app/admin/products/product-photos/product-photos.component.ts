@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import * as _ from 'underscore';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
-import { FileUploader, FileItem } from 'ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -16,11 +16,7 @@ export class ProductPhotosComponent implements OnInit {
   uploader: FileUploader;
   baseUrl = environment.apiUrl;
 
-  constructor(
-    private productService: ProductService,
-    private detector: ChangeDetectorRef,
-    private alertify: AlertifyService
-  ) {}
+  constructor(private productService: ProductService, private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.intializeUploader();
@@ -36,7 +32,7 @@ export class ProductPhotosComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
-    this.uploader.onSuccessItem = (item, response, status, headers) => {
+    this.uploader.onSuccessItem = (item, response) => {
       if (response) {
         const res = JSON.parse(response);
         const photo = {
@@ -70,13 +66,15 @@ export class ProductPhotosComponent implements OnInit {
   }
 
   deletePhoto(productId: number, photo) {
-    this.productService.deletePhoto(productId, photo.id).subscribe(
-      x => {
-        this.photos.splice(this.photos.findIndex(c => c.id == x), 1);
+    this.alertify.confirm('Are you sure you want to delete the photo', () => {
+      this.productService.deletePhoto(productId, photo.id).subscribe(
+        x => {
+          this.photos.splice(this.photos.findIndex(c => c.id == x), 1);
 
-        this.alertify.success('Deleted Successfully');
-      },
-      error => this.alertify.error(error.error)
-    );
+          this.alertify.success('Deleted Successfully');
+        },
+        error => this.alertify.error(error.error)
+      );
+    });
   }
 }
