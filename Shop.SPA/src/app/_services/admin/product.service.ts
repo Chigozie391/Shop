@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Products } from 'src/app/_models/Products';
+import { ProductQuery } from 'src/app/_models/productQuery';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,18 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts() {
-    return this.http.get<Products[]>(this.baseUrl + 'products');
+  getProducts(productQuery: ProductQuery) {
+    let params = new HttpParams();
+
+    if (productQuery.sortBy.length) {
+      params = params.append('sortBy', productQuery.sortBy);
+    }
+
+    if (productQuery.isSortAscending.length) {
+      params = params.append('isSortAscending', productQuery.isSortAscending);
+    }
+
+    return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
   }
 
   getProduct(id: number) {

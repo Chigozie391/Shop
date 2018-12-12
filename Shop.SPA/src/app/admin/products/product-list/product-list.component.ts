@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/_services/admin/product.service';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { MatTableDataSource, MatTable } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
+import { ProductQuery } from 'src/app/_models/productQuery';
 
 @Component({
   selector: 'app-product-list',
@@ -10,11 +11,18 @@ import { Products } from 'src/app/_models/Products';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  displayedColumns = ['action', 'name', 'price', 'featured', 'sold', 'lastupdated'];
+  displayedColumns = ['action', 'name', 'category', 'price', 'featured', 'sold', 'lastupdated'];
 
   dataSource = new MatTableDataSource<Products>();
   @ViewChild(MatTable) table: MatTable<any>;
   product: Products;
+  sortBy: string;
+  isSortAscending = '';
+
+  productQuery: ProductQuery = {
+    sortBy: '',
+    isSortAscending: ''
+  };
 
   constructor(private productService: ProductService, private alertify: AlertifyService) {}
 
@@ -23,15 +31,26 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe(products => {
+    this.productService.getProducts(this.productQuery).subscribe(products => {
       this.dataSource.data = products;
     });
   }
 
-  viewProduct(id: number) {
-    this.productService.getProduct(id).subscribe(product => {
-      this.product = product;
-      console.log(this.product.deleted);
+  resetFilters() {
+    this.sortBy = null;
+    this.isSortAscending = '';
+    this.productQuery.sortBy = '';
+    this.productQuery.isSortAscending = '';
+
+    this.getProducts();
+  }
+
+  loadProducts() {
+    this.productQuery.sortBy = this.sortBy;
+    this.productQuery.isSortAscending = this.isSortAscending;
+
+    this.productService.getProducts(this.productQuery).subscribe(products => {
+      this.dataSource.data = products;
     });
   }
 

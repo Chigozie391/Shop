@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
 using Shop.API.Core.Models;
 using Shop.API.Dtos.ProductDto;
+using Shop.API.Helper;
 
 namespace Shop.API.Controllers
 {
@@ -25,9 +26,9 @@ namespace Shop.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetProducts()
+		public async Task<IActionResult> GetProducts([FromQuery]ProductQueryParams queryParams)
 		{
-			var products = await this.repo.GetProducts();
+			var products = await this.repo.GetProducts(queryParams);
 
 			var productToList = this.mapper.Map<IEnumerable<ProductForList>>(products);
 

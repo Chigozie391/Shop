@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Shop.API.Core;
 using Shop.API.Core.Models;
+using Shop.API.Helper;
 
 namespace Shop.API.Persistance
 {
@@ -35,14 +38,27 @@ namespace Shop.API.Persistance
 			}
 
 		}
-		public async Task<ICollection<Product>> GetProducts()
+		public async Task<ICollection<Product>> GetProducts(ProductQueryParams queryParams)
 		{
-			return await this.context.Products
-			.Where(p => !p.Deleted)
-			.Include(x => x.Photos)
-			.Include(ch => ch.ChildCategory)
-			.ThenInclude(c => c.Category)
-			.ToListAsync();
+			var query = this.context.Products
+				 .Where(p => !p.Deleted)
+				 .Include(x => x.Photos)
+				 .Include(ch => ch.ChildCategory)
+				 .ThenInclude(c => c.Category).AsQueryable();
+
+
+			var columMap = new Dictionary<string, Expression<Func<Product, object>>>()
+			{
+				["price"] = v => v.Price,
+				["sold"] = v => v.Sold,
+				["lastUpdated"] = v => v.LastUpdated,
+				["featured"] = v => v.Featured,
+			};
+
+			query = query.ApplyOrdering(queryParams, columMap);
+
+			return await query.ToListAsync();
+
 		}
 
 		public async Task<ICollection<Product>> GetArchiveProduct()

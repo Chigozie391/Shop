@@ -20,6 +20,7 @@ import { ProductListComponent } from './admin/products/product-list/product-list
 import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { ProductPhotosComponent } from './admin/products/product-photos/product-photos.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
+import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
     ViewProductsComponent,
     ProductListComponent,
     ProductPhotosComponent,
+    ProductDetailComponent,
     CategoryComponent,
     HomeComponent,
     UserNavComponent,
