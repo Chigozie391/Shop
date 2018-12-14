@@ -1,27 +1,33 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
-import { MatTableDataSource, MatTable } from '@angular/material';
+import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { ProductQuery } from 'src/app/_models/productQuery';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, AfterViewInit {
   displayedColumns = ['action', 'name', 'category', 'price', 'featured', 'sold', 'lastupdated'];
 
-  dataSource = new MatTableDataSource<Products>();
+  dataSource: Products[];
+
   @ViewChild(MatTable) table: MatTable<any>;
-  product: Products;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  isLoading: boolean;
+
   sortBy: string;
   isSortAscending = '';
 
   productQuery: ProductQuery = {
     sortBy: '',
-    isSortAscending: ''
+    isSortAscending: '',
+    pageIndex: 1,
+    pageSize: 5
   };
 
   constructor(private productService: ProductService, private alertify: AlertifyService) {}
@@ -30,10 +36,29 @@ export class ProductListComponent implements OnInit {
     this.getProducts();
   }
 
+  ngAfterViewInit() {
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          this.productQuery.pageIndex = this.paginator.pageIndex + 1;
+          this.productQuery.pageSize = this.paginator.pageSize;
+
+          this.loadProducts();
+        })
+      )
+      .subscribe();
+  }
+
   getProducts() {
-    this.productService.getProducts(this.productQuery).subscribe(products => {
-      this.dataSource.data = products;
-    });
+    this.isLoading = false;
+    this.productService.getProducts(this.productQuery).subscribe(
+      result => {
+        this.dataSource = result['items'];
+        this.paginator.length = result['totalItems'];
+      },
+      null,
+      () => (this.isLoading = true)
+    );
   }
 
   resetFilters() {
@@ -49,15 +74,15 @@ export class ProductListComponent implements OnInit {
     this.productQuery.sortBy = this.sortBy;
     this.productQuery.isSortAscending = this.isSortAscending;
 
-    this.productService.getProducts(this.productQuery).subscribe(products => {
-      this.dataSource.data = products;
+    this.productService.getProducts(this.productQuery).subscribe(result => {
+      this.dataSource = result['items'];
     });
   }
 
   setFeatured(id: number) {
     this.productService.setFeatured(id).subscribe(
-      x => {
-        const product = this.dataSource.data.find(p => p.id == id);
+      () => {
+        const product = this.dataSource.find(p => p.id == id);
         product.featured ? (product.featured = false) : (product.featured = true);
 
         this.alertify.success('Successful');
@@ -70,10 +95,10 @@ export class ProductListComponent implements OnInit {
   archiveProduct(id) {
     this.alertify.confirm('Are you sure you want to archive the product', () => {
       this.productService.achiveProduct(id).subscribe(
-        x => {
-          const index = this.dataSource.data.findIndex(p => p.id == id);
+        () => {
+          const index = this.dataSource.findIndex(p => p.id == id);
 
-          this.dataSource.data.splice(index, 1);
+          this.dataSource.splice(index, 1);
           this.alertify.success('Successfully archived');
           this.table.renderRows();
         },

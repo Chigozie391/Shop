@@ -15,13 +15,16 @@ export class ProductService {
   getProducts(productQuery: ProductQuery) {
     let params = new HttpParams();
 
-    if (productQuery.sortBy.length) {
+    if (productQuery.sortBy != null) {
       params = params.append('sortBy', productQuery.sortBy);
     }
 
     if (productQuery.isSortAscending.length) {
       params = params.append('isSortAscending', productQuery.isSortAscending);
     }
+
+    params = params.append('page', '' + productQuery.pageIndex);
+    params = params.append('pageSize', '' + productQuery.pageSize);
 
     return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
   }

@@ -38,8 +38,10 @@ namespace Shop.API.Persistance
 			}
 
 		}
-		public async Task<ICollection<Product>> GetProducts(ProductQueryParams queryParams)
+		public async Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams)
 		{
+			var queryResult = new QueryResult<Product>();
+
 			var query = this.context.Products
 				 .Where(p => !p.Deleted)
 				 .Include(x => x.Photos)
@@ -57,8 +59,11 @@ namespace Shop.API.Persistance
 
 			query = query.ApplyOrdering(queryParams, columMap);
 
-			return await query.ToListAsync();
+			queryResult.TotalItems = await query.CountAsync();
 
+			queryResult.Items = query.ApplyPaging(queryParams);
+
+			return queryResult;
 		}
 
 		public async Task<ICollection<Product>> GetArchiveProduct()

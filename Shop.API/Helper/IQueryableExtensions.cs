@@ -22,5 +22,19 @@ namespace Shop.API.Helper
 				return query = query.OrderByDescending(columMap[queryParams.SortBy]);
 
 		}
+
+		public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryObject queryObject)
+		{
+			if (queryObject.PageSize <= 0)
+				queryObject.PageSize = 10;
+
+			if (queryObject.Page <= 0)
+				queryObject.Page = 1;
+
+
+			return query = query.Skip((queryObject.Page - 1) * queryObject.PageSize).Take(queryObject.PageSize);
+		}
+
+
 	}
 }

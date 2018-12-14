@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
 using Shop.API.Core.Models;
+using Shop.API.Dtos;
 using Shop.API.Dtos.ProductDto;
 using Shop.API.Helper;
 
@@ -30,7 +31,7 @@ namespace Shop.API.Controllers
 		{
 			var products = await this.repo.GetProducts(queryParams);
 
-			var productToList = this.mapper.Map<IEnumerable<ProductForList>>(products);
+			var productToList = this.mapper.Map<QueryResultResource<ProductForList>>(products);
 
 			return Ok(productToList);
 		}
