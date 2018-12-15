@@ -1,9 +1,9 @@
 export interface Products {
-  id: number;
-  price: number;
-  title: string;
-  created: Date;
-  lastUpdated: Date;
+  id?: number;
+  price?: number;
+  title?: string;
+  created?: Date;
+  lastUpdated?: Date;
   categoryId?: number;
   categoryName?: string;
   childCategoryId?: number;
@@ -11,7 +11,7 @@ export interface Products {
   deleted?: boolean;
   description?: string;
   sizes?: string;
-  featured: boolean;
+  featured?: boolean;
   photoUrl?: string;
   photos?: [];
 }

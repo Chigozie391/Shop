@@ -14,8 +14,6 @@ export class ViewProductsComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.product = data['product'];
-
-      console.log(this.product);
     });
   }
 }

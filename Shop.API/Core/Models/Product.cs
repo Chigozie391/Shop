@@ -17,11 +17,13 @@ namespace Shop.API.Core.Models
 		[Required]
 		[Column(TypeName = "decimal(18, 2)")]
 		public decimal Price { get; set; }
+		[Required]
 		public string Sizes { get; set; }
 		public int Sold { get; set; }
 		public ChildCategory ChildCategory { get; set; }
 		public int ChildCategoryId { get; set; }
 		public ICollection<Photo> Photos { get; set; }
+		[Required]
 		public string Description { get; set; }
 		public bool Featured { get; set; }
 		public bool Deleted { get; set; }

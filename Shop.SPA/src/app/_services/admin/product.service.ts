@@ -12,6 +12,10 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
+  addProduct(productObj) {
+    return this.http.post(this.baseUrl + 'products', productObj);
+  }
+
   getProducts(productQuery: ProductQuery) {
     let params = new HttpParams();
 

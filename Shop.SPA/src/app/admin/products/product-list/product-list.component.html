@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-6 mt-4 text-center">
-      <mat-form-field class="mx-2">
+    <div class="col mt-4 ml-2">
+      <mat-form-field class="mx-2 smfont">
         <mat-select [(value)]="sortBy">
           <mat-option value="">None</mat-option>
           <mat-option value="price">Price</mat-option>
@@ -11,7 +11,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="mx-2">
+      <mat-form-field class="mx-2 smfont">
         <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null">
           <mat-option value="true">Ascending Order</mat-option>
           <mat-option value="false">Descending Order</mat-option>
@@ -29,8 +29,15 @@
       <button mat-raised-button color="primary" class="mx-2" (click)="resetFilters()">
         Reset Filters
       </button>
+      <a
+        mat-raised-button
+        routerLinkActive="active"
+        [routerLink]="['/admin/product/create']"
+        color="accent"
+        class="float-right mt-2"
+        >Create New Product</a
+      >
     </div>
-
     <div class="col-12" *ngIf="!isLoading"><mat-spinner></mat-spinner></div>
 
     <div class="col-12" *ngIf="isLoading">

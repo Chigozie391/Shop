@@ -21,6 +21,8 @@ import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { ProductPhotosComponent } from './admin/products/product-photos/product-photos.component';
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
+import { CreateProductComponent } from './admin/products/create-product/create-product.component';
+import { EditProductComponent } from './admin/products/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { ProductDetailComponent } from './admin/products/product-detail/product-
     ProductListComponent,
     ProductPhotosComponent,
     ProductDetailComponent,
+    EditProductComponent,
+    CreateProductComponent,
     CategoryComponent,
     HomeComponent,
     UserNavComponent,

@@ -61,11 +61,7 @@ namespace Shop.API.Controllers
 
 			if (await this.unitOfWork.CompleteAsync())
 			{
-				var createdproduct = await this.repo.GetProduct(product.Id);
-
-				var productToReturn = this.mapper.Map<ProductForDetail>(createdproduct);
-
-				return CreatedAtRoute("GetProduct", new { id = product.Id }, productToReturn);
+				return Ok(product.Id);
 			}
 			return BadRequest("Could not create the product");
 

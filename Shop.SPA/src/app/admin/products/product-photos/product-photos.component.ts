@@ -32,6 +32,10 @@ export class ProductPhotosComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
+    this.uploader.onErrorItem = () => {
+      this.alertify.error('Photo upload failed');
+    };
+
     this.uploader.onSuccessItem = (item, response) => {
       if (response) {
         const res = JSON.parse(response);

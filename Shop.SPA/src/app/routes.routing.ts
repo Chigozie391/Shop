@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -9,6 +9,7 @@ import { HomeComponent } from './user/home/home.component';
 import { ProductListComponent } from './admin/products/product-list/product-list.component';
 import { ViewProductsComponent } from './admin/products/view-products/view-products.component';
 import { ProductViewResolver } from './_resolver/product-view.resolver';
+import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 
 export const appRoutes: Routes = [
   {
@@ -30,7 +31,8 @@ export const appRoutes: Routes = [
         path: 'products/:id',
         component: ViewProductsComponent,
         resolve: { product: ProductViewResolver }
-      }
+      },
+      { path: 'product/create', component: CreateProductComponent }
     ]
   },
   {
@@ -47,5 +49,6 @@ export const appRoutes: Routes = [
         component: HomeComponent
       }
     ]
-  }
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

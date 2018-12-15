@@ -3,7 +3,13 @@
     <app-product-detail [product]="product"></app-product-detail>
   </mat-tab>
   <mat-tab label="Product Photo Manager">
-    <app-product-photos [photos]="product.photos" [productId]="product.id"> </app-product-photos>
+    <ng-template matTabContent>
+      <app-product-photos [photos]="product.photos" [productId]="product.id"> </app-product-photos>
+    </ng-template>
   </mat-tab>
-  <mat-tab label="Product ***"> <p>...</p> </mat-tab>
+  <mat-tab label="Edit Product">
+    <ng-template matTabContent>
+      <app-edit-product [product]="product"></app-edit-product>
+    </ng-template>
+  </mat-tab>
 </mat-tab-group>
