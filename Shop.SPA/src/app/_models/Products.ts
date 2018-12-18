@@ -2,6 +2,7 @@ export interface Products {
   id?: number;
   price?: number;
   title?: string;
+  sold?: number;
   created?: Date;
   lastUpdated?: Date;
   categoryId?: number;

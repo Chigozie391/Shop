@@ -15,6 +15,9 @@ export class ProductService {
   addProduct(productObj) {
     return this.http.post(this.baseUrl + 'products', productObj);
   }
+  updateProduct(id: number, productObj) {
+    return this.http.put(this.baseUrl + 'products/' + id, productObj);
+  }
 
   getProducts(productQuery: ProductQuery) {
     let params = new HttpParams();

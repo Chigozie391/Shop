@@ -4,7 +4,13 @@
       <div class="col-5">
         <div class="form-group">
           <mat-form-field>
-            <input matInput placeholder="Title" name="title" [(ngModel)]="product.title" required />
+            <input
+              matInput
+              placeholder="Title"
+              name="title"
+              [(ngModel)]="productForEdit.title"
+              required
+            />
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -15,7 +21,7 @@
               placeholder="Price"
               name="price"
               required
-              [(ngModel)]="product.price"
+              [(ngModel)]="productForEdit.price"
             />
           </mat-form-field>
         </div>
@@ -26,7 +32,7 @@
               required
               name="parent"
               (selectionChange)="parentSelectionChange()"
-              [(value)]="'' + product.categoryId"
+              [(ngModel)]="'' + productForEdit.categoryId"
             >
               <mat-option value="{{parent.id}}" *ngFor="let parent of parentCategories">{{
                 parent.name
@@ -40,7 +46,7 @@
               placeholder="Child Category"
               required
               name="child"
-              [(value)]="'' + product.childCategoryId"
+              [(value)]="'' + productForEdit.childCategoryId"
             >
               <mat-option value="{{child.id}}" *ngFor="let child of childCategories">{{
                 child.name
@@ -54,18 +60,19 @@
               matInput
               placeholder="Description"
               rows="3"
-              [(ngModel)]="product.description"
+              [(ngModel)]="productForEdit.description"
               required
               name="description"
             ></textarea>
           </mat-form-field>
         </div>
       </div>
+
       <div class="col-7 align-items-end">
-        <div class="form-group col">
+        <div class="form-group col" *ngFor="let item of sizeArray; let i = index">
           <div class="d-inline mx-2">
             <mat-form-field>
-              <input matInput placeholder="Size" required name="size" ngModel />
+              <input matInput placeholder="Size" name="size{{i}}" [(ngModel)]="item.size" />
             </mat-form-field>
           </div>
           <div class="d-inline mx-2">
@@ -74,8 +81,43 @@
                 type="number"
                 matInput
                 placeholder="Quantity"
-                required
-                name="quantity"
+                name="quantity{{i}}"
+                [(ngModel)]="item.quantity"
+              />
+            </mat-form-field>
+          </div>
+          <div class="d-inline mx-2">
+            <mat-form-field>
+              <input
+                type="number"
+                matInput
+                placeholder="Threshold"
+                name="threshold{{i}}"
+                [(ngModel)]="item.threshold"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group col" *ngIf="sizeArray?.length < 3">
+          <div class="d-inline mx-2">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Size"
+                name="size"
+                name="size{{sizeArray.length}}"
+                ngModel
+              />
+            </mat-form-field>
+          </div>
+          <div class="d-inline mx-2">
+            <mat-form-field>
+              <input
+                type="number"
+                matInput
+                placeholder="Quantity"
+                name="quantity{{sizeArray.length}}"
                 ngModel
               />
             </mat-form-field>
@@ -86,44 +128,9 @@
                 type="number"
                 matInput
                 placeholder="Threshold"
-                required
-                name="threshold"
                 ngModel
+                name="threshold{{sizeArray.length}}"
               />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group col">
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input matInput placeholder="Size" name="size1" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Quantity" name="quantity1" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Threshold" name="threshold1" ngModel />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group col">
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input matInput placeholder="Size" name="size2" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Quantity" name="quantity2" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Threshold" name="threshold2" ngModel />
             </mat-form-field>
           </div>
         </div>
@@ -133,10 +140,10 @@
             type="submit"
             mat-raised-button
             color="primary"
-            class="mx-2"
             [disabled]="form.invalid"
+            class="mx-2"
           >
-            Create
+            Update
           </button>
           <button type="button" mat-raised-button class="mx-2" (click)="resetForm(form)">
             Reset

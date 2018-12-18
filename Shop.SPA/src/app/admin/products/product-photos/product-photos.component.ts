@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import * as _ from 'underscore';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class ProductPhotosComponent implements OnInit {
   @Input() photos: any[] = [];
   @Input() productId: number;
+  @Output() updatePhotoUrl = new EventEmitter<string>();
   uploader: FileUploader;
   baseUrl = environment.apiUrl;
 
@@ -63,6 +64,7 @@ export class ProductPhotosComponent implements OnInit {
         const currentMain = _.findWhere(this.photos, { isMain: true });
         currentMain.isMain = false;
         photo.isMain = true;
+        this.updatePhotoUrl.emit(photo.url);
         this.alertify.success('Main Photo set successfully');
       },
       error => this.alertify.error(error.error)

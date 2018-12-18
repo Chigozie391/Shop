@@ -5,6 +5,7 @@ import { Products } from 'src/app/_models/Products';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Router } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-create-product',
@@ -33,16 +34,15 @@ export class CreateProductComponent implements OnInit {
   parentSelectionChange() {
     this.childCategory = this.parentCategory.find(x => x.id == this.parentId).childCategories;
   }
-
   addProduct(form: NgForm) {
-    const size = [
+    const sizes = [
       {
-        size: form.value.size,
-        quantity: form.value.quantity,
-        threshold: form.value.threshold
+        size: form.value.size0,
+        quantity: form.value.quantity0,
+        threshold: form.value.threshold0
       },
       {
-        size: form.value.size1.length,
+        size: form.value.size1,
         quantity: form.value.quantity1,
         threshold: form.value.threshold1
       },
@@ -52,11 +52,12 @@ export class CreateProductComponent implements OnInit {
         threshold: form.value.threshold2
       }
     ];
+    let trimmedSize = sizes.filter(x => x.size != null && x.size != '');
 
     const productObj: Products = {
       title: form.value.title,
       price: form.value.price,
-      sizes: JSON.stringify(size),
+      sizes: JSON.stringify(trimmedSize),
       childCategoryId: form.value.child,
       description: form.value.description
     };

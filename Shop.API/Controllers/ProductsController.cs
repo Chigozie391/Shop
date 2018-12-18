@@ -78,7 +78,10 @@ namespace Shop.API.Controllers
 
 			if (await this.unitOfWork.CompleteAsync())
 			{
-				var productToReturn = this.mapper.Map<ProductForDetail>(product);
+				var updatedProduct = await this.repo.GetProduct(product.Id);
+
+				var productToReturn = this.mapper.Map<ProductForDetail>(updatedProduct);
+
 				return CreatedAtRoute("GetProduct", new { id = product.Id }, productToReturn);
 			}
 			return BadRequest("Could not update the product");

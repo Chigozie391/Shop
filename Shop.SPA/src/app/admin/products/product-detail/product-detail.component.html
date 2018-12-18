@@ -1,15 +1,66 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <p>Title : {{ product.title }}</p>
-      <p>Category Name : {{ product.categoryName }}</p>
-      <p>ChildCategory Name : {{ product.childCategoryName }}</p>
-      <p>Price : {{ product.price }}</p>
-      <p>Created At : {{ product.created }}</p>
-      <p>Deleted : {{ product.deleted }}</p>
-      <p>Description : {{ product.description }}</p>
-      <p>Sizes : {{ product.sizes }}</p>
-      <p>Main Photo : <img src="{{ product.photoUrl }}" alt="" /></p>
+    <div class="col-6">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Title :</h6>
+          <span class=""> {{ product.title }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Parent Category :</h6>
+          <span class="">{{ product.categoryName }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Child Category :</h6>
+          <span class=""> {{ product.childCategoryName }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Price :</h6>
+          <span class=""> &#8358; {{ product.price }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Description :</h6>
+          <span class=""> {{ product.description }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Sold Count :</h6>
+          <span class=""> {{ product.sold }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Featured :</h6>
+          <ng-container *ngIf="product.featured; else: elseTemplate">
+            <span class="">Yes</span>
+          </ng-container>
+          <ng-template #elseTemplate> <span class="">No</span> </ng-template>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Created At :</h6>
+          <span class=""> {{ product.created | date }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Last Updated At :</h6>
+          <span class=""> {{ product.lastUpdated | date }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-6">
+      <div class="col">
+        <div class="form-group">
+          <h6 class="font-weight-bold">Main Photo :</h6>
+          <div><img src="{{ product.photoUrl }}" alt="" class="img-responsive" /></div>
+        </div>
+        <div class="form-group" *ngFor="let item of sizesArray">
+          <ul class="list-group">
+            <li class="list-group-item font-weight-bold ">Size : {{ item.size }}</li>
+            <li class="list-group-item py-2">Quantity : {{ item.quantity }}</li>
+            <li class="list-group-item py-2">Threshold : {{ item.threshold }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

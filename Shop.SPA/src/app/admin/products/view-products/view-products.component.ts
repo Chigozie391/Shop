@@ -9,11 +9,21 @@ import { Products } from 'src/app/_models/Products';
 })
 export class ViewProductsComponent implements OnInit {
   product: Products;
+  indexTab: number;
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.product = data['product'];
     });
+  }
+
+  updateMainPhoto($event) {
+    this.product.photoUrl = $event;
+  }
+  updateProductEvent($event) {
+    this.product = $event;
+    this.indexTab = 0;
   }
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
 import { AdminCategoryService } from 'src/app/_services/admin/adminCategory.service';
 import { NgForm } from '@angular/forms';
+import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -11,30 +12,39 @@ import { NgForm } from '@angular/forms';
 })
 export class EditProductComponent implements OnInit {
   @Input() product: Products;
+  productForEdit: Products;
   parentCategories = [];
   childCategories = [];
-  selectedCategory;
+  selectedCategory: any;
+  sizeArray = [];
+  @Output() updatedProduct = new EventEmitter<Products>();
 
-  constructor(private productService: ProductService, private cateService: AdminCategoryService) {}
+  constructor(
+    private cateService: AdminCategoryService,
+    private productService: ProductService,
+    private alertify: AlertifyService
+  ) {}
 
   ngOnInit() {
+    this.productForEdit = { ...this.product };
+
     this.cateService.getCategoryWithChildren().subscribe(
       (x: []) => {
         this.parentCategories = x;
       },
       null,
       () => {
-        this.selectedCategory = '' + this.product.categoryId;
+        this.selectedCategory = '' + this.productForEdit.categoryId;
         this.parentSelectionChange();
       }
     );
+
+    this.sizeArray = JSON.parse(this.productForEdit.sizes);
   }
 
   parentSelectionChange() {
-    console.log('Hii');
-
     this.childCategories = this.parentCategories.find(
-      x => x.id == this.product.categoryId
+      x => x.id == this.productForEdit.categoryId
     ).childCategories;
   }
 
@@ -43,6 +53,42 @@ export class EditProductComponent implements OnInit {
   }
 
   updateProduct(form: NgForm) {
-    console.log(form.value);
+    const newSizeArray = [
+      {
+        size: form.value.size0,
+        quantity: form.value.quantity0,
+        threshold: form.value.threshold0
+      },
+      {
+        size: form.value.size1,
+        quantity: form.value.quantity1,
+        threshold: form.value.threshold1
+      },
+      {
+        size: form.value.size2,
+        quantity: form.value.quantity2,
+        threshold: form.value.threshold2
+      }
+    ];
+
+    let trimmedSize = newSizeArray.filter(x => x.size != null && x.size != '');
+
+    const productObj: Products = {
+      title: this.productForEdit.title,
+      price: this.productForEdit.price,
+      sizes: JSON.stringify(trimmedSize),
+      childCategoryId: this.productForEdit.childCategoryId,
+      description: this.productForEdit.description
+    };
+
+    this.productService.updateProduct(this.productForEdit.id, productObj).subscribe(
+      product => {
+        this.updatedProduct.emit(product);
+      },
+      error => this.alertify.error(error.error),
+      () => {
+        this.alertify.success('Successfully Created');
+      }
+    );
   }
 }

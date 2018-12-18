@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { Products } from 'src/app/_models/Products';
 
 @Component({
@@ -8,8 +8,11 @@ import { Products } from 'src/app/_models/Products';
 })
 export class ProductDetailComponent implements OnInit {
   @Input() product: Products;
-
+  @Input() updateSizeArray;
+  sizesArray = [];
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sizesArray = JSON.parse(this.product.sizes);
+  }
 }

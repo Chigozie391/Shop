@@ -10,6 +10,7 @@ namespace Shop.API.Dtos.ProductDto
 		public string Title { get; set; }
 		public decimal Price { get; set; }
 		public string Sizes { get; set; }
+		public int Sold { get; set; }
 		public string PhotoUrl { get; set; }
 		public int ChildCategoryId { get; set; }
 		public string ChildCategoryName { get; set; }
