@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes.routing';
+import { JwtModule } from '@auth0/angular-jwt';
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -23,6 +24,10 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { EditProductComponent } from './admin/products/edit-product/edit-product.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -45,10 +50,18 @@ import { EditProductComponent } from './admin/products/edit-product/edit-product
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     MaterialModule,
-    FileUploadModule
+    FileUploadModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:5000'],
+        blacklistedRoutes: ['localhost:5000/auth/']
+      }
+    })
   ],
   providers: [AlertifyService, ProductViewResolver],
   bootstrap: [AppComponent]

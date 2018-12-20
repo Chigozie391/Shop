@@ -1,5 +1,6 @@
 using AutoMapper;
 using Shop.API.Core.Models;
+using Shop.API.Dtos.AuthDto;
 using Shop.API.Dtos.CategoryDto;
 using Shop.API.Dtos.PhotosDto;
 using Shop.API.Dtos.ProductDto;
@@ -18,6 +19,10 @@ namespace Shop.API.Mapping
 			// category
 			CreateMap<Category, CategoryForReturn>();
 			CreateMap<ChildCategory, Dtos.CategoryDto.KeyValuePair>();
+
+			// Auth
+			CreateMap<User, UserForDetail>();
+
 
 			// product
 			CreateMap<Product, ProductForList>()
@@ -71,6 +76,8 @@ namespace Shop.API.Mapping
 			// Photo
 			CreateMap<PhotoForCreation, Photo>();
 
+			//Auth
+			CreateMap<UserForRegister, User>();
 		}
 	}
 }

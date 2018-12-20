@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
 using Shop.API.Core.Models;
@@ -27,7 +28,7 @@ namespace Shop.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetProducts([FromQuery]ProductQueryParams queryParams)
+		public async Task<IActionResult> GetProducts([FromQuery] ProductQueryParams queryParams)
 		{
 			var products = await this.repo.GetProducts(queryParams);
 
@@ -58,13 +59,11 @@ namespace Shop.API.Controllers
 
 			this.unitOfWork.Add(product);
 
-
 			if (await this.unitOfWork.CompleteAsync())
 			{
 				return Ok(product.Id);
 			}
 			return BadRequest("Could not create the product");
-
 
 		}
 
@@ -94,7 +93,6 @@ namespace Shop.API.Controllers
 			var product = await this.repo.GetProduct(id, false);
 			if (product == null)
 				return NotFound();
-
 
 			if (product.Featured)
 			{

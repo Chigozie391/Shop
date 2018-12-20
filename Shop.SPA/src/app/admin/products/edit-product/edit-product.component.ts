@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
 import { AdminCategoryService } from 'src/app/_services/admin/adminCategory.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class EditProductComponent implements OnInit {
   constructor(
     private cateService: AdminCategoryService,
     private productService: ProductService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -41,6 +42,12 @@ export class EditProductComponent implements OnInit {
 
     this.sizeArray = JSON.parse(this.productForEdit.sizes);
   }
+  //		use reactive form
+  //   addValidator() {
+  //     this.fb.group({
+  //       size0: ['', Validators.required]
+  //     });
+  //   }
 
   parentSelectionChange() {
     this.childCategories = this.parentCategories.find(
