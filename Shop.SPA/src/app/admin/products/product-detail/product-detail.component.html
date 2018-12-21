@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row">
+    <div class="col-12 text-center my-2" *ngIf="product.deleted">
+      <h5 class="text-danger">This is an archived product</h5>
+    </div>
     <div class="col-6">
       <ul class="list-group list-group-flush">
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -31,7 +34,7 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <h6 class="font-weight-bold">Featured :</h6>
-          <ng-container *ngIf="product.featured; else: elseTemplate">
+          <ng-container *ngIf="product.featured; else elseTemplate">
             <span class="">Yes</span>
           </ng-container>
           <ng-template #elseTemplate> <span class="">No</span> </ng-template>

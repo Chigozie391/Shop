@@ -20,3 +20,6 @@ a {
 button:focus {
   outline: none;
 }
+.smfont-dropdown {
+  font-size: 14px;
+}

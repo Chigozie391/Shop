@@ -1,5 +1,8 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col-12 text-center my-2" *ngIf="isDeleted">
+      <h5 class="text-danger">This is an archived product</h5>
+    </div>
     <div class="col-md-6">
       <div class="row mt-3 ml-3">
         <div class="col-md-12">
@@ -52,7 +55,7 @@
               Queue progress:
               <mat-progress-bar
                 mode="determinate"
-                value="{{uploader.progress}}"
+                value="{{ uploader.progress }}"
                 role="progressbar"
               ></mat-progress-bar>
             </div>
@@ -93,14 +96,14 @@
 
     <!-- vsdvsv -->
     <div class="col-md-6 border-left">
-      <ng-container *ngIf="photos.length; else: elseTemplate">
+      <ng-container *ngIf="photos.length; else elseTemplate">
         <div *ngFor="let photo of photos" class="d-inline-block mt-3 mx-3 text-center">
-          <img src="{{photo.url}}" alt="" class="img-thumbnail" />
+          <img src="{{ photo.url }}" alt="" class="img-thumbnail" />
           <div class="text-center">
             <button
               mat-mini-fab
               color="basic"
-              disabled="{{photo.isMain}}"
+              disabled="{{ photo.isMain }}"
               class="m-1"
               (click)="setMainPhoto(productId, photo)"
             >

@@ -9,6 +9,7 @@
       <app-product-photos
         [photos]="product.photos"
         [productId]="product.id"
+        [isDeleted]="product.deleted"
         (updatePhotoUrl)="updateMainPhoto($event)"
       >
       </app-product-photos>

@@ -40,13 +40,30 @@ namespace Shop.API.Persistance
 		}
 		public async Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams)
 		{
+			return await this.ProductGetter(queryParams, false);
+		}
+
+		public async Task<QueryResult<Product>> GetArchiveProduct(ProductQueryParams queryParams)
+		{
+			return await this.ProductGetter(queryParams, true);
+		}
+
+		private async Task<QueryResult<Product>> ProductGetter(ProductQueryParams queryParams, bool isDeleted)
+		{
 			var queryResult = new QueryResult<Product>();
 
-			var query = this.context.Products
-				 .Where(p => !p.Deleted)
-				 .Include(x => x.Photos)
-				 .Include(ch => ch.ChildCategory)
-				 .ThenInclude(c => c.Category).AsQueryable();
+			var query = isDeleted ?
+							this.context.Products
+								.Where(p => p.Deleted)
+								.Include(x => x.Photos)
+								.Include(ch => ch.ChildCategory)
+								.ThenInclude(c => c.Category).AsQueryable()
+							:
+							this.context.Products
+								.Where(p => !p.Deleted)
+								.Include(x => x.Photos)
+								.Include(ch => ch.ChildCategory)
+								.ThenInclude(c => c.Category).AsQueryable();
 
 
 			var columMap = new Dictionary<string, Expression<Func<Product, object>>>()
@@ -64,16 +81,6 @@ namespace Shop.API.Persistance
 			queryResult.Items = query.ApplyPaging(queryParams);
 
 			return queryResult;
-		}
-
-		public async Task<ICollection<Product>> GetArchiveProduct()
-		{
-			return await this.context.Products
-			.Where(p => p.Deleted)
-			.Include(x => x.Photos)
-			.Include(ch => ch.ChildCategory)
-			.ThenInclude(c => c.Category)
-			.ToListAsync();
 		}
 	}
 }

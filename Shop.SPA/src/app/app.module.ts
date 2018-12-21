@@ -27,6 +27,7 @@ import { EditProductComponent } from './admin/products/edit-product/edit-product
 import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { ArchivesComponent } from './admin/archives/archives.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -42,6 +43,7 @@ export function tokenGetter() {
     ProductListComponent,
     ProductPhotosComponent,
     ProductDetailComponent,
+    ArchivesComponent,
     EditProductComponent,
     CreateProductComponent,
     CategoryComponent,

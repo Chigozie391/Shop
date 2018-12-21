@@ -9,6 +9,6 @@ namespace Shop.API.Core
 	{
 		Task<Product> GetProduct(int id, bool includePhoto = true);
 		Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams);
-		Task<ICollection<Product>> GetArchiveProduct();
+		Task<QueryResult<Product>> GetArchiveProduct(ProductQueryParams queryParams);
 	}
 }

@@ -87,7 +87,7 @@ namespace Shop.API.Controllers
 
 		}
 
-		[HttpPost("{id}")]
+		[HttpPost("{id}/setfeatured")]
 		public async Task<IActionResult> SetFeature(int id)
 		{
 			var product = await this.repo.GetProduct(id, false);
@@ -137,13 +137,30 @@ namespace Shop.API.Controllers
 		}
 
 		[HttpGet("archive")]
-		public async Task<IActionResult> GetArchiveProducts()
+		public async Task<IActionResult> GetArchiveProducts([FromQuery] ProductQueryParams queryParams)
 		{
-			var products = await this.repo.GetArchiveProduct();
+			var products = await this.repo.GetArchiveProduct(queryParams);
 
-			var productToList = this.mapper.Map<IEnumerable<ProductForList>>(products);
+			var productToList = this.mapper.Map<QueryResultResource<ProductForList>>(products);
 
 			return Ok(productToList);
+		}
+
+
+		[HttpPost("{id}/restore")]
+		public async Task<IActionResult> RestoreProduct(int id)
+		{
+			var product = await this.repo.GetProduct(id, false);
+
+			if (!product.Deleted)
+				return BadRequest("Product is not archived");
+
+			product.Deleted = false;
+
+			if (await this.unitOfWork.CompleteAsync())
+				return Ok(id);
+
+			return BadRequest("Could not restore the product");
 		}
 	}
 }

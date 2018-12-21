@@ -1,6 +1,9 @@
 <div class="container">
   <form #form="ngForm" (submit)="updateProduct(form)">
     <div class="row mt-3">
+      <div class="col-12 text-center mb-2" *ngIf="product.deleted">
+        <h5 class="text-danger">This is an archived product</h5>
+      </div>
       <div class="col-5">
         <div class="form-group">
           <mat-form-field>
@@ -34,7 +37,7 @@
               (selectionChange)="parentSelectionChange()"
               [(ngModel)]="'' + productForEdit.categoryId"
             >
-              <mat-option value="{{parent.id}}" *ngFor="let parent of parentCategories">{{
+              <mat-option value="{{ parent.id }}" *ngFor="let parent of parentCategories">{{
                 parent.name
               }}</mat-option>
             </mat-select>
@@ -48,7 +51,7 @@
               name="child"
               [(value)]="'' + productForEdit.childCategoryId"
             >
-              <mat-option value="{{child.id}}" *ngFor="let child of childCategories">{{
+              <mat-option value="{{ child.id }}" *ngFor="let child of childCategories">{{
                 child.name
               }}</mat-option>
             </mat-select>
@@ -72,7 +75,7 @@
         <div class="form-group col" *ngFor="let item of sizeArray; let i = index">
           <div class="d-inline mx-2">
             <mat-form-field>
-              <input matInput placeholder="Size" name="size{{i}}" [(ngModel)]="item.size" />
+              <input matInput placeholder="Size" name="size{{ i }}" [(ngModel)]="item.size" />
             </mat-form-field>
           </div>
           <div class="d-inline mx-2">
@@ -81,7 +84,7 @@
                 type="number"
                 matInput
                 placeholder="Quantity"
-                name="quantity{{i}}"
+                name="quantity{{ i }}"
                 [(ngModel)]="item.quantity"
               />
             </mat-form-field>
@@ -92,7 +95,7 @@
                 type="number"
                 matInput
                 placeholder="Threshold"
-                name="threshold{{i}}"
+                name="threshold{{ i }}"
                 [(ngModel)]="item.threshold"
               />
             </mat-form-field>
@@ -106,7 +109,7 @@
                 matInput
                 placeholder="Size"
                 name="size"
-                name="size{{sizeArray.length}}"
+                name="size{{ sizeArray.length }}"
                 ngModel
               />
             </mat-form-field>
@@ -117,7 +120,7 @@
                 type="number"
                 matInput
                 placeholder="Quantity"
-                name="quantity{{sizeArray.length}}"
+                name="quantity{{ sizeArray.length }}"
                 ngModel
               />
             </mat-form-field>
@@ -129,7 +132,7 @@
                 matInput
                 placeholder="Threshold"
                 ngModel
-                name="threshold{{sizeArray.length}}"
+                name="threshold{{ sizeArray.length }}"
               />
             </mat-form-field>
           </div>

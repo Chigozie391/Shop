@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 export class ProductPhotosComponent implements OnInit {
   @Input() photos: any[] = [];
   @Input() productId: number;
+  @Input() isDeleted: number;
   @Output() updatePhotoUrl = new EventEmitter<string>();
   uploader: FileUploader;
   baseUrl = environment.apiUrl;

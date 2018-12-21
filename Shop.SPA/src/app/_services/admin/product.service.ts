@@ -20,6 +20,18 @@ export class ProductService {
   }
 
   getProducts(productQuery: ProductQuery) {
+    let params = this.queryParams(productQuery);
+
+    return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
+  }
+
+  getArchivedProducts(productQuery: ProductQuery) {
+    let params = this.queryParams(productQuery);
+
+    return this.http.get<Products[]>(this.baseUrl + 'products/archive', { params: params });
+  }
+
+  private queryParams(productQuery: ProductQuery) {
     let params = new HttpParams();
 
     if (productQuery.sortBy != null) {
@@ -33,7 +45,7 @@ export class ProductService {
     params = params.append('page', '' + productQuery.pageIndex);
     params = params.append('pageSize', '' + productQuery.pageSize);
 
-    return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
+    return params;
   }
 
   getProduct(id: number) {
@@ -41,7 +53,7 @@ export class ProductService {
   }
 
   setFeatured(id: number) {
-    return this.http.post(this.baseUrl + 'products/' + id, {});
+    return this.http.post(this.baseUrl + 'products/' + id + '/setfeatured', {});
   }
 
   deleteProduct(id: number) {
@@ -50,6 +62,10 @@ export class ProductService {
 
   achiveProduct(id: number) {
     return this.http.post(this.baseUrl + 'products/' + id + '/archive', {});
+  }
+
+  restoreProduct(id: number) {
+    return this.http.post(this.baseUrl + 'products/' + id + '/restore', {});
   }
 
   setMainPhoto(productId: number, photoId: number) {
