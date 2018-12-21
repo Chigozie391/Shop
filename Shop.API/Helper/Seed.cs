@@ -20,22 +20,24 @@ namespace Shop.API.Helper
 		{
 			if (!this.userManager.Users.Any())
 			{
-				var roles = new List<Role>
+				if (!this.roleManager.Roles.Any())
 				{
+					var roles = new List<Role>
+					{
 					new Role{Name = "Customer"},
 					new Role{Name = "Moderator"},
 					new Role{Name = "Admin"}
-				};
+					};
 
-				foreach (var role in roles)
-				{
-					this.roleManager.CreateAsync(role).Wait();
+					foreach (var role in roles)
+					{
+						this.roleManager.CreateAsync(role).Wait();
+					}
 				}
-
 				var users = new List<User>
 				{
-					new User{UserName = "Jesse",Gender = "Male"},
-					new User{UserName = "Pamela",Gender = "Feamle"}
+					new User{UserName = "Jesse",Gender = "Male",Email = "customer@test.com"},
+					new User{UserName = "Pamela",Gender = "Female", Email = "admin@test.com"}
 				};
 
 				foreach (var user in users)

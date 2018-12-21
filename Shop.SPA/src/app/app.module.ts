@@ -24,6 +24,9 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { EditProductComponent } from './admin/products/edit-product/edit-product.component';
+import { AuthComponent } from './user/auth/auth.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,7 +47,9 @@ export function tokenGetter() {
     CategoryComponent,
     HomeComponent,
     UserNavComponent,
-    UserPanelComponent
+    UserPanelComponent,
+    AuthComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [AlertifyService, ProductViewResolver],
+  providers: [AlertifyService, ProductViewResolver, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

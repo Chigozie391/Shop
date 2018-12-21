@@ -4,10 +4,8 @@ namespace Shop.API.Dtos.AuthDto
 {
 	public class UserForRegister
 	{
-		[Required]
 		public string UserName { get; set; }
 
-		[Required]
 		public string Gender { get; set; }
 
 		[Required]

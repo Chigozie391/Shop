@@ -1,11 +1,25 @@
 <mat-toolbar color="primary">
   <div class="d-md-none d-sm-none">
-    <button mat-icon-button><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button><mat-icon class="fas fa-bars" aria-hidden="true"></mat-icon></button>
   </div>
-  <span>User Nav Bar</span>
-  <div class="d-none d-sm-flex justify-content-end flex-grow-1 ">
+  <div><a [routerLink]="['/admin']">User Nav Bar</a></div>
+  <div fxHide.xs class="d-none d-sm-flex justify-content-end flex-grow-1 ">
     <ul class="navigation-items d-flex">
-      <div><a [routerLink]="['/admin']">Admin</a></div>
+      <li class="mx-3" routerLinkActive="active" *ngIf="!isLoggedIn()">
+        <div><a [routerLink]="['/login']">Login</a></div>
+      </li>
+      <li
+        class="mx-3"
+        routerLinkActive="active"
+        *ngIf="isLoggedIn()"
+        (click)="logOut()"
+        class="pointer"
+      >
+        <div><a>Logout</a></div>
+      </li>
+      <li class="mx-3" routerLinkActive="active" *ngIf="isAdmin()">
+        <div><a [routerLink]="['/admin']">Admin</a></div>
+      </li>
     </ul>
   </div>
 </mat-toolbar>

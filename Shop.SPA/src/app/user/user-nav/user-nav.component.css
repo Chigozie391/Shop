@@ -17,3 +17,6 @@ a:active {
 .active > a {
   color: #ccc;
 }
+.pointer {
+  cursor: pointer;
+}
