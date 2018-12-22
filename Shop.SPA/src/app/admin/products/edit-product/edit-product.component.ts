@@ -85,7 +85,9 @@ export class EditProductComponent implements OnInit {
       price: this.productForEdit.price,
       sizes: JSON.stringify(trimmedSize),
       childCategoryId: this.productForEdit.childCategoryId,
-      description: this.productForEdit.description
+      description: this.productForEdit.description,
+      deleted: this.productForEdit.deleted,
+      featured: this.productForEdit.featured
     };
 
     this.productService.updateProduct(this.productForEdit.id, productObj).subscribe(
@@ -94,7 +96,7 @@ export class EditProductComponent implements OnInit {
       },
       error => this.alertify.error(error.error),
       () => {
-        this.alertify.success('Successfully Created');
+        this.alertify.success('Successfully Updated');
       }
     );
   }
