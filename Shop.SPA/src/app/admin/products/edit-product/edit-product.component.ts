@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
-import { AdminCategoryService } from 'src/app/_services/admin/adminCategory.service';
+import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 
@@ -20,7 +20,7 @@ export class EditProductComponent implements OnInit {
   @Output() updatedProduct = new EventEmitter<Products>();
 
   constructor(
-    private cateService: AdminCategoryService,
+    private cateService: CategoryService,
     private productService: ProductService,
     private alertify: AlertifyService,
     private fb: FormBuilder

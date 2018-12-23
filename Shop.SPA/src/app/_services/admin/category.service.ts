@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminCategoryService {
+export class CategoryService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminCategoryService } from 'src/app/_services/admin/adminCategory.service';
+import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'underscore';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   buttonText = 'Add Child';
   placeholderForInput = 'Child Name';
 
-  constructor(private adminCatService: AdminCategoryService, private alertify: AlertifyService) {}
+  constructor(private adminCatService: CategoryService, private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.getCategoryWithChildren();

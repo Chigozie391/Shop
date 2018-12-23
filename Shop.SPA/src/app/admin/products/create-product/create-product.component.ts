@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminCategoryService } from 'src/app/_services/admin/adminCategory.service';
+import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
 import { Products } from 'src/app/_models/Products';
 import { ProductService } from 'src/app/_services/admin/product.service';
@@ -14,7 +14,7 @@ import * as _ from 'underscore';
 })
 export class CreateProductComponent implements OnInit {
   constructor(
-    private cateService: AdminCategoryService,
+    private cateService: CategoryService,
     private productService: ProductService,
     private route: Router,
     private alertify: AlertifyService
