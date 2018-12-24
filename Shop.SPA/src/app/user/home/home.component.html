@@ -1,3 +1,47 @@
-<p>
-  home works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <!-- New Product -->
+    <section class="bg-white col-md-9 col-xs-12 col-sm-12">
+      <div class=" pb-5"><h2 class="m-0 text-center text-uppercase">Featured Products</h2></div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let product of products">
+            <article class="card-wrapper">
+              <div class="image-holder">
+                <a href="#" class="image-holder__link"></a>
+                <div
+                  class="image-liquid image-holder--original"
+                  [ngStyle]="{ 'background-image': 'url(' + product.photoUrl + ')' }"
+                ></div>
+              </div>
+
+              <div class="product-description">
+                <div class="row">
+                  <div class="col px-2  product-description__title">
+                    <span>{{ product.title }}</span>
+                  </div>
+                  <div class=" col-xs-2 px-2 product-description__price">
+                    &#8358; <span>{{ product.price }}</span>
+                  </div>
+                </div>
+
+                <!-- divider -->
+                <hr />
+
+                <!-- sizes -->
+                <div class="sizes-wrapper">
+                  <b>Description</b> <br />
+                  <span class="secondary-text .product-description__category">
+                    {{ product.description }}
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="col-12"><mat-paginator [pageSizeOptions]="[6]"> </mat-paginator></div>
+    </section>
+  </div>
+</div>

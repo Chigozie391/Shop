@@ -27,6 +27,7 @@ export class ProductPhotosComponent implements OnInit {
   intializeUploader() {
     this.uploader = new FileUploader({
       url: this.baseUrl + 'products/' + this.productId + '/photos',
+      authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,

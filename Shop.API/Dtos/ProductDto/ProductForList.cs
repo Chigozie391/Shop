@@ -16,6 +16,7 @@ namespace Shop.API.Dtos.ProductDto
 		public string ChildCategoryName { get; set; }
 		public string CategoryName { get; set; }
 		public bool Featured { get; set; }
+		public string Description { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime LastUpdated { get; set; }
 

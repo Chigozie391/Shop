@@ -102,6 +102,8 @@ namespace Shop.API.Controllers
 			{
 				product.Featured = true;
 			}
+			product.LastUpdated = DateTime.Now;
+
 			await this.unitOfWork.CompleteAsync();
 			return Ok();
 		}
@@ -128,6 +130,8 @@ namespace Shop.API.Controllers
 				return BadRequest("Can not archive featured product");
 
 			product.Deleted = true;
+			product.LastUpdated = DateTime.Now;
+
 
 			if (await this.unitOfWork.CompleteAsync())
 				return Ok(id);

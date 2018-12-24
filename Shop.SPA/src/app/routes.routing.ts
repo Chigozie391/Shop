@@ -12,7 +12,7 @@ import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
-import { ArchivesComponent } from './admin/archives/archives.component';
+import { ArchivesComponent } from './admin/products/archives/archives.component';
 
 export const appRoutes: Routes = [
   {
@@ -52,12 +52,12 @@ export const appRoutes: Routes = [
         component: UserNavComponent
       },
       {
-        path: 'login',
-        component: AuthComponent
-      },
-      {
         path: '',
         component: HomeComponent
+      },
+      {
+        path: 'login',
+        component: AuthComponent
       }
     ]
   },
