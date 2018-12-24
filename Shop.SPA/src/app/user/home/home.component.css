@@ -7,6 +7,10 @@ hr {
   margin: 15px 0;
 }
 
+.min-height {
+  min-height: 500px;
+}
+
 .secondary-text {
   color: #b6b6b6;
 }

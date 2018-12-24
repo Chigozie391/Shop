@@ -28,6 +28,7 @@ import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
+import { FooterComponent } from './user/footer/footer.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,6 +51,7 @@ export function tokenGetter() {
     HomeComponent,
     UserNavComponent,
     UserPanelComponent,
+    FooterComponent,
     AuthComponent,
     HasRoleDirective
   ],
