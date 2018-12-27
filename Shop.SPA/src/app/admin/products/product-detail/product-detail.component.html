@@ -20,12 +20,12 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <h6 class="font-weight-bold">Price :</h6>
-          <span class=""> &#8358; {{ product.price }}</span>
+          <span class=""> &#8358; {{ product.price | money }}</span>
         </li>
 
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <h6 class="font-weight-bold">Description :</h6>
-          <span class=""> {{ product.description }}</span>
+        <li class="list-group-item ">
+          <h6 class="font-weight-bold d-block">Description :</h6>
+          <span class="d-block"> {{ product.description }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <h6 class="font-weight-bold">Sold Count :</h6>
@@ -54,7 +54,7 @@
       <div class="col">
         <div class="form-group">
           <h6 class="font-weight-bold">Main Photo :</h6>
-          <div><img src="{{ product.photoUrl }}" alt="" class="img-responsive" /></div>
+          <div class="  "><img src="{{ product.photoUrl }}" alt="" class="img-thumbnail" /></div>
         </div>
         <div class="form-group" *ngFor="let item of sizesArray">
           <ul class="list-group">

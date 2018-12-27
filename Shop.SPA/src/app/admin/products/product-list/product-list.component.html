@@ -65,7 +65,7 @@
         </ng-container>
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.price }} </mat-cell>
+          <mat-cell *matCellDef="let element">&#8358; {{ element.price | money }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="featured">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Featured </mat-header-cell>

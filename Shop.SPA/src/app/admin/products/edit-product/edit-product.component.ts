@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
 import { CategoryService } from 'src/app/_services/admin/category.service';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 
 @Component({
@@ -22,8 +22,7 @@ export class EditProductComponent implements OnInit {
   constructor(
     private cateService: CategoryService,
     private productService: ProductService,
-    private alertify: AlertifyService,
-    private fb: FormBuilder
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit() {

@@ -9,6 +9,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes.routing';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -29,6 +30,9 @@ import { AdminGuard } from './_guards/admin.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { FooterComponent } from './user/footer/footer.component';
+import { CarouselComponent } from './user/carousel/carousel.component';
+import { ItemsComponent } from './user/items/items.component';
+import { MoneyPipe } from './_utils/money.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -49,17 +53,21 @@ export function tokenGetter() {
     CreateProductComponent,
     CategoryComponent,
     HomeComponent,
+    CarouselComponent,
     UserNavComponent,
     UserPanelComponent,
+    ItemsComponent,
     FooterComponent,
     AuthComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    MoneyPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxGalleryModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     MaterialModule,

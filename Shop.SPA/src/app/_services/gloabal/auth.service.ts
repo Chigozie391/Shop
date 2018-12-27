@@ -5,16 +5,21 @@ import { User } from 'src/app/_models/User';
 import { map } from 'rxjs/operators';
 import { AuthUser } from 'src/app/_models/AuthUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   baseUrl = environment.apiUrl;
+  cartToken = environment.cartToken;
   decodedToken: any;
-  //   userToken: string;
+  private itemsInCart = new BehaviorSubject<number>(0);
+  totalItemInCart = this.itemsInCart.asObservable();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
+    this.getTotalItemInCart();
+  }
 
   login(user: User) {
     return this.http.post<AuthUser>(this.baseUrl + 'auth/login', user).pipe(
@@ -23,7 +28,6 @@ export class AuthService {
           localStorage.setItem('token', user.tokenString);
           localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
-          //  this.userToken = user.tokenString;
         }
       })
     );
@@ -50,5 +54,16 @@ export class AuthService {
       }
     });
     return isMatch;
+  }
+
+  getTotalItemInCart() {
+    let totalItems = 0;
+    let x = JSON.parse(localStorage.getItem(this.cartToken)) as Array<{}>;
+    if (x == null) return this.itemsInCart.next(totalItems);
+
+    x.forEach(value => {
+      totalItems = totalItems + value['quantity'];
+    });
+    this.itemsInCart.next(totalItems);
   }
 }

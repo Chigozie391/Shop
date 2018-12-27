@@ -12,6 +12,7 @@ import { CategoryService } from 'src/app/_services/admin/category.service';
 export class UserNavComponent implements OnInit {
   hamclick = false;
   categories: any;
+  totalItemInCart: number;
 
   constructor(
     private authService: AuthService,
@@ -24,6 +25,7 @@ export class UserNavComponent implements OnInit {
     this.cateService.getCategoryWithChildren().subscribe(x => {
       this.categories = x;
     });
+    this.authService.totalItemInCart.subscribe(totalItem => (this.totalItemInCart = totalItem));
   }
 
   isLoggedIn() {

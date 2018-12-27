@@ -1,3 +1,5 @@
+import { Photo } from './Photo';
+
 export interface Products {
   id?: number;
   price?: number;
@@ -14,5 +16,5 @@ export interface Products {
   sizes?: string;
   featured?: boolean;
   photoUrl?: string;
-  photos?: [];
+  photos?: Photo[];
 }

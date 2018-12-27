@@ -183,17 +183,14 @@ a:hover {
 }
 
 .header-icons-noti {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  font-weight: bolder;
   border-radius: 50%;
-  background-color: #111111;
+  background-color: #de2c12;
   color: white;
   font-size: 12px;
   position: absolute;

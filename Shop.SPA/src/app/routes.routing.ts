@@ -13,6 +13,7 @@ import { CreateProductComponent } from './admin/products/create-product/create-p
 import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
+import { ItemsComponent } from './user/items/items.component';
 
 export const appRoutes: Routes = [
   {
@@ -56,10 +57,15 @@ export const appRoutes: Routes = [
         component: HomeComponent
       },
       {
+        path: 'view/:id',
+        component: ItemsComponent,
+        resolve: { product: ProductViewResolver }
+      },
+      {
         path: 'login',
         component: AuthComponent
       }
     ]
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
