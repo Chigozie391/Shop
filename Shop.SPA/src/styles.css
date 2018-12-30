@@ -28,7 +28,8 @@ body {
   max-width: 100%;
 }
 
-button:focus {
+button:focus,
+.btn:focus {
   outline: none;
 }
 .smfont-dropdown {
@@ -51,4 +52,30 @@ a:hover,
 a:focus {
   text-decoration: none;
   outline: none !important;
+}
+
+/* ngx-gallery */
+div.ngx-gallery-arrow-wrapper {
+  z-index: 1000 !important;
+}
+
+/* dialog styless */
+.dialog-container .mat-dialog-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+.ng-inserted .ng-star-inserted {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.dialog-cont .mat-dialog-content {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.ng-inserted .mat-dialog-title {
+  width: 100%;
 }

@@ -1,0 +1,43 @@
+button.add-cart {
+  outline: none;
+  font-size: 12px;
+  color: white;
+  transition: all 0.4s;
+  height: 100%;
+  background-color: #f68b1e;
+  padding: 10px 30px;
+  border: 1px solid #f68b1e;
+}
+button.add-cart:hover {
+  background-color: #d47718;
+  color: white;
+}
+div.modal-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 0;
+}
+div.row {
+  width: 100%;
+}
+span.message {
+  font-size: 18px;
+  font-weight: bolder;
+}
+.btn {
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  width: 100%;
+}
+.btn-default:hover {
+  background-color: #f3f3f3;
+}
+.btn-default {
+  color: #f68b1e;
+  background-color: #fff;
+}

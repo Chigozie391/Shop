@@ -33,6 +33,7 @@ import { FooterComponent } from './user/footer/footer.component';
 import { CarouselComponent } from './user/carousel/carousel.component';
 import { ItemsComponent } from './user/items/items.component';
 import { MoneyPipe } from './_utils/money.pipe';
+import { DialogComponent } from './user/dialog/dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,6 +57,7 @@ export function tokenGetter() {
     CarouselComponent,
     UserNavComponent,
     UserPanelComponent,
+    DialogComponent,
     ItemsComponent,
     FooterComponent,
     AuthComponent,
@@ -80,7 +82,8 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [AlertifyService, ProductViewResolver, AdminGuard],
+  entryComponents: [DialogComponent],
+  providers: [AlertifyService, ProductViewResolver, AdminGuard, DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

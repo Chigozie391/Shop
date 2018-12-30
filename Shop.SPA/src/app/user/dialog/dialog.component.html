@@ -1,0 +1,14 @@
+<h1 class="dialog-title" mat-dialog-title>{{ modalBody.title }}</h1>
+<div mat-dialog-content>
+  <span class="message">{{ modalBody.message }}</span>
+</div>
+<div mat-dialog-actions class="modal-container">
+  <div class="row">
+    <div class="col-6">
+      <button class="add-cart btn" [mat-dialog-close]="true">{{ modalBody.trueValue }}</button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-default" [mat-dialog-close]="false">{{ modalBody.falseValue }}</button>
+    </div>
+  </div>
+</div>

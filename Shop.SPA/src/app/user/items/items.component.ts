@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { isUndefined } from 'util';
 import * as _ from 'underscore';
 import { AuthService } from 'src/app/_services/gloabal/auth.service';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Modal } from 'src/app/_models/modal';
 
 @Component({
   selector: 'app-items',
@@ -27,11 +29,13 @@ export class ItemsComponent implements OnInit {
   cartToken = environment.cartToken;
   cartItems = [];
   oldCartItems = [];
+  modalBody: Modal = {};
 
   constructor(
     private route: ActivatedRoute,
     private alertify: AlertifyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogComp: DialogComponent
   ) {}
 
   ngOnInit() {
@@ -40,20 +44,19 @@ export class ItemsComponent implements OnInit {
     });
 
     this.slider();
-    this.sizeArray = JSON.parse(this.product.sizes);
+    const rawSizes = JSON.parse(this.product.sizes);
+    this.sizeArray = rawSizes.filter(x => x.quantity > 0);
   }
 
   onSelectChange() {
-    this.selectedSizeObj = this.sizeArray.find(
-      x => x.size.toLowerCase() == this.selectedSize.toLowerCase()
-    );
+    this.selectedSizeObj = this.sizeArray.find(x => x.size.toLowerCase() == this.selectedSize.toLowerCase());
     this.maxQuantity = this.selectedSizeObj.quantity;
     //reset the quantity
     this.form.form.get('quantity').reset();
   }
 
   addToCart() {
-    if (this.selectedSizeObj && this.quantity != null) {
+    if (this.selectedSizeObj && this.quantity > 0) {
       if (this.quantity > this.maxQuantity) {
         return this.alertify.error('Quantity too large');
       }
@@ -81,8 +84,14 @@ export class ItemsComponent implements OnInit {
         this.oldCartItems.push(newCartItem);
         localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
         this.authService.getTotalItemInCart();
+        this.navigattionModal();
       } else {
-        this.alertify.confirm('Item is already in cart, Update the quantity ? ', () => {
+        this.modalBody.title = 'Info.';
+        this.modalBody.message = this.product.title + ' Item is already in Cart, Update the Quantity ?';
+        this.modalBody.trueValue = 'Update Quantity';
+        this.modalBody.falseValue = 'Cancel';
+
+        this.dialogComp.openDialog(this.modalBody, () => {
           productMatch.quantity = productMatch.quantity + this.quantity;
 
           if (productMatch.quantity > this.maxQuantity) {
@@ -96,6 +105,7 @@ export class ItemsComponent implements OnInit {
           this.oldCartItems.splice(index, 1, productMatch);
           localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
           this.authService.getTotalItemInCart();
+          this.navigattionModal();
         });
       }
     } else {
@@ -103,7 +113,25 @@ export class ItemsComponent implements OnInit {
       this.cartItems.push(newCartItem);
       localStorage.setItem(this.cartToken, JSON.stringify(this.cartItems));
       this.authService.getTotalItemInCart();
+      this.navigattionModal();
     }
+  }
+
+  navigattionModal() {
+    this.modalBody.title = 'Success';
+    this.modalBody.message = this.product.title + ' has been added to Cart';
+    this.modalBody.trueValue = 'Continue Shopping';
+    this.modalBody.falseValue = 'Go to Cart';
+
+    this.dialogComp.openDialog(
+      this.modalBody,
+      () => {
+        console.log('going to shop more');
+      },
+      () => {
+        console.log('going to cart');
+      }
+    );
   }
 
   getImages() {
