@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row row-pb-lg">
+    <div class="col-12">
+      <div class="product-name d-flex">
+        <div class="one-forth text-center px-4"><span>Product</span></div>
+        <div class="one-eight text-center"><span>Price</span></div>
+        <div class="one-eight text-center"><span>Size</span></div>
+        <div class="one-eight text-center"><span>Quantity</span></div>
+        <div class="one-eight text-center"><span>Total</span></div>
+        <div class="one-eight text-center px-4"><span>Remove</span></div>
+      </div>
+      <div class="product-cart d-flex" *ngFor="let product of products">
+        <div class="one-forth">
+          <div class="product-img cursor " (click)="viewProduct(product.productId)">
+            <img src="{{ product.photoUrl }}" alt="" class="img-thumbnail hover-shadow" />
+          </div>
+          <div class="display-tc">
+            <h3 class="cursor d-inline text-capitalize" (click)="viewProduct(product.productId)">
+              {{ product.title }}
+            </h3>
+          </div>
+        </div>
+        <div class="one-eight text-center">
+          <div class="display-tc">
+            <span class="price"> &#8358; {{ product.price | money }}</span>
+          </div>
+        </div>
+        <div class="one-eight text-center">
+          <div class="display-tc">
+            <span class="price">{{ product.size }}</span>
+          </div>
+        </div>
+        <div class="one-eight text-center  quantity-container">
+          <div class="display-tc d-flex align-items-center">
+            <button mat-icon-button (click)="removeQuantity(product.productId, product.size)">
+              <mat-icon class="fas fa-minus" aria-hidden="true"></mat-icon>
+            </button>
+            <input
+              type="number"
+              name="quantity"
+              class="form-control text-center"
+              min="1"
+              disabled
+              value="{{ product.quantity }}"
+            />
+            <button mat-icon-button (click)="addQuanitity(product.productId, product.size)">
+              <mat-icon class="fas fa-plus" aria-hidden="true"></mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="one-eight text-center">
+          <div class="display-tc">
+            <span class="price">&#8358; {{ product.price * product.quantity | money }}</span>
+          </div>
+        </div>
+        <div class="one-eight d-flex justify-content-center align-items-center remove-container ">
+          <button mat-icon-button color="warn" (click)="remove(product.productId, product.size)">
+            <mat-icon class="fas fa-trash" aria-hidden="true"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 offset-8 total-container">
+    <div class="row mb-2">
+      <div class="col-12 mb-3 mt-4 ">
+        <h5 class="d-inline-block mx-3 text-uppercase">Total:</h5>
+        <h6 class="total-price d-inline-block mx-2 mt-1">&#8358; {{ totalPrice | money }}</h6>
+      </div>
+      <div class="col-12">
+        <div class="form-group d-flex justify-content-center mt-3 col">
+          <button type="submit" class="add-cart btn shadow">PROCEED TO CHECKOUT</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

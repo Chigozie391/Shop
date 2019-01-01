@@ -32,8 +32,7 @@ namespace Shop.API.Persistance
 			else
 			{
 				return await this.context.Products
-						.Include(ch => ch.ChildCategory)
-						.ThenInclude(c => c.Category)
+						.Include(p => p.Photos)
 						.FirstOrDefaultAsync(x => x.Id == id);
 			}
 

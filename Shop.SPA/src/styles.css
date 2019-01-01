@@ -26,6 +26,7 @@ body {
 .img-thumbnail {
   max-height: 200px;
   max-width: 100%;
+  transition: 0.3s all;
 }
 
 button:focus,
@@ -34,6 +35,13 @@ button:focus,
 }
 .smfont-dropdown {
   font-size: 14px;
+}
+.cursor {
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.cursor:hover {
+  color: #e65540;
 }
 
 /* ------------------------------------ */

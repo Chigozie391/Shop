@@ -50,6 +50,19 @@ namespace Shop.API.Controllers
 			return Ok(productForDetail);
 		}
 
+		[HttpGet("getProductForCart/{id}")]
+		public async Task<IActionResult> GetProductForCart(int id)
+		{
+			var product = await this.repo.GetProduct(id, false);
+
+			var productForDetail = this.mapper.Map<ProductForDetail>(product);
+
+			if (productForDetail == null)
+				return NotFound();
+
+			return Ok(productForDetail);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> CreateProdut(ProductForCreationOrUpdate productForCreation)
 		{

@@ -27,7 +27,6 @@ export class DialogComponent implements OnInit {
       width: '600px',
       panelClass: ['dialog-container', 'ng-inserted', 'dialog-cont']
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         okCallback();

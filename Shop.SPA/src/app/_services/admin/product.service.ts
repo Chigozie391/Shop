@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Products } from 'src/app/_models/Products';
 import { ProductQuery } from 'src/app/_models/productQuery';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -69,13 +70,14 @@ export class ProductService {
   }
 
   setMainPhoto(productId: number, photoId: number) {
-    return this.http.post(
-      this.baseUrl + 'products/' + productId + '/photos/' + photoId + '/setmain',
-      {}
-    );
+    return this.http.post(this.baseUrl + 'products/' + productId + '/photos/' + photoId + '/setmain', {});
   }
 
   deletePhoto(productId: number, photoId: number) {
     return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + photoId);
+  }
+
+  getProductForCart(id: number) {
+    return this.http.get<Products>(this.baseUrl + 'products/getproductforcart/' + id).pipe(take(1));
   }
 }

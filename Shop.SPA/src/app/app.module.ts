@@ -34,6 +34,7 @@ import { CarouselComponent } from './user/carousel/carousel.component';
 import { ItemsComponent } from './user/items/items.component';
 import { MoneyPipe } from './_utils/money.pipe';
 import { DialogComponent } from './user/dialog/dialog.component';
+import { CartComponent } from './user/cart/cart.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -59,6 +60,7 @@ export function tokenGetter() {
     UserPanelComponent,
     DialogComponent,
     ItemsComponent,
+    CartComponent,
     FooterComponent,
     AuthComponent,
     HasRoleDirective,

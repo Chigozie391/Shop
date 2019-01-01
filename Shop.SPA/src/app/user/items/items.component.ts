@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Products } from 'src/app/_models/Products';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { isUndefined } from 'util';
 import * as _ from 'underscore';
-import { AuthService } from 'src/app/_services/gloabal/auth.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Modal } from 'src/app/_models/modal';
 
@@ -34,8 +33,8 @@ export class ItemsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private alertify: AlertifyService,
-    private authService: AuthService,
-    private dialogComp: DialogComponent
+    private dialogComp: DialogComponent,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,7 +55,7 @@ export class ItemsComponent implements OnInit {
   }
 
   addToCart() {
-    if (this.selectedSizeObj && this.quantity > 0) {
+    if (this.selectedSizeObj) {
       if (this.quantity > this.maxQuantity) {
         return this.alertify.error('Quantity too large');
       }
@@ -83,7 +82,7 @@ export class ItemsComponent implements OnInit {
       if (isUndefined(productMatch)) {
         this.oldCartItems.push(newCartItem);
         localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
-        this.authService.getTotalItemInCart();
+        this.alertify.updateTotalItemInCart();
         this.navigattionModal();
       } else {
         this.modalBody.title = 'Info.';
@@ -104,7 +103,7 @@ export class ItemsComponent implements OnInit {
           // product already exist, increase product quantity
           this.oldCartItems.splice(index, 1, productMatch);
           localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
-          this.authService.getTotalItemInCart();
+          this.alertify.updateTotalItemInCart();
           this.navigattionModal();
         });
       }
@@ -112,7 +111,7 @@ export class ItemsComponent implements OnInit {
       // new cart
       this.cartItems.push(newCartItem);
       localStorage.setItem(this.cartToken, JSON.stringify(this.cartItems));
-      this.authService.getTotalItemInCart();
+      this.alertify.updateTotalItemInCart();
       this.navigattionModal();
     }
   }
@@ -120,16 +119,16 @@ export class ItemsComponent implements OnInit {
   navigattionModal() {
     this.modalBody.title = 'Success';
     this.modalBody.message = this.product.title + ' has been added to Cart';
-    this.modalBody.trueValue = 'Continue Shopping';
-    this.modalBody.falseValue = 'Go to Cart';
+    this.modalBody.trueValue = 'Go to Cart';
+    this.modalBody.falseValue = 'Continue Shopping';
 
     this.dialogComp.openDialog(
       this.modalBody,
       () => {
-        console.log('going to shop more');
+        this.router.navigate(['/cart']);
       },
       () => {
-        console.log('going to cart');
+        console.log('Closing Modal');
       }
     );
   }

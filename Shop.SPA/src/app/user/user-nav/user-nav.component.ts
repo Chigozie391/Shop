@@ -25,7 +25,7 @@ export class UserNavComponent implements OnInit {
     this.cateService.getCategoryWithChildren().subscribe(x => {
       this.categories = x;
     });
-    this.authService.totalItemInCart.subscribe(totalItem => (this.totalItemInCart = totalItem));
+    this.alertify.totalItemInCart.subscribe(totalItem => (this.totalItemInCart = totalItem));
   }
 
   isLoggedIn() {

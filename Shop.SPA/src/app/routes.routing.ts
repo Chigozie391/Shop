@@ -14,6 +14,7 @@ import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { ItemsComponent } from './user/items/items.component';
+import { CartComponent } from './user/cart/cart.component';
 
 export const appRoutes: Routes = [
   {
@@ -60,6 +61,10 @@ export const appRoutes: Routes = [
         path: 'view/:id',
         component: ItemsComponent,
         resolve: { product: ProductViewResolver }
+      },
+      {
+        path: 'cart',
+        component: CartComponent
       },
       {
         path: 'login',

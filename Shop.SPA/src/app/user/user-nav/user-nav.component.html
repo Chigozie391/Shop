@@ -23,19 +23,16 @@
 
       <!-- Header Icon -->
       <div class="header-icons">
-        <div class="header-wrapicon2">
-          <img
-            src="assets/images/icon-header-02.png"
-            class="header-icon1 js-show-header-dropdown"
-            alt="ICON"
-          />
-          <span class="header-icons-noti">{{ totalItemInCart }}</span>
-        </div>
+        <a [routerLink]="['/cart']" class="p-2">
+          <div class="header-wrapicon2">
+            <img src="assets/images/icon-header-02.png" class="header-icon1" alt="ICON" />
+            <span class="header-icons-noti">{{ totalItemInCart }}</span>
+          </div></a
+        >
+
         <ng-container *ngIf="!isLoggedIn(); else elseTemplate">
           <span class="linedivide1"></span>
-          <a [routerLink]="['/login']" class="header-wrapicon1 dis-block">
-            Login <i class="fas fa-sign-in-alt"></i>
-          </a>
+          <a [routerLink]="['/login']" class="header-wrapicon1 dis-block"> Login <i class="fas fa-sign-in-alt"></i> </a>
         </ng-container>
         <ng-template #elseTemplate>
           <span class="linedivide1"></span>
@@ -65,9 +62,7 @@
   <!-- Header Mobile -->
   <div class="wrap_header_mobile">
     <!-- Logo moblie -->
-    <a [routerLink]="['/']" class="logo-mobile">
-      <img src="assets/images/logo.png" alt="IMG-LOGO" />
-    </a>
+    <a [routerLink]="['/']" class="logo-mobile"> <img src="assets/images/logo.png" alt="IMG-LOGO" /> </a>
 
     <!-- Button show menu -->
     <div class="btn-show-menu">
