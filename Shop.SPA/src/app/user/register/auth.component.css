@@ -1,0 +1,21 @@
+div.container {
+  margin-top: 140px;
+}
+
+.icon {
+  font-size: 16px;
+  cursor: pointer;
+}
+mat-form-field {
+  width: 50%;
+}
+button {
+  width: 50%;
+}
+
+mat-label {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+a {
+  font-size: 14px;
+}

@@ -25,7 +25,6 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { EditProductComponent } from './admin/products/edit-product/edit-product.component';
-import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
@@ -35,6 +34,8 @@ import { ItemsComponent } from './user/items/items.component';
 import { MoneyPipe } from './_utils/money.pipe';
 import { DialogComponent } from './user/dialog/dialog.component';
 import { CartComponent } from './user/cart/cart.component';
+import { RegisterComponent } from './user/register/auth.component';
+import { LoginModalComponent } from './user/login-modal/login-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -62,7 +63,8 @@ export function tokenGetter() {
     ItemsComponent,
     CartComponent,
     FooterComponent,
-    AuthComponent,
+    RegisterComponent,
+    LoginModalComponent,
     HasRoleDirective,
     MoneyPipe
   ],
@@ -84,8 +86,8 @@ export function tokenGetter() {
       }
     })
   ],
-  entryComponents: [DialogComponent],
-  providers: [AlertifyService, ProductViewResolver, AdminGuard, DialogComponent],
+  entryComponents: [DialogComponent, LoginModalComponent],
+  providers: [AlertifyService, ProductViewResolver, AdminGuard, DialogComponent, LoginModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

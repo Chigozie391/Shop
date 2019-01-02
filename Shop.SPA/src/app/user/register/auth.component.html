@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 card py-4 pl-5 shadow">
+      <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm">
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Your Email</mat-label>
+
+            <input
+              matInput
+              type="email"
+              id="email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="user.email"
+              minlength="5"
+              maxlength="254"
+              email
+              required
+            />
+            <mat-error *ngIf="email.hasError('required')"> Your email is required.</mat-error>
+            <mat-error *ngIf="email.hasError('email')"> Your email is invalid.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Your Phone Number</mat-label>
+
+            <input
+              matInput
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              #phoneNumber="ngModel"
+              [(ngModel)]="user.phoneNumber"
+              minlength="10"
+              maxlength="15"
+              required
+            />
+            <mat-error *ngIf="phoneNumber.hasError('required')"> Your phone number is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Your Password</mat-label>
+
+            <input
+              matInput
+              id="password"
+              name="password"
+              #password="ngModel"
+              [(ngModel)]="user.password"
+              minlength="4"
+              maxlength="50"
+              required
+              [type]="hide ? 'password' : 'text'"
+            />
+            <mat-icon
+              (click)="hide = !hide"
+              *ngIf="!hide"
+              class="fas fa-eye icon"
+              aria-hidden="true"
+              matSuffix
+            ></mat-icon>
+            <mat-icon
+              (click)="hide = !hide"
+              *ngIf="hide"
+              class="fas fa-eye-slash icon"
+              aria-hidden="true"
+              matSuffix
+            ></mat-icon>
+
+            <mat-error *ngIf="password.hasError('required')"> Your password is required.</mat-error>
+            <mat-error *ngIf="password.hasError('minlength')">
+              Your password is required to be at least 4 characters.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              type="text"
+              id="confirmPassword"
+              name="confirmPassword"
+              #confirmPasswordInput="ngModel"
+              [(ngModel)]="confirmPassword"
+              minlength="4"
+              maxlength="50"
+              required
+            />
+            <mat-error *ngIf="confirmPasswordInput.hasError('required')">
+              Your password confirmation is required.</mat-error
+            >
+            <mat-error *ngIf="confirmPasswordInput.hasError('mismatch')"> Your password do not match.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group my-2 text-center">
+          <button
+            class="btn btn-success text-uppercase"
+            color="primary"
+            type="submit"
+            [disabled]="registerForm.form.invalid"
+          >
+            Register
+          </button>
+          <div class="d-block my-2"><a href="#" class="d-inline-block my-1">Sign In</a></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

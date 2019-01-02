@@ -44,7 +44,6 @@ namespace Shop
 			IdentityBuilder builder = services.AddIdentityCore<User>(opt =>
 			{
 				opt.Password.RequireDigit = false;
-				opt.Password.RequiredLength = 6;
 				opt.Password.RequireUppercase = false;
 				opt.Password.RequireNonAlphanumeric = false;
 				opt.User.RequireUniqueEmail = true;
@@ -80,11 +79,11 @@ namespace Shop
 
 			services.AddMvc(options =>
 			{
-				// lock down the whole app
-				var policy = new AuthorizationPolicyBuilder()
-				.RequireAuthenticatedUser()
-				.Build();
-				options.Filters.Add(new AuthorizeFilter(policy));
+				// // lock down the whole app
+				// var policy = new AuthorizationPolicyBuilder()
+				// .RequireAuthenticatedUser()
+				// .Build();
+				// options.Filters.Add(new AuthorizeFilter(policy));
 			})
 			.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

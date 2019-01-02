@@ -10,11 +10,11 @@ import { ProductListComponent } from './admin/products/product-list/product-list
 import { ViewProductsComponent } from './admin/products/view-products/view-products.component';
 import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
-import { AuthComponent } from './user/auth/auth.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { ItemsComponent } from './user/items/items.component';
 import { CartComponent } from './user/cart/cart.component';
+import { RegisterComponent } from './user/register/auth.component';
 
 export const appRoutes: Routes = [
   {
@@ -67,8 +67,8 @@ export const appRoutes: Routes = [
         component: CartComponent
       },
       {
-        path: 'login',
-        component: AuthComponent
+        path: 'register',
+        component: RegisterComponent
       }
     ]
   },

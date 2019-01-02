@@ -32,6 +32,7 @@ export class UserNavComponent implements OnInit {
     return this.authService.loggedIn();
   }
 
+  showLoginModal() {}
   isAdmin() {
     if (this.isLoggedIn()) {
       return this.authService.roleMatch(['Admin', 'Moderator']);
