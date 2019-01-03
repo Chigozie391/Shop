@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { ProductQuery } from 'src/app/_models/productQuery';
 import { tap } from 'rxjs/operators';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-product-list',
@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     pageSize: 5
   };
 
-  constructor(private productService: ProductService, private alertify: AlertifyService) {}
+  constructor(private productService: ProductService, private uiService: UIService) {}
 
   ngOnInit() {
     this.getProducts();
@@ -85,24 +85,24 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         const product = this.dataSource.find(p => p.id == id);
         product.featured ? (product.featured = false) : (product.featured = true);
 
-        this.alertify.success('Successful');
+        this.uiService.success('Successful');
         this.table.renderRows();
       },
-      error => this.alertify.error(error.error)
+      error => this.uiService.error(error.error)
     );
   }
 
   archiveProduct(id) {
-    this.alertify.confirm('Are you sure you want to archive the product', () => {
+    this.uiService.confirm('Are you sure you want to archive the product', () => {
       this.productService.achiveProduct(id).subscribe(
         () => {
           const index = this.dataSource.findIndex(p => p.id == id);
 
           this.dataSource.splice(index, 1);
-          this.alertify.success('Successfully archived');
+          this.uiService.success('Successfully archived');
           this.table.renderRows();
         },
-        error => this.alertify.error(error.error)
+        error => this.uiService.error(error.error)
       );
     });
   }

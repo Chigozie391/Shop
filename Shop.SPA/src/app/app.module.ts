@@ -16,7 +16,6 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { UserNavComponent } from './user/user-nav/user-nav.component';
 import { UserPanelComponent } from './user/user-panel/user-panel.component';
 import { HomeComponent } from './user/home/home.component';
-import { AlertifyService } from './_services/gloabal/alertify.service';
 import { ViewProductsComponent } from './admin/products/view-products/view-products.component';
 import { ProductListComponent } from './admin/products/product-list/product-list.component';
 import { ProductViewResolver } from './_resolver/product-view.resolver';
@@ -36,6 +35,8 @@ import { DialogComponent } from './user/dialog/dialog.component';
 import { CartComponent } from './user/cart/cart.component';
 import { RegisterComponent } from './user/register/auth.component';
 import { LoginModalComponent } from './user/login-modal/login-modal.component';
+import { UIService } from './_services/global/alertify.service';
+import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -87,7 +88,14 @@ export function tokenGetter() {
     })
   ],
   entryComponents: [DialogComponent, LoginModalComponent],
-  providers: [AlertifyService, ProductViewResolver, AdminGuard, DialogComponent, LoginModalComponent],
+  providers: [
+    UIService,
+    ProductViewResolver,
+    AdminGuard,
+    DialogComponent,
+    LoginModalComponent,
+    { provide: MatDialogRef, useValue: {} }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

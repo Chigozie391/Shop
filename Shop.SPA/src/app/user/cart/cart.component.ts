@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { Router } from '@angular/router';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
   totalPrice = 0;
   storedItem: any[] = JSON.parse(localStorage.getItem(this.cartToken));
 
-  constructor(private productService: ProductService, private alertify: AlertifyService, private router: Router) {}
+  constructor(private productService: ProductService, private uiService: UIService, private router: Router) {}
 
   ngOnInit() {
     this.storedItem.forEach(element => {
@@ -45,14 +45,14 @@ export class CartComponent implements OnInit {
     this.products.forEach(x => {
       this.totalPrice += x.quantity * x.price;
     });
-    this.alertify.updateTotalItemInCart();
+    this.uiService.updateTotalItemInCart();
   }
 
   addQuanitity(productId: number, size: string) {
     const x = { productId: productId, size: size };
     const item: any = _.findWhere(this.products, x);
     if (item.quantity >= item.maxQuantity) {
-      return this.alertify.error('Maximium quantity reached');
+      return this.uiService.error('Maximium quantity reached');
     }
     //increase the quantity
     item.quantity = item.quantity + 1;
@@ -67,7 +67,7 @@ export class CartComponent implements OnInit {
     const x = { productId: productId, size: size };
     const item: any = _.findWhere(this.products, x);
     if (item.quantity <= 1) {
-      return this.alertify.error('Minimium quantity reached');
+      return this.uiService.error('Minimium quantity reached');
     }
     //increase the quantity
     item.quantity = item.quantity - 1;

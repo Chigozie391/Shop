@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import * as _ from 'underscore';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-product-photos',
@@ -18,7 +18,7 @@ export class ProductPhotosComponent implements OnInit {
   uploader: FileUploader;
   baseUrl = environment.apiUrl;
 
-  constructor(private productService: ProductService, private alertify: AlertifyService) {}
+  constructor(private productService: ProductService, private uiService: UIService) {}
 
   ngOnInit() {
     this.intializeUploader();
@@ -36,7 +36,7 @@ export class ProductPhotosComponent implements OnInit {
     });
 
     this.uploader.onErrorItem = () => {
-      this.alertify.error('Photo upload failed');
+      this.uiService.error('Photo upload failed');
     };
 
     this.uploader.onSuccessItem = (item, response) => {
@@ -67,21 +67,21 @@ export class ProductPhotosComponent implements OnInit {
         currentMain.isMain = false;
         photo.isMain = true;
         this.updatePhotoUrl.emit(photo.url);
-        this.alertify.success('Main Photo set successfully');
+        this.uiService.success('Main Photo set successfully');
       },
-      error => this.alertify.error(error.error)
+      error => this.uiService.error(error.error)
     );
   }
 
   deletePhoto(productId: number, photo) {
-    this.alertify.confirm('Are you sure you want to delete the photo', () => {
+    this.uiService.confirm('Are you sure you want to delete the photo', () => {
       this.productService.deletePhoto(productId, photo.id).subscribe(
         x => {
           this.photos.splice(this.photos.findIndex(c => c.id == x), 1);
 
-          this.alertify.success('Deleted Successfully');
+          this.uiService.success('Deleted Successfully');
         },
-        error => this.alertify.error(error.error)
+        error => this.uiService.error(error.error)
       );
     });
   }

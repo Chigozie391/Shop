@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Modal } from 'src/app/_models/modal';
 import { environment } from 'src/environments/environment';
+import { LoginModalComponent } from 'src/app/user/login-modal/login-modal.component';
 declare let alertify: any;
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlertifyService {
+export class UIService {
   cartToken = environment.cartToken;
 
   private itemsInCart = new BehaviorSubject<number>(0);
@@ -15,18 +16,15 @@ export class AlertifyService {
 
   private modalMessage = new BehaviorSubject<Modal>({});
   modalMessageObserver = this.modalMessage.asObservable();
-  constructor() {
+
+  constructor(private loginModel: LoginModalComponent) {
     this.updateTotalItemInCart();
   }
 
-  confirm(message: string, okCallbaack: () => any) {
-    alertify.confirm(message, function(e) {
-      if (e) {
-        okCallbaack();
-      } else {
-      }
-    });
+  openLoginModel() {
+    this.loginModel.openDialog();
   }
+
   setModalMessage(body: Modal) {
     body = {
       title: body.title,
@@ -46,6 +44,15 @@ export class AlertifyService {
       totalItems = totalItems + value['quantity'];
     });
     this.itemsInCart.next(totalItems);
+  }
+
+  confirm(message: string, okCallbaack: () => any) {
+    alertify.confirm(message, function(e) {
+      if (e) {
+        okCallbaack();
+      } else {
+      }
+    });
   }
 
   success(message: string) {

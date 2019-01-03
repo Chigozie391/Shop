@@ -3,7 +3,7 @@ import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -22,7 +22,7 @@ export class EditProductComponent implements OnInit {
   constructor(
     private cateService: CategoryService,
     private productService: ProductService,
-    private alertify: AlertifyService
+    private uiService: UIService
   ) {}
 
   ngOnInit() {
@@ -49,9 +49,7 @@ export class EditProductComponent implements OnInit {
   //   }
 
   parentSelectionChange() {
-    this.childCategories = this.parentCategories.find(
-      x => x.id == this.productForEdit.categoryId
-    ).childCategories;
+    this.childCategories = this.parentCategories.find(x => x.id == this.productForEdit.categoryId).childCategories;
   }
 
   resetForm(form: NgForm) {
@@ -93,9 +91,9 @@ export class EditProductComponent implements OnInit {
       product => {
         this.updatedProduct.emit(product);
       },
-      error => this.alertify.error(error.error),
+      error => this.uiService.error(error.error),
       () => {
-        this.alertify.success('Successfully Updated');
+        this.uiService.success('Successfully Updated');
       }
     );
   }

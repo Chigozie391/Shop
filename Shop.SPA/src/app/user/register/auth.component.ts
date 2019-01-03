@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/_services/gloabal/auth.service';
 import { User } from 'src/app/_models/User';
 import { Router } from '@angular/router';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
+import { AuthService } from 'src/app/_services/global/auth.service';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   confirmPassword: any;
   @ViewChild('registerForm') registerForm: NgForm;
 
-  constructor(private authService: AuthService, private alertify: AlertifyService, private router: Router) {}
+  constructor(private authService: AuthService, private uiService: UIService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     this.user.userName = this.user.email;
     this.authService.register(this.user).subscribe(
       () => {
-        this.alertify.success('Registration Successful');
+        this.uiService.success('Registration Successful');
       },
       error => {
         console.log(error.error);

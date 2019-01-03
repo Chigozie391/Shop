@@ -3,8 +3,8 @@ import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { ProductQuery } from 'src/app/_models/productQuery';
 import { ProductService } from 'src/app/_services/admin/product.service';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { tap } from 'rxjs/operators';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-archives',
@@ -30,7 +30,7 @@ export class ArchivesComponent implements OnInit {
     pageSize: 5
   };
 
-  constructor(private productService: ProductService, private alertify: AlertifyService) {}
+  constructor(private productService: ProductService, private alertify: UIService) {}
   ngOnInit() {
     this.getArchivedProducts();
   }

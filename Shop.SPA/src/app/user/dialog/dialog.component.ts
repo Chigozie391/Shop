@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { Modal } from 'src/app/_models/modal';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-dialog',
@@ -10,10 +10,10 @@ import { Modal } from 'src/app/_models/modal';
 })
 export class DialogComponent implements OnInit {
   modalBody: Modal = {};
-  constructor(private dialog: MatDialog, private alertify: AlertifyService) {}
+  constructor(private dialog: MatDialog, private uiService: UIService) {}
 
   ngOnInit() {
-    this.alertify.modalMessageObserver.subscribe(body => {
+    this.uiService.modalMessageObserver.subscribe(body => {
       this.modalBody.title = body.title;
       this.modalBody.message = body.message;
       this.modalBody.trueValue = body.trueValue;
@@ -21,7 +21,7 @@ export class DialogComponent implements OnInit {
     });
   }
   public openDialog(body: Modal, okCallback: () => any, noCallback?: () => any) {
-    this.alertify.setModalMessage(body);
+    this.uiService.setModalMessage(body);
     const dialogRef = this.dialog.open(DialogComponent, {
       height: '200px',
       width: '600px',

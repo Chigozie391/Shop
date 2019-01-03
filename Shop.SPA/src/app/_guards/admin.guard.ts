@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../_services/gloabal/auth.service';
-import { AlertifyService } from '../_services/gloabal/alertify.service';
+import { AuthService } from '../_services/global/auth.service';
+import { UIService } from '../_services/global/alertify.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private alertify: AlertifyService
-  ) {}
+  constructor(private authService: AuthService, private router: Router, private uiService: UIService) {}
 
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.loggedIn()) {
@@ -24,12 +20,12 @@ export class AdminGuard implements CanActivate {
           return true;
         } else {
           this.router.navigate(['/']);
-          this.alertify.error("You don't have access to that page");
+          this.uiService.error("You don't have access to that page");
         }
       }
     } else {
       this.router.navigate(['/']);
-      this.alertify.error("You don't have access to that page");
+      this.uiService.error("You don't have access to that page");
       return false;
     }
   }

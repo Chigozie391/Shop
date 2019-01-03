@@ -32,9 +32,9 @@
 
         <ng-container *ngIf="!isLoggedIn(); else elseTemplate">
           <span class="linedivide1"></span>
-          <button mat-icon-button class="header-wrapicon1 no-border" (click)="showLoginModal()">
+          <div class="header-wrapicon1 no-border cursor" (click)="showLoginModal()">
             <span class="login">Login</span> <mat-icon class="fas fa-sign-in-alt" aria-hidden="true"></mat-icon>
-          </button>
+          </div>
         </ng-container>
         <ng-template #elseTemplate>
           <span class="linedivide1"></span>

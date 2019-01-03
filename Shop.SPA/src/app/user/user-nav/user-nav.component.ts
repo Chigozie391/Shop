@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/_services/gloabal/auth.service';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/_services/admin/category.service';
+import { AuthService } from 'src/app/_services/global/auth.service';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-user-nav',
@@ -16,7 +16,7 @@ export class UserNavComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private alertify: AlertifyService,
+    private uiService: UIService,
     private cateService: CategoryService,
     private router: Router
   ) {}
@@ -25,14 +25,17 @@ export class UserNavComponent implements OnInit {
     this.cateService.getCategoryWithChildren().subscribe(x => {
       this.categories = x;
     });
-    this.alertify.totalItemInCart.subscribe(totalItem => (this.totalItemInCart = totalItem));
+    this.uiService.totalItemInCart.subscribe(totalItem => (this.totalItemInCart = totalItem));
   }
 
   isLoggedIn() {
     return this.authService.loggedIn();
   }
 
-  showLoginModal() {}
+  showLoginModal() {
+    this.uiService.openLoginModel();
+  }
+
   isAdmin() {
     if (this.isLoggedIn()) {
       return this.authService.roleMatch(['Admin', 'Moderator']);
@@ -49,7 +52,7 @@ export class UserNavComponent implements OnInit {
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.alertify.message('Logged out');
+    this.uiService.message('Logged out');
     this.router.navigate(['/']);
   }
 }

@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Products } from 'src/app/_models/Products';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { isUndefined } from 'util';
 import * as _ from 'underscore';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Modal } from 'src/app/_models/modal';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-items',
@@ -32,7 +32,7 @@ export class ItemsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private alertify: AlertifyService,
+    private uiService: UIService,
     private dialogComp: DialogComponent,
     private router: Router
   ) {}
@@ -57,10 +57,10 @@ export class ItemsComponent implements OnInit {
   addToCart() {
     if (this.selectedSizeObj) {
       if (this.quantity > this.maxQuantity) {
-        return this.alertify.error('Quantity too large');
+        return this.uiService.error('Quantity too large');
       }
     } else {
-      return this.alertify.error('Select a size and quantity');
+      return this.uiService.error('Select a size and quantity');
     }
     // add to cart
     const newCartItem = {
@@ -82,7 +82,7 @@ export class ItemsComponent implements OnInit {
       if (isUndefined(productMatch)) {
         this.oldCartItems.push(newCartItem);
         localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
-        this.alertify.updateTotalItemInCart();
+        this.uiService.updateTotalItemInCart();
         this.navigattionModal();
       } else {
         this.modalBody.title = 'Info.';
@@ -94,7 +94,7 @@ export class ItemsComponent implements OnInit {
           productMatch.quantity = productMatch.quantity + this.quantity;
 
           if (productMatch.quantity > this.maxQuantity) {
-            return this.alertify.error('Quantity too large');
+            return this.uiService.error('Quantity too large');
           }
 
           // get the index of the item
@@ -103,7 +103,7 @@ export class ItemsComponent implements OnInit {
           // product already exist, increase product quantity
           this.oldCartItems.splice(index, 1, productMatch);
           localStorage.setItem(this.cartToken, JSON.stringify(this.oldCartItems));
-          this.alertify.updateTotalItemInCart();
+          this.uiService.updateTotalItemInCart();
           this.navigattionModal();
         });
       }
@@ -111,7 +111,7 @@ export class ItemsComponent implements OnInit {
       // new cart
       this.cartItems.push(newCartItem);
       localStorage.setItem(this.cartToken, JSON.stringify(this.cartItems));
-      this.alertify.updateTotalItemInCart();
+      this.uiService.updateTotalItemInCart();
       this.navigattionModal();
     }
   }

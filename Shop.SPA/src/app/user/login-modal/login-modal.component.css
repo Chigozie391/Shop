@@ -1,0 +1,13 @@
+mat-form-field {
+  width: 100%;
+}
+a {
+  font-size: 13px;
+  font-weight: 300;
+  border-bottom: 1px solid #007bff;
+  transition: 0.3 all;
+}
+
+a:hover {
+  border-bottom: none;
+}

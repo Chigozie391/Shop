@@ -4,8 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Products } from 'src/app/_models/Products';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Router } from '@angular/router';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
 import * as _ from 'underscore';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-create-product',
@@ -17,7 +17,7 @@ export class CreateProductComponent implements OnInit {
     private cateService: CategoryService,
     private productService: ProductService,
     private route: Router,
-    private alertify: AlertifyService
+    private uiService: UIService
   ) {}
   parentCategory = [];
   childCategory = [];
@@ -66,9 +66,9 @@ export class CreateProductComponent implements OnInit {
       (x: number) => {
         this.newProductid = x;
       },
-      error => this.alertify.error(error.error),
+      error => this.uiService.error(error.error),
       () => {
-        this.alertify.success('Successfully Created');
+        this.uiService.success('Successfully Created');
         this.route.navigate(['/admin/products', this.newProductid]);
       }
     );

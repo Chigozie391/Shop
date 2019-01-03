@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'underscore';
-import { AlertifyService } from 'src/app/_services/gloabal/alertify.service';
+import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
   selector: 'app-category',
@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   buttonText = 'Add Child';
   placeholderForInput = 'Child Name';
 
-  constructor(private adminCatService: CategoryService, private alertify: AlertifyService) {}
+  constructor(private adminCatService: CategoryService, private uiService: UIService) {}
 
   ngOnInit() {
     this.getCategoryWithChildren();
@@ -40,7 +40,7 @@ export class CategoryComponent implements OnInit {
       this.adminCatService.updateChildCategory(this.obj.id, body).subscribe(
         x => {
           this.getCategoryWithChildren();
-          this.alertify.success('Successfully Updated');
+          this.uiService.success('Successfully Updated');
         },
         error => this.error()
       );
@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
         newChild => {
           const index = this.categories.indexOf(this.categories.find(x => x.id == pId));
           this.categories.splice(index, 1, newChild);
-          this.alertify.success('Added Successfully');
+          this.uiService.success('Added Successfully');
         },
         error => this.error()
       );
@@ -60,7 +60,7 @@ export class CategoryComponent implements OnInit {
         x => {
           const index = this.categories.indexOf(this.categories.find(p => p.id == this.obj.id));
           this.categories.splice(index, 1, x);
-          this.alertify.success('Successfully Updated');
+          this.uiService.success('Successfully Updated');
         },
         error => this.error()
       );
@@ -69,7 +69,7 @@ export class CategoryComponent implements OnInit {
       this.adminCatService.addCategory(body).subscribe(
         x => {
           this.categories.push(x);
-          this.alertify.success('Added Successfully');
+          this.uiService.success('Added Successfully');
         },
         error => this.error()
       );
@@ -94,27 +94,21 @@ export class CategoryComponent implements OnInit {
     const childCategory: any[] = this.categories.find(p => p.id == pId).childCategories;
     const child = childCategory.find(c => c.id == childid);
 
-    this.alertify.confirm(
-      'Are you sure you wantb to delete <b>' + child.name + '</b> sub category',
-      () => {
-        this.adminCatService.deleteChildCategory(childid).subscribe(() => {
-          childCategory.splice(_.findIndex(childCategory, child), 1);
-          this.alertify.success('Deleted Successfully');
-        });
-      }
-    );
+    this.uiService.confirm('Are you sure you wantb to delete <b>' + child.name + '</b> sub category', () => {
+      this.adminCatService.deleteChildCategory(childid).subscribe(() => {
+        childCategory.splice(_.findIndex(childCategory, child), 1);
+        this.uiService.success('Deleted Successfully');
+      });
+    });
   }
 
   deleteCategory(pid) {
-    this.alertify.confirm(
-      'Deleting the main category will also delete all product associated with it',
-      () => {
-        this.adminCatService.deleteCategory(pid).subscribe(x => {
-          this.categories.splice(_.indexOf(this.categories, x), 1);
-          this.alertify.success('Deleted Succesfully');
-        });
-      }
-    );
+    this.uiService.confirm('Deleting the main category will also delete all product associated with it', () => {
+      this.adminCatService.deleteCategory(pid).subscribe(x => {
+        this.categories.splice(_.indexOf(this.categories, x), 1);
+        this.uiService.success('Deleted Succesfully');
+      });
+    });
   }
 
   onSelectChange() {
@@ -146,7 +140,7 @@ export class CategoryComponent implements OnInit {
   }
 
   error() {
-    this.alertify.error('Something went wrong');
+    this.uiService.error('Something went wrong');
   }
   resetForm(form: NgForm) {
     this.isChildUpdate = false;

@@ -62,9 +62,11 @@ a:focus {
 
 /* ngx-gallery */
 div.ngx-gallery-arrow-wrapper {
-  z-index: 1000 !important;
+  z-index: 901 !important;
 }
-
+.ngx-gallery-image.ngx-gallery-active {
+  z-index: 900 !important;
+}
 /* dialog styless */
 .dialog-container .mat-dialog-container {
   display: flex;
