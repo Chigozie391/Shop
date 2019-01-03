@@ -4,11 +4,11 @@ import { Modal } from 'src/app/_models/modal';
 import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css']
+  selector: 'app-cart-dialog',
+  templateUrl: './cart-dialog.component.html',
+  styleUrls: ['./cart-dialog.component.css']
 })
-export class DialogComponent implements OnInit {
+export class CartDialogComponent implements OnInit {
   modalBody: Modal = {};
   constructor(private dialog: MatDialog, private uiService: UIService) {}
 
@@ -22,7 +22,7 @@ export class DialogComponent implements OnInit {
   }
   public openDialog(body: Modal, okCallback: () => any, noCallback?: () => any) {
     this.uiService.setModalMessage(body);
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(CartDialogComponent, {
       height: '200px',
       width: '600px',
       panelClass: ['dialog-container', 'ng-inserted', 'dialog-cont']

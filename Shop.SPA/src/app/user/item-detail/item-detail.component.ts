@@ -6,16 +6,16 @@ import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { isUndefined } from 'util';
 import * as _ from 'underscore';
-import { DialogComponent } from '../dialog/dialog.component';
 import { Modal } from 'src/app/_models/modal';
 import { UIService } from 'src/app/_services/global/alertify.service';
+import { CartDialogComponent } from '../dialogs/cart-dialog/cart-dialog.component';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+  selector: 'app-item-detail',
+  templateUrl: './item-detail.component.html',
+  styleUrls: ['./item-detail.component.css']
 })
-export class ItemsComponent implements OnInit {
+export class ItemDetailComponent implements OnInit {
   @ViewChild('form') form: NgForm;
   product: Products;
   galleryOptions: NgxGalleryOptions[];
@@ -33,7 +33,7 @@ export class ItemsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private uiService: UIService,
-    private dialogComp: DialogComponent,
+    private dialogComp: CartDialogComponent,
     private router: Router
   ) {}
 

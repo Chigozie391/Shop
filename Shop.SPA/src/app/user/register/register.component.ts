@@ -6,9 +6,9 @@ import { AuthService } from 'src/app/_services/global/auth.service';
 import { UIService } from 'src/app/_services/global/alertify.service';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
   user: User = {};

@@ -12,9 +12,9 @@ import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
-import { ItemsComponent } from './user/items/items.component';
 import { CartComponent } from './user/cart/cart.component';
-import { RegisterComponent } from './user/register/auth.component';
+import { RegisterComponent } from './user/register/register.component';
+import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 
 export const appRoutes: Routes = [
   {
@@ -58,8 +58,8 @@ export const appRoutes: Routes = [
         component: HomeComponent
       },
       {
-        path: 'view/:id',
-        component: ItemsComponent,
+        path: 'detail/:id',
+        component: ItemDetailComponent,
         resolve: { product: ProductViewResolver }
       },
       {

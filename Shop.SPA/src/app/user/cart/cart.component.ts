@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
 import { Router } from '@angular/router';
 import { UIService } from 'src/app/_services/global/alertify.service';
+import { AuthService } from 'src/app/_services/global/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +17,12 @@ export class CartComponent implements OnInit {
   totalPrice = 0;
   storedItem: any[] = JSON.parse(localStorage.getItem(this.cartToken));
 
-  constructor(private productService: ProductService, private uiService: UIService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private uiService: UIService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.storedItem.forEach(element => {
@@ -86,6 +92,14 @@ export class CartComponent implements OnInit {
     this.getTotalPrice();
   }
   viewProduct(productId: number) {
-    this.router.navigate(['view', productId]);
+    this.router.navigate(['detail', productId]);
+  }
+
+  checkout() {
+    if (!this.authService.loggedIn()) {
+      this.uiService.openLoginModel();
+    } else {
+      this.uiService.openShippingAddressModel();
+    }
   }
 }

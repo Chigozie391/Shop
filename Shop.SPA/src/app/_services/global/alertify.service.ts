@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Modal } from 'src/app/_models/modal';
 import { environment } from 'src/environments/environment';
-import { LoginModalComponent } from 'src/app/user/login-modal/login-modal.component';
+import { LoginModalComponent } from 'src/app/user/dialogs/login-modal/login-modal.component';
 declare let alertify: any;
 
 @Injectable({
@@ -23,6 +23,10 @@ export class UIService {
 
   openLoginModel() {
     this.loginModel.openDialog();
+  }
+
+  openShippingAddressModel() {
+    console.log('Opening Shipping address model');
   }
 
   setModalMessage(body: Modal) {

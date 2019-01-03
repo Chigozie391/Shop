@@ -29,14 +29,14 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { FooterComponent } from './user/footer/footer.component';
 import { CarouselComponent } from './user/carousel/carousel.component';
-import { ItemsComponent } from './user/items/items.component';
 import { MoneyPipe } from './_utils/money.pipe';
-import { DialogComponent } from './user/dialog/dialog.component';
 import { CartComponent } from './user/cart/cart.component';
-import { RegisterComponent } from './user/register/auth.component';
-import { LoginModalComponent } from './user/login-modal/login-modal.component';
 import { UIService } from './_services/global/alertify.service';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { RegisterComponent } from './user/register/register.component';
+import { MatDialogRef } from '@angular/material';
+import { CartDialogComponent } from './user/dialogs/cart-dialog/cart-dialog.component';
+import { LoginModalComponent } from './user/dialogs/login-modal/login-modal.component';
+import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,11 +60,11 @@ export function tokenGetter() {
     CarouselComponent,
     UserNavComponent,
     UserPanelComponent,
-    DialogComponent,
-    ItemsComponent,
+    CartDialogComponent,
+    ItemDetailComponent,
     CartComponent,
-    FooterComponent,
     RegisterComponent,
+    FooterComponent,
     LoginModalComponent,
     HasRoleDirective,
     MoneyPipe
@@ -87,12 +87,12 @@ export function tokenGetter() {
       }
     })
   ],
-  entryComponents: [DialogComponent, LoginModalComponent],
+  entryComponents: [CartDialogComponent, LoginModalComponent],
   providers: [
     UIService,
     ProductViewResolver,
     AdminGuard,
-    DialogComponent,
+    CartDialogComponent,
     LoginModalComponent,
     { provide: MatDialogRef, useValue: {} }
   ],

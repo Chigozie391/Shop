@@ -9,7 +9,7 @@
           <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let product of products">
             <article class="card-wrapper">
               <div class="image-holder">
-                <a [routerLink]="['/view', product.id]" class="image-holder__link"></a>
+                <a [routerLink]="['/detail', product.id]" class="image-holder__link"></a>
                 <div
                   class="image-liquid image-holder--original"
                   [ngStyle]="{ 'background-image': 'url(' + product.photoUrl + ')' }"
@@ -32,9 +32,7 @@
                 <!-- sizes -->
                 <div class="sizes-wrapper">
                   <b>Description</b> <br />
-                  <span class="secondary-text .product-description__category">
-                    {{ product.description }}
-                  </span>
+                  <span class="secondary-text .product-description__category"> {{ product.description }} </span>
                 </div>
               </div>
             </article>

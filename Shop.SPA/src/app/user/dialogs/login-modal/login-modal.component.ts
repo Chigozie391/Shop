@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/_models/User';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService } from 'src/app/_services/global/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-modal',
@@ -15,7 +16,8 @@ export class LoginModalComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<LoginModalComponent>,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -26,8 +28,13 @@ export class LoginModalComponent implements OnInit {
     });
   }
   login() {
-    this.authService.login(this.user).subscribe(x => {}, null, () => {
+    this.authService.login(this.user).subscribe(() => {}, null, () => {
       this.dialogRef.close();
     });
+  }
+
+  register() {
+    this.router.navigate(['/register']);
+    this.dialogRef.close();
   }
 }
