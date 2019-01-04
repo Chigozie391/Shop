@@ -16,6 +16,17 @@ button {
 mat-label {
   color: rgba(0, 0, 0, 0.5) !important;
 }
-a {
-  font-size: 14px;
+.form-group {
+  margin-left: 20px;
+}
+span {
+  font-size: 13px;
+  font-weight: 300;
+  color: #007bff;
+  transition: 0.3 all;
+  cursor: pointer;
+}
+
+span:hover {
+  color: #222222;
 }

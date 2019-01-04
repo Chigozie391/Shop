@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.API.Persistance;
 
 namespace Shop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190104083447_'AddedMorePropertyToUser'")]
+    partial class AddedMorePropertyToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,29 +123,6 @@ namespace Shop.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ChildCategories");
-                });
-
-            modelBuilder.Entity("Shop.API.Core.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<bool>("IsShipped");
-
-                    b.Property<string>("Items");
-
-                    b.Property<DateTime>("OrderDate");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Shop.API.Core.Models.Photo", b =>
@@ -357,14 +336,6 @@ namespace Shop.Migrations
                     b.HasOne("Shop.API.Core.Models.Category", "Category")
                         .WithMany("ChildCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Shop.API.Core.Models.Order", b =>
-                {
-                    b.HasOne("Shop.API.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

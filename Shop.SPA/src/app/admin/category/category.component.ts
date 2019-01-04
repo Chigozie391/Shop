@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'underscore';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-category',

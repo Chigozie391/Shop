@@ -5,7 +5,7 @@ import { Products } from 'src/app/_models/Products';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-create-product',

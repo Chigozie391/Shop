@@ -50,9 +50,8 @@ namespace Shop.API.Controllers
 			if (result.Succeeded)
 			{
 				await this.userManager.AddToRoleAsync(userToCreate, userForRegister.Role);
-				var user = this.mapper.Map<UserForDetail>(userToCreate);
 
-				return Ok(user);
+				return Ok();
 			}
 			return BadRequest(result.Errors);
 
@@ -61,19 +60,14 @@ namespace Shop.API.Controllers
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(UserForLogin userForLoginDto)
 		{
-			var userToLogin = (userForLoginDto.UserName != null) ?
-									await this.userManager.FindByNameAsync(userForLoginDto.UserName) :
-									await this.userManager.FindByEmailAsync(userForLoginDto.Email);
+			var userToLogin = await this.userManager.FindByEmailAsync(userForLoginDto.Email);
 
 			if (userToLogin != null)
 			{
 				var result = await this.signInManager.CheckPasswordSignInAsync(userToLogin, userForLoginDto.Password, false);
 				if (result.Succeeded)
 				{
-					var appUser = (userForLoginDto.UserName != null) ?
-										await this.userManager.Users
-										.FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.UserName.ToUpper()) :
-										await this.userManager.Users
+					var appUser = await this.userManager.Users
 										.FirstOrDefaultAsync(u => u.NormalizedEmail == userForLoginDto.Email.ToUpper());
 
 					var user = this.mapper.Map<UserForDetail>(appUser);

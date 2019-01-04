@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 p-2 mb-3 border-bottom"><h4>Login</h4></div>
-    <div class="col-12 px-5">
+    <div class="col-12 px-4">
       <form name="form" role="form" #registerForm="ngForm" (ngSubmit)="login()">
         <div class="form-group">
           <mat-form-field appearance="standard">
@@ -42,8 +42,14 @@
               Your password is required to be at least 4 characters.</mat-error
             >
           </mat-form-field>
+
+          <mat-checkbox name="rememberMe" color="primary" [(ngModel)]="rememberMe">Remember me</mat-checkbox>
         </div>
-        <div class="form-group mb-3"><button mat-raised-button color="primary" type="submit">Login</button></div>
+
+        <div class="form-group mb-3 d-flex flex-column align-items-start">
+          <button class="btn btn-primary text-uppercase mb-2" type="submit">Login</button>
+          <button class="btn google shadow text-uppercase">Login with Google</button>
+        </div>
         <div class="d-block"><a href="#" class="d-inline-block ">Reset Password</a></div>
         <div class="d-block"><span class="d-inline-block" (click)="register()">Register</span></div>
       </form>

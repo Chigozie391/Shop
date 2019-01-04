@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Modal } from 'src/app/_models/modal';
 import { environment } from 'src/environments/environment';
-import { LoginModalComponent } from 'src/app/user/dialogs/login-modal/login-modal.component';
+import { ShippingAddressDialogComponent } from 'src/app/user/dialogs/shipping-address-dialog/shipping-address-dialog.component';
+import { LoginDialogComponent } from 'src/app/user/dialogs/login-dialog/login-dialog.component';
 declare let alertify: any;
 
 @Injectable({
@@ -17,16 +18,16 @@ export class UIService {
   private modalMessage = new BehaviorSubject<Modal>({});
   modalMessageObserver = this.modalMessage.asObservable();
 
-  constructor(private loginModel: LoginModalComponent) {
+  constructor(private loginDialog: LoginDialogComponent, private shippingAddress: ShippingAddressDialogComponent) {
     this.updateTotalItemInCart();
   }
 
   openLoginModel() {
-    this.loginModel.openDialog();
+    this.loginDialog.openDialog();
   }
 
   openShippingAddressModel() {
-    console.log('Opening Shipping address model');
+    this.shippingAddress.openDialog();
   }
 
   setModalMessage(body: Modal) {

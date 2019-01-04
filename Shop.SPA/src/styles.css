@@ -37,6 +37,13 @@ button:focus,
 .smfont-dropdown {
   font-size: 14px;
 }
+
+.google {
+  background-color: #db4437;
+  color: white;
+  font-size: 13px;
+}
+
 .cursor {
   cursor: pointer;
   transition: 0.3s all;
@@ -67,7 +74,13 @@ div.ngx-gallery-arrow-wrapper {
 .ngx-gallery-image.ngx-gallery-active {
   z-index: 900 !important;
 }
-/* dialog styless */
+
+/* dialog styless for checkout*/
+.checkout-container .mat-dialog-container {
+  padding: 24px 15px;
+}
+
+/* dialog styless for cart*/
 .dialog-container .mat-dialog-container {
   display: flex;
   justify-content: space-around;

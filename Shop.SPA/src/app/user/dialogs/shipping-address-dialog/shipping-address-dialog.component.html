@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 p-2 border-bottom"><h4>Shipping Address</h4></div>
+    <div class="col-12 px-3">
+      <form name="form" role="form" #proceedForm="ngForm" (ngSubmit)="proceed()">
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>State</mat-label>
+            <input
+              matInput
+              type="text"
+              id="state"
+              name="state"
+              maxlength="254"
+              required
+              [(ngModel)]="currentUser.state"
+              ngModel
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>City</mat-label>
+            <input
+              matInput
+              type="text"
+              id="city"
+              name="city"
+              maxlength="254"
+              required
+              [(ngModel)]="currentUser.city"
+              ngModel
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              type="text"
+              id="address"
+              name="address"
+              maxlength="254"
+              required
+              [(ngModel)]="currentUser.address"
+              ngModel
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              maxlength="254"
+              required
+              [(ngModel)]="currentUser.phoneNumber"
+              ngModel
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Optional Phone Number</mat-label>
+            <input matInput type="text" id="phoneNumber2" name="phoneNumber2" maxlength="254" />
+          </mat-form-field>
+        </div>
+        <mat-checkbox name="defaultShipping" [(ngModel)]="defaultShipping"
+          >Set as default shipping details</mat-checkbox
+        >
+        <div class="form-group d-flex justify-content-center mt-3 col">
+          <button type="submit" class="add-cart btn shadow text-uppercase" [disabled]="proceedForm.invalid">
+            Checkout
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

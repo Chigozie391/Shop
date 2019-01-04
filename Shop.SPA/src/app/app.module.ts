@@ -31,12 +31,13 @@ import { FooterComponent } from './user/footer/footer.component';
 import { CarouselComponent } from './user/carousel/carousel.component';
 import { MoneyPipe } from './_utils/money.pipe';
 import { CartComponent } from './user/cart/cart.component';
-import { UIService } from './_services/global/alertify.service';
+import { UIService } from './_services/global/ui.service';
 import { RegisterComponent } from './user/register/register.component';
 import { MatDialogRef } from '@angular/material';
 import { CartDialogComponent } from './user/dialogs/cart-dialog/cart-dialog.component';
-import { LoginModalComponent } from './user/dialogs/login-modal/login-modal.component';
 import { ItemDetailComponent } from './user/item-detail/item-detail.component';
+import { ShippingAddressDialogComponent } from './user/dialogs/shipping-address-dialog/shipping-address-dialog.component';
+import { LoginDialogComponent } from './user/dialogs/login-dialog/login-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -65,7 +66,8 @@ export function tokenGetter() {
     CartComponent,
     RegisterComponent,
     FooterComponent,
-    LoginModalComponent,
+    LoginDialogComponent,
+    ShippingAddressDialogComponent,
     HasRoleDirective,
     MoneyPipe
   ],
@@ -87,13 +89,14 @@ export function tokenGetter() {
       }
     })
   ],
-  entryComponents: [CartDialogComponent, LoginModalComponent],
+  entryComponents: [CartDialogComponent, LoginDialogComponent, ShippingAddressDialogComponent],
   providers: [
     UIService,
     ProductViewResolver,
     AdminGuard,
     CartDialogComponent,
-    LoginModalComponent,
+    LoginDialogComponent,
+    ShippingAddressDialogComponent,
     { provide: MatDialogRef, useValue: {} }
   ],
   bootstrap: [AppComponent]

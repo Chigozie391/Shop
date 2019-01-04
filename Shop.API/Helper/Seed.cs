@@ -36,8 +36,8 @@ namespace Shop.API.Helper
 				}
 				var users = new List<User>
 				{
-					new User{UserName = "Jesse",Email = "customer@test.com"},
-					new User{UserName = "Pamela", Email = "admin@test.com"}
+					new User{UserName = "customer@test.com",Email = "customer@test.com", FirstName = "Jesse", LastName = "Madubuko"},
+					new User{UserName = "admin@test.com", Email = "admin@test.com", FirstName = "Pamela", LastName = "Iwuoha"}
 				};
 
 				foreach (var user in users)

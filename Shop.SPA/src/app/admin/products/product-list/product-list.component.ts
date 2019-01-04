@@ -4,7 +4,7 @@ import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { ProductQuery } from 'src/app/_models/productQuery';
 import { tap } from 'rxjs/operators';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-product-list',

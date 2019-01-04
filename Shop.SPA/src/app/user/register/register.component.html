@@ -4,7 +4,39 @@
       <form name="form" role="form" (ngSubmit)="register()" #registerForm="ngForm">
         <div class="form-group">
           <mat-form-field appearance="standard">
-            <mat-label>Your Email</mat-label>
+            <mat-label>First Name</mat-label>
+
+            <input
+              matInput
+              type="text"
+              id="firstName"
+              name="firstName"
+              #firstName="ngModel"
+              [(ngModel)]="user.firstName"
+              required
+            />
+            <mat-error *ngIf="firstName.hasError('required')">Your first name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Last Name</mat-label>
+
+            <input
+              matInput
+              type="text"
+              id="lastName"
+              name="lastName"
+              #lastName="ngModel"
+              [(ngModel)]="user.lastName"
+              required
+            />
+            <mat-error *ngIf="lastName.hasError('required')"> Your last name is required.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
 
             <input
               matInput
@@ -24,7 +56,7 @@
         </div>
         <div class="form-group">
           <mat-form-field appearance="standard">
-            <mat-label>Your Phone Number</mat-label>
+            <mat-label>Phone Number</mat-label>
 
             <input
               matInput
@@ -42,7 +74,7 @@
         </div>
         <div class="form-group">
           <mat-form-field appearance="standard">
-            <mat-label>Your Password</mat-label>
+            <mat-label>Password</mat-label>
 
             <input
               matInput
@@ -81,7 +113,7 @@
             <mat-label>Confirm Password</mat-label>
             <input
               matInput
-              type="text"
+              type="password"
               id="confirmPassword"
               name="confirmPassword"
               #confirmPasswordInput="ngModel"
@@ -96,16 +128,17 @@
             <mat-error *ngIf="confirmPasswordInput.hasError('mismatch')"> Your password do not match.</mat-error>
           </mat-form-field>
         </div>
-        <div class="form-group my-2 text-center">
+        <div class=" mt-4 my-5 d-flex align-items-center flex-column">
           <button
-            class="btn btn-success text-uppercase"
+            [disabled]="registerForm.invalid"
+            mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="registerForm.form.invalid"
+            class="text-uppercase mb-4"
           >
             Register
           </button>
-          <div class="d-block my-2"><a href="#" class="d-inline-block my-1">Sign In</a></div>
+          <button class="btn google shadow text-uppercase">Register with Google</button>
         </div>
       </form>
     </div>

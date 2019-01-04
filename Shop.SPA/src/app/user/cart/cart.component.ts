@@ -3,7 +3,7 @@ import { ProductService } from 'src/app/_services/admin/product.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
 import { Router } from '@angular/router';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 import { AuthService } from 'src/app/_services/global/auth.service';
 
 @Component({

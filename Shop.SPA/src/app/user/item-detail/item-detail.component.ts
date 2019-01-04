@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 import { isUndefined } from 'util';
 import * as _ from 'underscore';
 import { Modal } from 'src/app/_models/modal';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 import { CartDialogComponent } from '../dialogs/cart-dialog/cart-dialog.component';
 
 @Component({

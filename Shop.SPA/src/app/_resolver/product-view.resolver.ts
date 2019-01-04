@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Products } from '../_models/Products';
 import { ProductService } from '../_services/admin/product.service';
 import { catchError } from 'rxjs/operators';
-import { UIService } from '../_services/global/alertify.service';
+import { UIService } from '../_services/global/ui.service';
 
 @Injectable()
 export class ProductViewResolver implements Resolve<Products> {

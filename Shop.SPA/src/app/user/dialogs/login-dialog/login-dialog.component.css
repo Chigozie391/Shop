@@ -14,3 +14,6 @@ a:hover,
 span:hover {
   color: #222222;
 }
+button {
+  font-size: 13px;
+}

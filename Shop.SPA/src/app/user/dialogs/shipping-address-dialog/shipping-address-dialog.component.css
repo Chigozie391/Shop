@@ -1,0 +1,22 @@
+mat-form-field {
+  width: 100%;
+}
+button.add-cart {
+  outline: none;
+  border-radius: 23px;
+  font-size: 15px;
+  color: white;
+  transition: all 0.4s;
+  height: 100%;
+  background-color: #222222;
+  padding: 10px 30px;
+  font-weight: 100;
+  width: 100%;
+}
+button.add-cart:hover {
+  background-color: #e65540;
+  color: white;
+}
+div.form-group {
+  margin-bottom: 0;
+}

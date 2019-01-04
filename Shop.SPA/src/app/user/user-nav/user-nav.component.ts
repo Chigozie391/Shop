@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { AuthService } from 'src/app/_services/global/auth.service';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-user-nav',

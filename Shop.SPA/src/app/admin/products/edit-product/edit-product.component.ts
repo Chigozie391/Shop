@@ -3,7 +3,7 @@ import { ProductService } from 'src/app/_services/admin/product.service';
 import { Products } from 'src/app/_models/Products';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { NgForm } from '@angular/forms';
-import { UIService } from 'src/app/_services/global/alertify.service';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-edit-product',
