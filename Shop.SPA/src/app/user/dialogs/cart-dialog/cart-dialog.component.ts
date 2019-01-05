@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Modal } from 'src/app/_models/modal';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { DialogService } from 'src/app/_services/global/dialog.service';
 
 @Component({
   selector: 'app-cart-dialog',
@@ -10,10 +10,10 @@ import { UIService } from 'src/app/_services/global/ui.service';
 })
 export class CartDialogComponent implements OnInit {
   modalBody: Modal = {};
-  constructor(private dialog: MatDialog, private uiService: UIService) {}
+  constructor(private dialog: MatDialog, private dialogService: DialogService) {}
 
   ngOnInit() {
-    this.uiService.modalMessageObserver.subscribe(body => {
+    this.dialogService.modalMessageObserver.subscribe(body => {
       this.modalBody.title = body.title;
       this.modalBody.message = body.message;
       this.modalBody.trueValue = body.trueValue;
@@ -21,7 +21,7 @@ export class CartDialogComponent implements OnInit {
     });
   }
   public openDialog(body: Modal, okCallback: () => any, noCallback?: () => any) {
-    this.uiService.setModalMessage(body);
+    this.dialogService.setModalMessage(body);
     const dialogRef = this.dialog.open(CartDialogComponent, {
       height: '200px',
       width: '600px',

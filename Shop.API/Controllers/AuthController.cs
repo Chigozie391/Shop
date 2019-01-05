@@ -22,19 +22,16 @@ namespace Shop.API.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
-		private readonly IAuthRepository repo;
 		private readonly IMapper mapper;
 		private readonly IConfiguration config;
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
 
-		public AuthController(IAuthRepository repo,
-			IMapper mapper,
+		public AuthController(IMapper mapper,
 			IConfiguration config,
 			UserManager<User> userManager,
 			SignInManager<User> signInManager)
 		{
-			this.repo = repo;
 			this.mapper = mapper;
 			this.config = config;
 			this.userManager = userManager;

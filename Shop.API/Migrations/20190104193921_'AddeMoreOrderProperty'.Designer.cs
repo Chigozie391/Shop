@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.API.Persistance;
 
 namespace Shop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190104193921_'AddeMoreOrderProperty'")]
+    partial class AddeMoreOrderProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,10 +141,6 @@ namespace Shop.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<string>("PhoneNumber2");
-
                     b.Property<DateTime>("ShippingDate");
 
                     b.Property<string>("State");
@@ -263,8 +261,6 @@ namespace Shop.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
-
-                    b.Property<bool>("HasDefaultAddress");
 
                     b.Property<string>("LastName");
 

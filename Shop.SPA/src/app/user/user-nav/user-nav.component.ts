@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/_services/admin/category.service';
 import { AuthService } from 'src/app/_services/global/auth.service';
 import { UIService } from 'src/app/_services/global/ui.service';
+import { DialogService } from 'src/app/_services/global/dialog.service';
 
 @Component({
   selector: 'app-user-nav',
@@ -18,7 +19,8 @@ export class UserNavComponent implements OnInit {
     private authService: AuthService,
     private uiService: UIService,
     private cateService: CategoryService,
-    private router: Router
+    private router: Router,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class UserNavComponent implements OnInit {
   }
 
   showLoginModal() {
-    this.uiService.openLoginModel();
+    this.dialogService.openLoginModel();
   }
 
   isAdmin() {

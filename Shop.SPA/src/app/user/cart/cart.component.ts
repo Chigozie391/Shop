@@ -5,6 +5,7 @@ import * as _ from 'underscore';
 import { Router } from '@angular/router';
 import { UIService } from 'src/app/_services/global/ui.service';
 import { AuthService } from 'src/app/_services/global/auth.service';
+import { DialogService } from 'src/app/_services/global/dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,8 @@ export class CartComponent implements OnInit {
     private productService: ProductService,
     private uiService: UIService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -97,9 +99,9 @@ export class CartComponent implements OnInit {
 
   checkout() {
     if (!this.authService.loggedIn()) {
-      this.uiService.openLoginModel();
+      this.dialogService.openLoginModel();
     } else {
-      this.uiService.openShippingAddressModel();
+      this.dialogService.openShippingAddressModel();
     }
   }
 }

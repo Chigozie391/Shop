@@ -4,6 +4,7 @@ using Shop.API.Dtos.AuthDto;
 using Shop.API.Dtos.CategoryDto;
 using Shop.API.Dtos.PhotosDto;
 using Shop.API.Dtos.ProductDto;
+using Shop.API.Dtos.UserDto;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -78,6 +79,13 @@ namespace Shop.API.Mapping
 
 			//Auth
 			CreateMap<UserForRegister, User>();
+
+			//Order
+			CreateMap<OrderForCreation, Order>();
+
+			//User
+			CreateMap<UserForSetDefaultAddress, User>();
+
 		}
 	}
 }

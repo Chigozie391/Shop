@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthService } from 'src/app/_services/global/auth.service';
 import { Router } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { UIService } from 'src/app/_services/global/ui.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -19,7 +20,8 @@ export class LoginDialogComponent implements OnInit {
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private uiService: UIService
   ) {}
 
   ngOnInit() {}
@@ -30,13 +32,21 @@ export class LoginDialogComponent implements OnInit {
     });
   }
   login() {
-    this.authService.login(this.user).subscribe(() => {}, null, () => {
-      if (this.router.url == '/register') {
-        this.router.navigate(['/']);
-      }
+    this.authService.login(this.user).subscribe(
+      () => {
+        this.uiService.success('Login Successful');
+      },
+      error => {
+        this.uiService.error('Email or password is incorrect');
+      },
+      () => {
+        if (this.router.url == '/register') {
+          this.router.navigate(['/']);
+        }
 
-      this.dialogRef.close();
-    });
+        this.dialogRef.close();
+      }
+    );
   }
 
   register() {

@@ -8,5 +8,7 @@ export interface User {
   phoneNumber?: string;
   address?: string;
   city?: string;
+  items?: string;
   state?: string;
+  hasDefaultAddress?: boolean;
 }

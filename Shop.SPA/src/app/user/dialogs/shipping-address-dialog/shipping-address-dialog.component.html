@@ -13,9 +13,10 @@
               name="state"
               maxlength="254"
               required
-              [(ngModel)]="currentUser.state"
-              ngModel
+              [(ngModel)]="userWithDefaultAddress.state"
+              #state="ngModel"
             />
+            <mat-error *ngIf="state.hasError('required')"> Your state is required.</mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -28,9 +29,10 @@
               name="city"
               maxlength="254"
               required
-              [(ngModel)]="currentUser.city"
-              ngModel
+              [(ngModel)]="userWithDefaultAddress.city"
+              #city="ngModel"
             />
+            <mat-error *ngIf="city.hasError('required')"> Your city is required.</mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -43,9 +45,10 @@
               name="address"
               maxlength="254"
               required
-              [(ngModel)]="currentUser.address"
-              ngModel
+              [(ngModel)]="userWithDefaultAddress.address"
+              #address="ngModel"
             />
+            <mat-error *ngIf="address.hasError('required')"> Your address is required.</mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -58,18 +61,19 @@
               name="phoneNumber"
               maxlength="254"
               required
-              [(ngModel)]="currentUser.phoneNumber"
-              ngModel
+              [(ngModel)]="userWithDefaultAddress.phoneNumber"
+              #phoneNumber="ngModel"
             />
+            <mat-error *ngIf="phoneNumber.hasError('required')"> Your phone number is required.</mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field appearance="standard">
             <mat-label>Optional Phone Number</mat-label>
-            <input matInput type="text" id="phoneNumber2" name="phoneNumber2" maxlength="254" />
+            <input matInput type="number" id="phoneNumber2" name="phoneNumber2" maxlength="254" />
           </mat-form-field>
         </div>
-        <mat-checkbox name="defaultShipping" [(ngModel)]="defaultShipping"
+        <mat-checkbox name="userWithDefaultAddress" [(ngModel)]="setAsDefaultAddress"
           >Set as default shipping details</mat-checkbox
         >
         <div class="form-group d-flex justify-content-center mt-3 col">
