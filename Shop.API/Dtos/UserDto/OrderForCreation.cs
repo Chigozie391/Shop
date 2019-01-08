@@ -13,7 +13,7 @@ namespace Shop.API.Dtos.UserDto
 		public string Items { get; set; }
 
 		[Required]
-		public decimal Price { get; set; }
+		public decimal TotalPrice { get; set; }
 
 		[Required]
 		public decimal Reference { get; set; }

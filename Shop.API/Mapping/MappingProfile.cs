@@ -17,6 +17,9 @@ namespace Shop.API.Mapping
 
 			// API TO USER
 
+			//user
+			CreateMap<Order, OrderToReturnForUser>();
+
 			// category
 			CreateMap<Category, CategoryForReturn>();
 			CreateMap<ChildCategory, Dtos.CategoryDto.KeyValuePair>();
@@ -62,6 +65,11 @@ namespace Shop.API.Mapping
 				opt.MapFrom(src => src.ChildCategory.Category.Name);
 			});
 
+			CreateMap<Product, ProductForCartReturn>()
+			.ForMember(des => des.PhotoUrl, opt =>
+			{
+				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
+			});
 
 			// USER TO API
 

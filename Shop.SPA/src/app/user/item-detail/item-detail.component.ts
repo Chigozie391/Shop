@@ -64,9 +64,9 @@ export class ItemDetailComponent implements OnInit {
     }
     // add to cart
     const newCartItem = {
+      productId: this.product.id,
       size: this.selectedSize,
-      quantity: this.quantity,
-      productId: this.product.id
+      quantity: this.quantity
     };
 
     const oldItemFromStorage = localStorage.getItem(this.cartToken);

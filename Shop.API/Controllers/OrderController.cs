@@ -16,10 +16,12 @@ namespace Shop.API.Controllers
 	{
 		private readonly IMapper mapper;
 		private readonly IUnitOfWork unitOfWork;
-		private readonly IUserRepository repo;
-		public OrderController(IMapper mapper, IUserRepository repo, IUnitOfWork unitOfWork)
+		private readonly IUserRepository userRepo;
+		private readonly IOrderRepository orderRepo;
+		public OrderController(IMapper mapper, IUserRepository userRepo, IOrderRepository orderRepo, IUnitOfWork unitOfWork)
 		{
-			this.repo = repo;
+			this.orderRepo = orderRepo;
+			this.userRepo = userRepo;
 			this.unitOfWork = unitOfWork;
 			this.mapper = mapper;
 		}
@@ -28,7 +30,7 @@ namespace Shop.API.Controllers
 		public async Task<IActionResult> CreateOrder(int Id, OrderForCreation orderForCreation)
 		{
 			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-			var user = await this.repo.GetUser(Id);
+			var user = await this.userRepo.GetUser(Id);
 
 			if (user == null)
 				return NotFound("User not found");
@@ -44,6 +46,18 @@ namespace Shop.API.Controllers
 				return NoContent();
 
 			return BadRequest("Could not create order");
+		}
+
+		[HttpGet("{userId}/{reference}")]
+		public async Task<IActionResult> GetOrderedItems(int userId, string reference)
+		{
+			var order = await this.orderRepo.GetOrderedItems(userId, reference);
+			if (order == null)
+				return BadRequest("Order does not exist");
+
+			var orderToReturn = this.mapper.Map<OrderToReturnForUser>(order);
+
+			return Ok(orderToReturn);
 		}
 	}
 }

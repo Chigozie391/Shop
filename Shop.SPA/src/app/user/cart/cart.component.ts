@@ -37,6 +37,8 @@ export class CartComponent implements OnInit, OnDestroy {
     private userService: UserService
   ) {
     if (this.storedItem) {
+      let counter = 0;
+      const arrlength = this.storedItem.length;
       this.storedItem.forEach(element => {
         this.productService.getProductForCart(element['productId']).subscribe(product => {
           const sizeArr = JSON.parse(product.sizes);
@@ -53,6 +55,13 @@ export class CartComponent implements OnInit, OnDestroy {
           };
           this.products.push(item);
           this.totalPrice += +element['quantity'] * product.price;
+
+          counter++;
+          if (counter == arrlength) {
+            // run this after the whole iteration
+            // updates the stored item
+            localStorage.setItem(this.cartToken, JSON.stringify(this.products));
+          }
         });
       });
     }
@@ -68,12 +77,12 @@ export class CartComponent implements OnInit, OnDestroy {
       document.getElementById('paystackbtn').click();
 
       // set order
-      this.order.items = JSON.stringify(this.storedItem);
+      this.order.items = JSON.stringify(this.products);
       this.order.address = this.userAddress.address;
       this.order.city = this.userAddress.city;
       this.order.state = this.userAddress.state;
       this.order.phoneNumber = this.userAddress.phoneNumber;
-      this.order.price = this.totalPrice;
+      this.order.totalPrice = this.totalPrice;
       if (this.userAddress.phoneNumber2) {
         this.order.phoneNumber2 = this.userAddress.phoneNumber2;
       }
@@ -82,7 +91,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   getTotalPrice() {
     this.totalPrice = 0;
-    localStorage.setItem(this.cartToken, JSON.stringify(this.storedItem));
+    localStorage.setItem(this.cartToken, JSON.stringify(this.products));
     this.products.forEach(x => {
       this.totalPrice += x.quantity * x.price;
     });
@@ -99,8 +108,7 @@ export class CartComponent implements OnInit, OnDestroy {
     item.quantity = item.quantity + 1;
     //modify the product display for user
     this.products.splice(_.findIndex(this.products, x), 1, item);
-    // modify the store item for locastorage
-    this.storedItem.splice(_.findIndex(this.storedItem, x), 1, item);
+
     this.getTotalPrice();
   }
 
@@ -114,8 +122,7 @@ export class CartComponent implements OnInit, OnDestroy {
     item.quantity = item.quantity - 1;
     //modify the product display for user
     this.products.splice(_.findIndex(this.products, x), 1, item);
-    // modify the store item for locastorage
-    this.storedItem.splice(_.findIndex(this.storedItem, x), 1, item);
+
     this.getTotalPrice();
   }
 
@@ -123,7 +130,6 @@ export class CartComponent implements OnInit, OnDestroy {
     const x = { productId: productId, size: size };
     this.products.splice(_.findIndex(this.products, x), 1);
 
-    this.storedItem.splice(_.findIndex(this.storedItem, x), 1);
     this.getTotalPrice();
   }
 
@@ -188,7 +194,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
         if (counter == arrlength) {
           // run this after the whole iteration
-          this.router.navigate(['/thankyou']);
+          this.router.navigate(['/thankyou', this.currentUser.id, this.order.reference]);
         }
       });
     });

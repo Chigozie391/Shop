@@ -1,0 +1,15 @@
+.check {
+  font-size: 60px;
+}
+.success-color {
+  color: #00c851;
+}
+.info {
+  width: 24rem;
+}
+.info span {
+  font-weight: 400;
+}
+.info p {
+  margin-bottom: 0;
+}

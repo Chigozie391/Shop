@@ -55,7 +55,7 @@ namespace Shop.API.Controllers
 		{
 			var product = await this.repo.GetProduct(id, false);
 
-			var productForDetail = this.mapper.Map<ProductForDetail>(product);
+			var productForDetail = this.mapper.Map<ProductForCartReturn>(product);
 
 			if (productForDetail == null)
 				return NotFound();

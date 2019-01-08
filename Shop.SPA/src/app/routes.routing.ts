@@ -10,18 +10,19 @@ import { ProductListComponent } from './admin/products/product-list/product-list
 import { ViewProductsComponent } from './admin/products/view-products/view-products.component';
 import { ProductViewResolver } from './_resolver/product-view.resolver';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
-import { AdminGuard } from './_guards/admin.guard';
+import { AuthGuard } from './_guards/auth.guard';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { CartComponent } from './user/cart/cart.component';
 import { RegisterComponent } from './user/register/register.component';
 import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 import { ThankyouComponent } from './user/thankyou/thankyou.component';
+import { ThankYouResolver } from './_resolver/thankyou.resolver';
 
 export const appRoutes: Routes = [
   {
     path: 'admin',
     runGuardsAndResolvers: 'always',
-    canActivate: [AdminGuard],
+    canActivate: [AuthGuard],
     component: AdminPanelComponent,
     data: { roles: ['Admin', 'Moderator'] },
     children: [
@@ -72,8 +73,12 @@ export const appRoutes: Routes = [
         component: RegisterComponent
       },
       {
-        path: 'thankyou',
-        component: ThankyouComponent
+        path: 'thankyou/:userid/:reference',
+        component: ThankyouComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['Customer'] },
+        runGuardsAndResolvers: 'always',
+        resolve: { order: ThankYouResolver }
       }
     ]
   },

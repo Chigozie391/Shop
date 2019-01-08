@@ -1,6 +1,6 @@
 export interface Order {
   items?: string;
-  price?: number;
+  totalPrice?: number;
   address?: string;
   city?: string;
   state?: string;

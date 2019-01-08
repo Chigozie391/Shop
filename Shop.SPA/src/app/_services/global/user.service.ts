@@ -21,4 +21,7 @@ export class UserService {
   updateProductSizeAfterOrder(productId: number, sizeArr) {
     return this.http.put(this.baseUrl + 'user/' + productId + '/product', sizeArr);
   }
+  getOrderForThankyou(userId: number, reference: string) {
+    return this.http.get(this.baseUrl + 'order/' + userId + '/' + reference);
+  }
 }

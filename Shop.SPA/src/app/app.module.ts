@@ -25,7 +25,7 @@ import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
 import { ProductDetailComponent } from './admin/products/product-detail/product-detail.component';
 import { CreateProductComponent } from './admin/products/create-product/create-product.component';
 import { EditProductComponent } from './admin/products/edit-product/edit-product.component';
-import { AdminGuard } from './_guards/admin.guard';
+import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { ArchivesComponent } from './admin/products/archives/archives.component';
 import { FooterComponent } from './user/footer/footer.component';
@@ -40,6 +40,7 @@ import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 import { ShippingAddressDialogComponent } from './user/dialogs/shipping-address-dialog/shipping-address-dialog.component';
 import { LoginDialogComponent } from './user/dialogs/login-dialog/login-dialog.component';
 import { ThankyouComponent } from './user/thankyou/thankyou.component';
+import { ThankYouResolver } from './_resolver/thankyou.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -97,7 +98,8 @@ export function tokenGetter() {
   providers: [
     UIService,
     ProductViewResolver,
-    AdminGuard,
+    ThankYouResolver,
+    AuthGuard,
     CartDialogComponent,
     LoginDialogComponent,
     ShippingAddressDialogComponent,
