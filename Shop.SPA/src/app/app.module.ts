@@ -9,6 +9,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes.routing';
 import { JwtModule } from '@auth0/angular-jwt';
+import { Angular4PaystackModule } from 'angular4-paystack';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { CategoryComponent } from './admin/category/category.component';
@@ -38,6 +39,7 @@ import { CartDialogComponent } from './user/dialogs/cart-dialog/cart-dialog.comp
 import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 import { ShippingAddressDialogComponent } from './user/dialogs/shipping-address-dialog/shipping-address-dialog.component';
 import { LoginDialogComponent } from './user/dialogs/login-dialog/login-dialog.component';
+import { ThankyouComponent } from './user/thankyou/thankyou.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -64,6 +66,7 @@ export function tokenGetter() {
     CartDialogComponent,
     ItemDetailComponent,
     CartComponent,
+    ThankyouComponent,
     RegisterComponent,
     FooterComponent,
     LoginDialogComponent,
@@ -81,6 +84,7 @@ export function tokenGetter() {
     RouterModule.forRoot(appRoutes),
     MaterialModule,
     FileUploadModule,
+    Angular4PaystackModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

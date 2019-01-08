@@ -15,6 +15,7 @@ import { ArchivesComponent } from './admin/products/archives/archives.component'
 import { CartComponent } from './user/cart/cart.component';
 import { RegisterComponent } from './user/register/register.component';
 import { ItemDetailComponent } from './user/item-detail/item-detail.component';
+import { ThankyouComponent } from './user/thankyou/thankyou.component';
 
 export const appRoutes: Routes = [
   {
@@ -69,6 +70,10 @@ export const appRoutes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'thankyou',
+        component: ThankyouComponent
       }
     ]
   },

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Modal } from 'src/app/_models/modal';
 import { LoginDialogComponent } from 'src/app/user/dialogs/login-dialog/login-dialog.component';
 import { ShippingAddressDialogComponent } from 'src/app/user/dialogs/shipping-address-dialog/shipping-address-dialog.component';

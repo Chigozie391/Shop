@@ -153,6 +153,26 @@ button.add-cart:hover {
   background-color: #e65540;
   color: white;
 }
+.start-shop {
+  outline: none;
+  border-radius: 23px;
+  font-size: 15px;
+  color: white;
+  transition: all 0.4s;
+  height: 100%;
+  background-color: #e65540;
+  padding: 10px 30px;
+  font-weight: 100;
+}
+
+.start-shop:hover {
+  background-color: #222222;
+}
+
+i.fa-cart-plus {
+  font-size: 15rem !important;
+  color: #eee;
+}
 
 /* make it scrollable with min-widtha and overflow */
 

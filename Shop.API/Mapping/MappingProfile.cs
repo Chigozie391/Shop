@@ -85,6 +85,8 @@ namespace Shop.API.Mapping
 
 			//User
 			CreateMap<UserForSetDefaultAddress, User>();
+			CreateMap<ProductForUpdateSize, Product>();
+
 
 		}
 	}

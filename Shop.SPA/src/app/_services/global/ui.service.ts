@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 declare let alertify: any;
 
@@ -11,6 +11,7 @@ export class UIService {
 
   private itemsInCart = new BehaviorSubject<number>(0);
   totalItemInCart = this.itemsInCart.asObservable();
+  openPaystack = new Subject();
 
   constructor() {
     this.updateTotalItemInCart();

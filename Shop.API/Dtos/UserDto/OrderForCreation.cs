@@ -13,6 +13,12 @@ namespace Shop.API.Dtos.UserDto
 		public string Items { get; set; }
 
 		[Required]
+		public decimal Price { get; set; }
+
+		[Required]
+		public decimal Reference { get; set; }
+
+		[Required]
 		public string Address { get; set; }
 
 		[Required]

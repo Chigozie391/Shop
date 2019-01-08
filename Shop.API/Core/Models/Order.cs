@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shop.API.Core.Models
 {
@@ -6,6 +7,10 @@ namespace Shop.API.Core.Models
 	{
 		public int Id { get; set; }
 		public string Items { get; set; }
+
+		[Column(TypeName = "decimal(18, 2)")]
+		public decimal Price { get; set; }
+		public string Reference { get; set; }
 		public string Address { get; set; }
 		public string PhoneNumber { get; set; }
 		public string PhoneNumber2 { get; set; }

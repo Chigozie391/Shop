@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 p-2 border-bottom"><h4>Shipping Address</h4></div>
     <div class="col-12 px-3">
-      <form name="form" role="form" #proceedForm="ngForm" (ngSubmit)="proceed()">
+      <form name="form" role="form" #proceedForm="ngForm">
         <div class="form-group">
           <mat-form-field appearance="standard">
             <mat-label>State</mat-label>
@@ -13,7 +13,7 @@
               name="state"
               maxlength="254"
               required
-              [(ngModel)]="userWithDefaultAddress.state"
+              [(ngModel)]="userAddress.state"
               #state="ngModel"
             />
             <mat-error *ngIf="state.hasError('required')"> Your state is required.</mat-error>
@@ -29,7 +29,7 @@
               name="city"
               maxlength="254"
               required
-              [(ngModel)]="userWithDefaultAddress.city"
+              [(ngModel)]="userAddress.city"
               #city="ngModel"
             />
             <mat-error *ngIf="city.hasError('required')"> Your city is required.</mat-error>
@@ -45,7 +45,7 @@
               name="address"
               maxlength="254"
               required
-              [(ngModel)]="userWithDefaultAddress.address"
+              [(ngModel)]="userAddress.address"
               #address="ngModel"
             />
             <mat-error *ngIf="address.hasError('required')"> Your address is required.</mat-error>
@@ -61,7 +61,7 @@
               name="phoneNumber"
               maxlength="254"
               required
-              [(ngModel)]="userWithDefaultAddress.phoneNumber"
+              [(ngModel)]="userAddress.phoneNumber"
               #phoneNumber="ngModel"
             />
             <mat-error *ngIf="phoneNumber.hasError('required')"> Your phone number is required.</mat-error>
@@ -70,14 +70,21 @@
         <div class="form-group">
           <mat-form-field appearance="standard">
             <mat-label>Optional Phone Number</mat-label>
-            <input matInput type="number" id="phoneNumber2" name="phoneNumber2" maxlength="254" />
+            <input
+              matInput
+              type="number"
+              id="phoneNumber2"
+              name="phoneNumber2"
+              maxlength="254"
+              [(ngModel)]="phoneNumber2"
+            />
           </mat-form-field>
         </div>
-        <mat-checkbox name="userWithDefaultAddress" [(ngModel)]="setAsDefaultAddress"
+        <mat-checkbox name="userAddress" [(ngModel)]="setAsDefaultAddress"
           >Set as default shipping details</mat-checkbox
         >
         <div class="form-group d-flex justify-content-center mt-3 col">
-          <button type="submit" class="add-cart btn shadow text-uppercase" [disabled]="proceedForm.invalid">
+          <button (click)="proceed()" class="add-cart btn shadow text-uppercase" [disabled]="proceedForm.invalid">
             Checkout
           </button>
         </div>

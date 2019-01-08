@@ -13,4 +13,12 @@ export class UserService {
   setDefaultAddress(id: number, addressObj) {
     return this.http.put(this.baseUrl + 'user/' + id, addressObj);
   }
+
+  createOrder(userId: number, order) {
+    return this.http.post(this.baseUrl + 'order/' + userId, order);
+  }
+
+  updateProductSizeAfterOrder(productId: number, sizeArr) {
+    return this.http.put(this.baseUrl + 'user/' + productId + '/product', sizeArr);
+  }
 }

@@ -3,13 +3,11 @@
     <div class="row mt-3">
       <div class="col-5">
         <div class="form-group">
-          <mat-form-field>
-            <input matInput placeholder="Title" name="title" required ngModel />
-          </mat-form-field>
+          <mat-form-field> <input matInput placeholder="Title" name="title" required ngModel /> </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input type="number" matInput placeholder="Price" name="price" required ngModel />
+            <input type="number" min="0" matInput placeholder="Price" name="price" required ngModel />
           </mat-form-field>
         </div>
         <div class="form-group">
@@ -21,120 +19,73 @@
               (selectionChange)="parentSelectionChange()"
               [(ngModel)]="parentId"
             >
-              <mat-option value="{{parent.id}}" *ngFor="let parent of parentCategory">{{
-                parent.name
-              }}</mat-option>
+              <mat-option value="{{ parent.id }}" *ngFor="let parent of parentCategory">{{ parent.name }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
-            <mat-select
-              placeholder="Child Category"
-              required
-              name="child"
-              [disabled]="!parentId"
-              ngModel
-            >
-              <mat-option value="{{child.id}}" *ngFor="let child of childCategory">{{
-                child.name
-              }}</mat-option>
+            <mat-select placeholder="Child Category" required name="child" [disabled]="!parentId" ngModel>
+              <mat-option value="{{ child.id }}" *ngFor="let child of childCategory">{{ child.name }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
-            <textarea
-              matInput
-              placeholder="Description"
-              rows="3"
-              ngModel
-              required
-              name="description"
-            ></textarea>
+            <textarea matInput placeholder="Description" rows="3" ngModel required name="description"></textarea>
           </mat-form-field>
         </div>
       </div>
       <div class="col-7 align-items-end">
         <div class="form-group col">
           <div class="d-inline mx-2">
+            <mat-form-field> <input matInput placeholder="Size" required name="size0" ngModel /> </mat-form-field>
+          </div>
+          <div class="d-inline mx-2">
             <mat-form-field>
-              <input matInput placeholder="Size" required name="size0" ngModel />
+              <input type="number" min="0" matInput placeholder="Quantity" required name="quantity0" ngModel />
             </mat-form-field>
           </div>
           <div class="d-inline mx-2">
             <mat-form-field>
-              <input
-                type="number"
-                matInput
-                placeholder="Quantity"
-                required
-                name="quantity0"
-                ngModel
-              />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input
-                type="number"
-                matInput
-                placeholder="Threshold"
-                required
-                name="threshold0"
-                ngModel
-              />
+              <input type="number" min="0" matInput placeholder="Threshold" required name="threshold0" ngModel />
             </mat-form-field>
           </div>
         </div>
         <div class="form-group col">
           <div class="d-inline mx-2">
+            <mat-form-field> <input matInput placeholder="Size" name="size1" ngModel /> </mat-form-field>
+          </div>
+          <div class="d-inline mx-2">
             <mat-form-field>
-              <input matInput placeholder="Size" name="size1" ngModel />
+              <input type="number" min="0" matInput placeholder="Quantity" name="quantity1" ngModel />
             </mat-form-field>
           </div>
           <div class="d-inline mx-2">
             <mat-form-field>
-              <input type="number" matInput placeholder="Quantity" name="quantity1" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Threshold" name="threshold1" ngModel />
+              <input type="number" min="0" matInput placeholder="Threshold" name="threshold1" ngModel />
             </mat-form-field>
           </div>
         </div>
         <div class="form-group col">
           <div class="d-inline mx-2">
+            <mat-form-field> <input matInput placeholder="Size" name="size2" ngModel /> </mat-form-field>
+          </div>
+          <div class="d-inline mx-2">
             <mat-form-field>
-              <input matInput placeholder="Size" name="size2" ngModel />
+              <input type="number" min="0" matInput placeholder="Quantity" name="quantity2" ngModel />
             </mat-form-field>
           </div>
           <div class="d-inline mx-2">
             <mat-form-field>
-              <input type="number" matInput placeholder="Quantity" name="quantity2" ngModel />
-            </mat-form-field>
-          </div>
-          <div class="d-inline mx-2">
-            <mat-form-field>
-              <input type="number" matInput placeholder="Threshold" name="threshold2" ngModel />
+              <input type="number" min="0" matInput placeholder="Threshold" name="threshold2" ngModel />
             </mat-form-field>
           </div>
         </div>
 
         <div class="form-group text-center ">
-          <button
-            type="submit"
-            mat-raised-button
-            color="primary"
-            class="mx-2"
-            [disabled]="form.invalid"
-          >
-            Create
-          </button>
-          <button type="button" mat-raised-button class="mx-2" (click)="resetForm(form)">
-            Reset
-          </button>
+          <button type="submit" mat-raised-button color="primary" class="mx-2" [disabled]="form.invalid">Create</button>
+          <button type="button" mat-raised-button class="mx-2" (click)="resetForm(form)">Reset</button>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/_models/User';
-import { AuthService } from 'src/app/_services/global/auth.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/_services/global/user.service';
 import { UIService } from 'src/app/_services/global/ui.service';
@@ -13,15 +12,14 @@ import { UIService } from 'src/app/_services/global/ui.service';
 })
 export class ShippingAddressDialogComponent implements OnInit {
   currentUser: User = {};
-  userWithDefaultAddress: User = {};
+  userAddress: User = {};
   setAsDefaultAddress: boolean = true;
-  phoneNumber2: number;
+  phoneNumber2: string = '';
   cartToken = environment.cartToken;
 
   constructor(
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<ShippingAddressDialogComponent>,
-    private authService: AuthService,
     private userService: UserService,
     private uiService: UIService
   ) {}
@@ -29,7 +27,7 @@ export class ShippingAddressDialogComponent implements OnInit {
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('user'));
     if (this.currentUser.hasDefaultAddress) {
-      this.userWithDefaultAddress = this.currentUser;
+      this.userAddress = this.currentUser;
       this.setAsDefaultAddress = false;
     }
   }
@@ -43,12 +41,23 @@ export class ShippingAddressDialogComponent implements OnInit {
 
   proceed() {
     if (this.setAsDefaultAddress) {
-      this.userWithDefaultAddress.hasDefaultAddress = true;
-      this.userService.setDefaultAddress(this.currentUser.id, this.userWithDefaultAddress).subscribe(user => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.uiService.success('Sucessfully set as default shipping address');
-      });
+      // if he checks this address as the default address
+      this.userAddress.hasDefaultAddress = true;
+      this.userService.setDefaultAddress(this.currentUser.id, this.userAddress).subscribe(
+        user => {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.uiService.success('Sucessfully set as default shipping address');
+        },
+        error => {
+          return this.uiService.error('Network error');
+        }
+      );
     }
-    //load paystack
+    if (this.phoneNumber2) {
+      this.userAddress.phoneNumber2 = this.phoneNumber2;
+    }
+
+    this.uiService.openPaystack.next(this.userAddress);
+    this.dialogRef.close();
   }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,8 +18,10 @@ namespace Shop.API.Controllers
 		private readonly IMapper mapper;
 		private readonly IUserRepository repo;
 		private readonly IUnitOfWork unitOfWork;
-		public UserController(IMapper mapper, IUserRepository repo, IUnitOfWork unitOfWork)
+		private readonly IProductRepository productRepo;
+		public UserController(IMapper mapper, IUserRepository repo, IProductRepository productRepo, IUnitOfWork unitOfWork)
 		{
+			this.productRepo = productRepo;
 			this.unitOfWork = unitOfWork;
 			this.repo = repo;
 			this.mapper = mapper;
@@ -42,6 +45,22 @@ namespace Shop.API.Controllers
 			await this.unitOfWork.CompleteAsync();
 			var user = this.mapper.Map<UserForDetail>(userFromRepo);
 			return Ok(user);
+
+		}
+
+		[HttpPut("{productId}/product")]
+		public async Task<IActionResult> UpdateProductSizeAfterOrder(int productId, ProductForUpdateSize productForUpdateSize)
+		{
+			var product = await this.productRepo.GetProduct(productId, false);
+			product.LastUpdated = DateTime.Now;
+
+			this.mapper.Map(productForUpdateSize, product);
+
+			if (await this.unitOfWork.CompleteAsync())
+			{
+				return Ok();
+			}
+			return BadRequest("Could not update the product");
 
 		}
 	}
