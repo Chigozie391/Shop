@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Products } from 'src/app/_models/Products';
-import { ProductQuery } from 'src/app/_models/productQuery';
+import { Query } from 'src/app/_models/Query';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -20,19 +20,19 @@ export class ProductService {
     return this.http.put(this.baseUrl + 'products/' + id, productObj);
   }
 
-  getProducts(productQuery: ProductQuery) {
+  getProducts(productQuery: Query) {
     let params = this.queryParams(productQuery);
 
     return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
   }
 
-  getArchivedProducts(productQuery: ProductQuery) {
+  getArchivedProducts(productQuery: Query) {
     let params = this.queryParams(productQuery);
 
     return this.http.get<Products[]>(this.baseUrl + 'products/archive', { params: params });
   }
 
-  private queryParams(productQuery: ProductQuery) {
+  private queryParams(productQuery: Query) {
     let params = new HttpParams();
 
     if (productQuery.sortBy != null) {

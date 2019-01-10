@@ -89,7 +89,7 @@
     <button
       angular4-paystack
       [key]="'pk_test_5c4f5d145c5e613e2be0756a2d7ff1a9faf51527'"
-      [email]="currentUser.email"
+      [email]="currentUser?.email"
       [amount]="totalPrice * 100"
       [ref]="reference"
       (close)="paymentCancelled()"

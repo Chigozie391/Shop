@@ -1,0 +1,12 @@
+.list-group p {
+  margin-bottom: 0;
+}
+.list-group span {
+  font-weight: 400;
+}
+.card {
+  width: 22rem;
+}
+table.detail td:first-child {
+  font-weight: normal;
+}

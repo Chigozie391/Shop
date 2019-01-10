@@ -41,6 +41,9 @@ import { ShippingAddressDialogComponent } from './user/dialogs/shipping-address-
 import { LoginDialogComponent } from './user/dialogs/login-dialog/login-dialog.component';
 import { ThankyouComponent } from './user/thankyou/thankyou.component';
 import { ThankYouResolver } from './_resolver/thankyou.resolver';
+import { OrderListComponent } from './admin/orders/order-list/order-list.component';
+import { OrderViewComponent } from './admin/orders/order-view/order-view.component';
+import { OrderViewResolver } from './_resolver/order-view.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,6 +63,8 @@ export function tokenGetter() {
     EditProductComponent,
     CreateProductComponent,
     CategoryComponent,
+    OrderListComponent,
+    OrderViewComponent,
     HomeComponent,
     CarouselComponent,
     UserNavComponent,
@@ -99,6 +104,7 @@ export function tokenGetter() {
     UIService,
     ProductViewResolver,
     ThankYouResolver,
+    OrderViewResolver,
     AuthGuard,
     CartDialogComponent,
     LoginDialogComponent,

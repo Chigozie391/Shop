@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
-import { ProductQuery } from 'src/app/_models/productQuery';
+import { Query } from 'src/app/_models/Query';
 import { tap } from 'rxjs/operators';
 import { UIService } from 'src/app/_services/global/ui.service';
 
@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   sortBy: string;
   isSortAscending = '';
 
-  productQuery: ProductQuery = {
+  productQuery: Query = {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,

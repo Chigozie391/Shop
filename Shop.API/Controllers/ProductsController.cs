@@ -55,10 +55,10 @@ namespace Shop.API.Controllers
 		{
 			var product = await this.repo.GetProduct(id, false);
 
-			var productForDetail = this.mapper.Map<ProductForCartReturn>(product);
-
-			if (productForDetail == null)
+			if (product == null)
 				return NotFound();
+
+			var productForDetail = this.mapper.Map<ProductForCartReturn>(product);
 
 			return Ok(productForDetail);
 		}

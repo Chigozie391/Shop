@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
-import { ProductQuery } from 'src/app/_models/productQuery';
+import { Query } from 'src/app/_models/Query';
 import { ProductService } from 'src/app/_services/admin/product.service';
 import { tap } from 'rxjs/operators';
 import { UIService } from 'src/app/_services/global/ui.service';
@@ -23,7 +23,7 @@ export class ArchivesComponent implements OnInit {
   sortBy: string;
   isSortAscending = '';
 
-  productQuery: ProductQuery = {
+  productQuery: Query = {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,

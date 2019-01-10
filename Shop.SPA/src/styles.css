@@ -19,8 +19,17 @@ body {
   background: white;
   font-weight: 300;
 }
-.container {
-  margin-top: 120px;
+
+.mat-spinner {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+}
+.mat-spinner-cont {
+  height: 350px;
+  position: relative;
 }
 
 .spiner-container {
@@ -100,7 +109,7 @@ a:focus {
   height: 100%;
   background-color: #e65540;
   padding: 10px 30px;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .start-shop:hover {

@@ -17,6 +17,9 @@ import { RegisterComponent } from './user/register/register.component';
 import { ItemDetailComponent } from './user/item-detail/item-detail.component';
 import { ThankyouComponent } from './user/thankyou/thankyou.component';
 import { ThankYouResolver } from './_resolver/thankyou.resolver';
+import { OrderListComponent } from './admin/orders/order-list/order-list.component';
+import { OrderViewComponent } from './admin/orders/order-view/order-view.component';
+import { OrderViewResolver } from './_resolver/order-view.resolver';
 
 export const appRoutes: Routes = [
   {
@@ -37,6 +40,8 @@ export const appRoutes: Routes = [
       },
       { path: 'category', component: CategoryComponent },
       { path: 'archives', component: ArchivesComponent },
+      { path: 'orders', component: OrderListComponent },
+      { path: 'orders/:id', component: OrderViewComponent, resolve: { order: OrderViewResolver } },
       { path: 'products', component: ProductListComponent },
       {
         path: 'products/:id',

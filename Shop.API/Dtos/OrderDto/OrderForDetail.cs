@@ -1,12 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using Shop.API.Core.Models;
+using Shop.API.Dtos.UserDto;
 
-namespace Shop.API.Dtos.UserDto
+namespace Shop.API.Dtos.OrderDto
 {
-	public class OrderToReturnForUser
+	public class OrderForDetail
 	{
-
+		public int Id { get; set; }
 		public string Items { get; set; }
 
 		[Column(TypeName = "decimal(18, 2)")]
@@ -19,5 +19,7 @@ namespace Shop.API.Dtos.UserDto
 		public string State { get; set; }
 		public UserForMinDetail User { get; set; }
 		public DateTime OrderDate { get; set; }
+		public bool IsShipped { get; set; }
+		public DateTime ShippingDate { get; set; }
 	}
 }

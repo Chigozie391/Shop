@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col mt-4 ml-2">
+    <div class="col text-center">
       <mat-form-field class="mx-2 smfont-dropdown">
-        <mat-select [(value)]="sortBy">
+        <mat-select [(value)]="sortBy" placeholder="Sort By">
           <mat-option value="">None</mat-option>
           <mat-option value="price">Price</mat-option>
           <mat-option value="sold">Sold</mat-option>
@@ -12,23 +12,15 @@
       </mat-form-field>
 
       <mat-form-field class="mx-2 smfont-dropdown">
-        <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null">
+        <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null" placeholder="Order By">
           <mat-option value="true">Ascending Order</mat-option>
           <mat-option value="false">Descending Order</mat-option>
         </mat-select>
       </mat-form-field>
-      <button
-        mat-raised-button
-        [disabled]="sortBy == null"
-        color="primary"
-        class="mx-2"
-        (click)="loadProducts()"
-      >
+      <button mat-raised-button [disabled]="sortBy == null" color="primary" class="mx-2" (click)="loadProducts()">
         Filter
       </button>
-      <button mat-raised-button color="primary" class="mx-2" (click)="resetFilters()">
-        Reset Filters
-      </button>
+      <button mat-raised-button color="primary" class="mx-2" (click)="resetFilters()">Reset Filters</button>
       <a
         mat-raised-button
         routerLinkActive="active"
@@ -38,7 +30,7 @@
         >Create New Product</a
       >
     </div>
-    <div class="col-12" *ngIf="!isLoading"><mat-spinner></mat-spinner></div>
+    <div class="col-12 mat-spinner-cont" *ngIf="!isLoading"><mat-spinner></mat-spinner></div>
 
     <div class="col-12" *ngIf="isLoading">
       <mat-table #table [dataSource]="dataSource">
@@ -59,9 +51,7 @@
         </ng-container>
         <ng-container matColumnDef="category">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Category </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            {{ element.categoryName }} - {{ element.childCategoryName }}
-          </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.categoryName }} - {{ element.childCategoryName }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
@@ -70,10 +60,7 @@
         <ng-container matColumnDef="featured">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Featured </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <mat-slide-toggle
-              color="primary"
-              (toggleChange)="setFeatured(element.id)"
-              checked="{{ element.featured }}"
+            <mat-slide-toggle color="primary" (toggleChange)="setFeatured(element.id)" checked="{{ element.featured }}"
               >Featured</mat-slide-toggle
             >
           </mat-cell>

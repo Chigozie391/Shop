@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -5,11 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
 using Shop.API.Core.Models;
+using Shop.API.Dtos;
+using Shop.API.Dtos.OrderDto;
 using Shop.API.Dtos.UserDto;
+using Shop.API.Helper;
 
 namespace Shop.API.Controllers
 {
-	[Authorize(Policy = "RequireCustomerRole")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class OrderController : ControllerBase
@@ -26,6 +29,7 @@ namespace Shop.API.Controllers
 			this.mapper = mapper;
 		}
 
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPost("{id}")]
 		public async Task<IActionResult> CreateOrder(int Id, OrderForCreation orderForCreation)
 		{
@@ -48,8 +52,9 @@ namespace Shop.API.Controllers
 			return BadRequest("Could not create order");
 		}
 
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpGet("{userId}/{reference}")]
-		public async Task<IActionResult> GetOrderedItems(int userId, string reference)
+		public async Task<IActionResult> GetOrderedItemsForThankYou(int userId, string reference)
 		{
 			var order = await this.orderRepo.GetOrderedItems(userId, reference);
 			if (order == null)
@@ -59,5 +64,42 @@ namespace Shop.API.Controllers
 
 			return Ok(orderToReturn);
 		}
+
+		[Authorize(Policy = "RequireAdminRole")]
+		[HttpGet]
+		public async Task<IActionResult> GetAllOrderedProducts([FromQuery]OrderQueryParams queryParams)
+		{
+			var order = await this.orderRepo.GetAllOrderedItems(queryParams);
+
+			var orderToReturn = this.mapper.Map<QueryResultResource<OrderForList>>(order);
+			return Ok(orderToReturn);
+		}
+
+
+		[Authorize(Policy = "RequireAdminRole")]
+		[HttpGet("{id}")]
+		public async Task<IActionResult> ViewOrderedProduct(int id)
+		{
+			var order = await this.orderRepo.GetOrder(id, true);
+
+			var orderToReturn = this.mapper.Map<OrderForDetail>(order);
+
+			return Ok(orderToReturn);
+		}
+
+
+		[Authorize(Policy = "RequireAdminRole")]
+		[HttpPut("{id}")]
+		public async Task<IActionResult> CompleteOrder(int id)
+		{
+			var order = await this.orderRepo.GetOrder(id);
+			order.IsShipped = order.IsShipped ? false : true;
+			order.ShippingDate = order.IsShipped ? DateTime.Now : new DateTime();
+
+			await this.unitOfWork.CompleteAsync();
+			return Ok(order.Id);
+
+		}
+
 	}
 }

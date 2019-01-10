@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-7 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class=" col-12">
+          <h5 class="text-center">Ordered Product</h5>
+          <table class="table-condensed table table-striped table-responsive-sm">
+            <thead>
+              <th>Title</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Sub-Total</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of itemsArr">
+                <td>{{ item.title }}</td>
+                <td>{{ item.size }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>&#8358; {{ item.price * item.quantity | money }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-12 scroll order-info mt-4">
+          <h5 class="text-center">Order Details</h5>
+          <table class="table-bordered table table-sm detail">
+            <tbody>
+              <tr>
+                <td>Grand Total</td>
+                <td>&#8358; {{ order.totalPrice | money }}</td>
+              </tr>
+              <tr>
+                <td>Order Date</td>
+                <td>{{ order.orderDate | date }}</td>
+              </tr>
+              <tr>
+                <td>Reference</td>
+                <td>{{ order.reference }}</td>
+              </tr>
+              <tr>
+                <td>Shipped</td>
+                <td class="text-capitalize">{{ order.isShipped }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12 col-xs-12 d-flex flex-column align-items-center">
+      <h5 class="text-center">Shipping Address</h5>
+      <div class="card info">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <p><span>Name: </span> {{ order?.user.firstName }} {{ order?.user.lastName }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>Email: </span> {{ order?.user.email }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>Phone Number: </span> {{ order?.phoneNumber }}</p>
+          </li>
+          <li class="list-group-item" *ngIf="order?.phoneNumber2">
+            <p><span>Phone Number 2: </span> {{ order?.phoneNumber2 }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>Address: </span> {{ order?.address }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>City: </span> {{ order?.city }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>State: </span> {{ order?.state }}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-5 align-self-end">
+        <button type="button" mat-raised-button class="mr-3" (click)="back()">Back</button>
+        <button type="button" mat-raised-button color="primary" (click)="completeOrder()" *ngIf="!order.isShipped">
+          Complete Order
+        </button>
+        <button type="button" mat-raised-button color="primary" (click)="unCompleteOrder()" *ngIf="order.isShipped">
+          Not Shipped
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
