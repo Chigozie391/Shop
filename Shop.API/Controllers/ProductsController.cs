@@ -50,6 +50,16 @@ namespace Shop.API.Controllers
 			return Ok(productForDetail);
 		}
 
+		[HttpGet("categories/{childId}")]
+		public async Task<IActionResult> GetProductInCategory(int childId, [FromQuery] ProductQueryParams queryParams)
+		{
+			var products = await this.repo.GetProductInCategory(childId, queryParams);
+
+			var productToList = this.mapper.Map<QueryResultResource<ProductForList>>(products);
+
+			return Ok(productToList);
+		}
+
 		[HttpGet("getProductForCart/{id}")]
 		public async Task<IActionResult> GetProductForCart(int id)
 		{

@@ -20,8 +20,51 @@ import { ThankYouResolver } from './_resolver/thankyou.resolver';
 import { OrderListComponent } from './admin/orders/order-list/order-list.component';
 import { OrderViewComponent } from './admin/orders/order-view/order-view.component';
 import { OrderViewResolver } from './_resolver/order-view.resolver';
+import { ViewCategoriesComponent } from './user/view-categories/view-categories.component';
+import { ViewCategoryResolver } from './_resolver/view-category.resolver';
 
 export const appRoutes: Routes = [
+  {
+    path: '',
+    component: UserPanelComponent,
+    children: [
+      {
+        path: '',
+        outlet: 'user',
+        component: UserNavComponent
+      },
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'categories/:id',
+        component: ViewCategoriesComponent,
+        resolve: { product: ViewCategoryResolver }
+      },
+      {
+        path: 'detail/:id',
+        component: ItemDetailComponent,
+        resolve: { product: ProductViewResolver }
+      },
+      {
+        path: 'cart',
+        component: CartComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'thankyou/:userid/:reference',
+        component: ThankyouComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['Customer'] },
+        runGuardsAndResolvers: 'always',
+        resolve: { order: ThankYouResolver }
+      }
+    ]
+  },
   {
     path: 'admin',
     runGuardsAndResolvers: 'always',
@@ -49,42 +92,6 @@ export const appRoutes: Routes = [
         resolve: { product: ProductViewResolver }
       },
       { path: 'product/create', component: CreateProductComponent }
-    ]
-  },
-  {
-    path: '',
-    component: UserPanelComponent,
-    children: [
-      {
-        path: '',
-        outlet: 'user',
-        component: UserNavComponent
-      },
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'detail/:id',
-        component: ItemDetailComponent,
-        resolve: { product: ProductViewResolver }
-      },
-      {
-        path: 'cart',
-        component: CartComponent
-      },
-      {
-        path: 'register',
-        component: RegisterComponent
-      },
-      {
-        path: 'thankyou/:userid/:reference',
-        component: ThankyouComponent,
-        canActivate: [AuthGuard],
-        data: { roles: ['Customer'] },
-        runGuardsAndResolvers: 'always',
-        resolve: { order: ThankYouResolver }
-      }
     ]
   },
   { path: '**', redirectTo: '/', pathMatch: 'full' }

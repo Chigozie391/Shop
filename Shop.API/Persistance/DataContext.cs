@@ -45,7 +45,7 @@ namespace Shop.API.Persistance
 
 			});
 
-
+			// return only the main photo unless we ignore it
 			builder.Entity<Photo>().HasQueryFilter(p => p.IsMain);
 		}
 	}

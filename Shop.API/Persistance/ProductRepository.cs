@@ -37,33 +37,44 @@ namespace Shop.API.Persistance
 			}
 
 		}
-		public async Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams)
-		{
-			return await this.ProductGetter(queryParams, false);
-		}
 
-		public async Task<QueryResult<Product>> GetArchiveProduct(ProductQueryParams queryParams)
-		{
-			return await this.ProductGetter(queryParams, true);
-		}
-
-		private async Task<QueryResult<Product>> ProductGetter(ProductQueryParams queryParams, bool isDeleted)
+		public async Task<QueryResult<Product>> GetProductInCategory(int childId, ProductQueryParams queryParams)
 		{
 			var queryResult = new QueryResult<Product>();
 
-			var query = isDeleted ?
-							this.context.Products
-								.Where(p => p.Deleted)
-								.Include(x => x.Photos)
-								.Include(ch => ch.ChildCategory)
-								.ThenInclude(c => c.Category).AsQueryable()
-							:
-							this.context.Products
+			var query = this.context.Products
+							.Include(p => p.Photos)
+							.Where(x => x.ChildCategoryId == childId).AsQueryable();
+
+			return await this.ApplyPagingAndSorting(query, queryParams);
+		}
+
+		public async Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams)
+		{
+
+			var query = this.context.Products
 								.Where(p => !p.Deleted)
 								.Include(x => x.Photos)
 								.Include(ch => ch.ChildCategory)
 								.ThenInclude(c => c.Category).AsQueryable();
 
+			return await this.ApplyPagingAndSorting(query, queryParams);
+		}
+
+		public async Task<QueryResult<Product>> GetArchiveProduct(ProductQueryParams queryParams)
+		{
+			var query = this.context.Products
+							.Where(p => p.Deleted)
+							.Include(x => x.Photos)
+							.Include(ch => ch.ChildCategory)
+							.ThenInclude(c => c.Category).AsQueryable();
+
+			return await this.ApplyPagingAndSorting(query, queryParams);
+		}
+
+		private async Task<QueryResult<Product>> ApplyPagingAndSorting(IQueryable<Product> query, ProductQueryParams queryParams)
+		{
+			var queryResult = new QueryResult<Product>();
 
 			var columMap = new Dictionary<string, Expression<Func<Product, object>>>()
 			{
@@ -81,5 +92,6 @@ namespace Shop.API.Persistance
 
 			return queryResult;
 		}
+
 	}
 }

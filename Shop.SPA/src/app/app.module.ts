@@ -44,6 +44,8 @@ import { ThankYouResolver } from './_resolver/thankyou.resolver';
 import { OrderListComponent } from './admin/orders/order-list/order-list.component';
 import { OrderViewComponent } from './admin/orders/order-view/order-view.component';
 import { OrderViewResolver } from './_resolver/order-view.resolver';
+import { ViewCategoriesComponent } from './user/view-categories/view-categories.component';
+import { ViewCategoryResolver } from './_resolver/view-category.resolver';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -72,6 +74,7 @@ export function tokenGetter() {
     CartDialogComponent,
     ItemDetailComponent,
     CartComponent,
+    ViewCategoriesComponent,
     ThankyouComponent,
     RegisterComponent,
     FooterComponent,
@@ -105,6 +108,7 @@ export function tokenGetter() {
     ProductViewResolver,
     ThankYouResolver,
     OrderViewResolver,
+    ViewCategoryResolver,
     AuthGuard,
     CartDialogComponent,
     LoginDialogComponent,

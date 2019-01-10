@@ -10,10 +10,10 @@
         <nav class="menu">
           <ul class="main_menu">
             <li *ngFor="let parent of categories">
-              <a href="{{ parent.id }}">{{ parent.name }}</a>
+              <a href="#">{{ parent.name }}</a>
               <ul class="sub_menu">
                 <li *ngFor="let child of parent['childCategories']">
-                  <a href="{{ child.id }}">{{ child.name }}</a>
+                  <a [routerLink]="['/categories', child.id]">{{ child.name }}</a>
                 </li>
               </ul>
             </li>

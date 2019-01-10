@@ -32,6 +32,12 @@ export class ProductService {
     return this.http.get<Products[]>(this.baseUrl + 'products/archive', { params: params });
   }
 
+  getProductsInCategory(childId: number, productQuery: Query) {
+    let params = this.queryParams(productQuery);
+
+    return this.http.get<Products>(this.baseUrl + 'products/categories/' + childId, { params: params });
+  }
+
   private queryParams(productQuery: Query) {
     let params = new HttpParams();
 
