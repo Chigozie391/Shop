@@ -47,7 +47,7 @@ namespace Shop.API.Controllers
 			user.Orders.Add(order);
 
 			if (await this.unitOfWork.CompleteAsync())
-				return NoContent();
+				return Ok(order.Id);
 
 			return BadRequest("Could not create order");
 		}
@@ -65,7 +65,17 @@ namespace Shop.API.Controllers
 			return Ok(orderToReturn);
 		}
 
-		[Authorize(Policy = "RequireAdminRole")]
+
+		[Authorize(Policy = "RequireCustomerRole")]
+		[HttpPost("sendnotification/{id}")]
+		public async Task<IActionResult> SendOrderMail(int id)
+		{
+			await this.orderRepo.SendEmail(id);
+
+			return Ok();
+		}
+
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpGet]
 		public async Task<IActionResult> GetAllOrderedProducts([FromQuery]OrderQueryParams queryParams)
 		{
@@ -76,7 +86,7 @@ namespace Shop.API.Controllers
 		}
 
 
-		[Authorize(Policy = "RequireAdminRole")]
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> ViewOrderedProduct(int id)
 		{
@@ -88,7 +98,7 @@ namespace Shop.API.Controllers
 		}
 
 
-		[Authorize(Policy = "RequireAdminRole")]
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> CompleteOrder(int id)
 		{

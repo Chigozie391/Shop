@@ -9,5 +9,6 @@ namespace Shop.API.Core
 		Task<Order> GetOrderedItems(int userId, string reference);
 		Task<Order> GetOrder(int id, bool includeUser = false);
 		Task<QueryResult<Order>> GetAllOrderedItems(OrderQueryParams queryParams);
+		Task<bool> SendEmail(int id);
 	}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Query } from 'src/app/_models/Query';
 
@@ -7,21 +7,35 @@ import { Query } from 'src/app/_models/Query';
   providedIn: 'root'
 })
 export class OrderService {
-  constructor(private Http: HttpClient) {}
+  constructor(private http: HttpClient) {}
   baseUrl = environment.apiUrl;
 
   getOrders(orderQuery: Query) {
     let params = this.queryParams(orderQuery);
 
-    return this.Http.get(this.baseUrl + 'order', { params: params });
+    return this.http.get(this.baseUrl + 'order', { params: params });
   }
 
   getOrder(id: number) {
-    return this.Http.get(this.baseUrl + 'order/' + id);
+    return this.http.get(this.baseUrl + 'order/' + id);
   }
 
   completeOrder(id: number) {
-    return this.Http.put(this.baseUrl + 'order/' + id, {});
+    return this.http.put(this.baseUrl + 'order/' + id, {});
+  }
+
+  getOrderForThankyou(userId: number, reference: string) {
+    return this.http.get(this.baseUrl + 'order/' + userId + '/' + reference);
+  }
+
+  sendNotification(id: number) {
+    return this.http.post(
+      this.baseUrl + 'order/sendnotification/' + id,
+      {},
+      {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
+      }
+    );
   }
 
   private queryParams(orderQuery: Query) {

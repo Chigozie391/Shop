@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MimeKit.Text;
 using Shop.API.Core;
 using Shop.API.Core.Models;
 using Shop.API.Helper;
@@ -58,6 +63,37 @@ namespace Shop.API.Persistance
 											.FirstOrDefaultAsync(x => x.Id == id);
 
 			return order;
+		}
+
+		public async Task<bool> SendEmail(int id)
+		{
+			var order = await this.GetOrder(id, true);
+			var senderEmail = "chigoziemadubuko@gmail.com";
+			var message = new MimeMessage();
+
+			message.From.Add(new MailboxAddress("Shopping Store", senderEmail));
+			message.To.Add(new MailboxAddress(order.User.FirstName, order.User.Email));
+			message.Subject = $"Order Reference: {order.Reference}";
+
+			string emailString;
+			using (var file = new StreamReader("Helper/Email.html", Encoding.UTF8))
+			{
+				emailString = await file.ReadToEndAsync();
+			}
+
+			message.Body = new TextPart(TextFormat.Html)
+			{
+				Text = emailString
+			};
+
+			using (var client = new SmtpClient())
+			{
+				await client.ConnectAsync("smtp.gmail.com", 465, true);
+				await client.AuthenticateAsync(senderEmail, "emrocolage4617");
+				await client.SendAsync(message);
+				await client.DisconnectAsync(true);
+			}
+			return true;
 		}
 	}
 }

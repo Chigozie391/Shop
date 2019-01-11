@@ -29,6 +29,7 @@ export class UIService {
   }
 
   confirm(message: string, okCallbaack: () => any) {
+    alertify.defaults.glossary.title = 'Confirmations';
     alertify.confirm(message, function(e) {
       if (e) {
         okCallbaack();

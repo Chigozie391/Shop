@@ -10,6 +10,7 @@ import { User } from 'src/app/_models/User';
 import { UserService } from 'src/app/_services/global/user.service';
 import { Order } from 'src/app/_models/Order';
 import { Subscription } from 'rxjs';
+import { OrderService } from 'src/app/_services/admin/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class CartComponent implements OnInit, OnDestroy {
   paystackSubscription: Subscription;
+  orderId: number;
 
   cartToken = environment.cartToken;
   products = [];
@@ -34,7 +36,8 @@ export class CartComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private dialogService: DialogService,
-    private userService: UserService
+    private userService: UserService,
+    private orderService: OrderService
   ) {
     if (this.storedItem) {
       let counter = 0;
@@ -181,7 +184,15 @@ export class CartComponent implements OnInit, OnDestroy {
     });
 
     this.order.reference = $event.reference;
-    this.userService.createOrder(this.currentUser.id, this.order).subscribe();
+    this.userService.createOrder(this.currentUser.id, this.order).subscribe(
+      orderId => {
+        this.orderId = orderId;
+      },
+      null,
+      () => {
+        this.orderService.sendNotification(this.orderId).subscribe();
+      }
+    );
   }
 
   updateProductSizeAfterOrder(updateSizeObj: any[]) {

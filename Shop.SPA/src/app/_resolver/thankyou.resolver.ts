@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { UIService } from '../_services/global/ui.service';
-import { UserService } from '../_services/global/user.service';
 import { Order } from '../_models/Order';
 import { catchError } from 'rxjs/operators';
+import { OrderService } from '../_services/admin/order.service';
 
 @Injectable()
 export class ThankYouResolver implements Resolve<Order> {
-  constructor(private userService: UserService, private uiService: UIService, private router: Router) {}
+  constructor(private orderService: OrderService, private uiService: UIService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Order> {
-    return this.userService.getOrderForThankyou(route.params['userid'], route.params['reference']).pipe(
+    return this.orderService.getOrderForThankyou(route.params['userid'], route.params['reference']).pipe(
       catchError(() => {
         this.uiService.error('Problem retrieving data');
         this.router.navigate(['/']);

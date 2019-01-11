@@ -15,13 +15,10 @@ export class UserService {
   }
 
   createOrder(userId: number, order) {
-    return this.http.post(this.baseUrl + 'order/' + userId, order);
+    return this.http.post<number>(this.baseUrl + 'order/' + userId, order);
   }
 
   updateProductSizeAfterOrder(productId: number, sizeArr) {
     return this.http.put(this.baseUrl + 'user/' + productId + '/product', sizeArr);
-  }
-  getOrderForThankyou(userId: number, reference: string) {
-    return this.http.get(this.baseUrl + 'order/' + userId + '/' + reference);
   }
 }
