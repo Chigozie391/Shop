@@ -1,38 +1,64 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-4"></div>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-4 sidebar">
+      <div class="row">
+        <div class="col-12 text-center mb-4 bg-white custom-card">
+          <div class="img-circle">
+            <label for="pp-input" class="pp-input"> <i class="fa fa-camera"></i> </label>
+            <img src="" alt="" class="ppix" /> <input type="file" name="image" id="pp-input" />
+          </div>
+          <h5 class="mb-3 text-success text-capitalize">{{ currentUser.lastName }} {{ currentUser.firstName }}</h5>
+          <button class="btn-block btn save mb-4 shadow ">Save Photo</button>
+        </div>
+        <div class="col-12 p-0">
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <a class="list-group-item " [routerLink]="['/account']"
+                >Personal Information <i class="fa fa-chevron-right p-icon "></i>
+              </a>
+              <a class="list-group-item " [routerLink]="['/myorders']"
+                >My Orders <i class="fa fa-chevron-right p-icon "></i>
+              </a>
+              <a class="list-group-item" [routerLink]="['/cart']">
+                Go to Cart <i class="fa fa-chevron-right p-icon"></i>
+              </a>
+              <a class="list-group-item" href="#"> Change Password <i class="fa fa-chevron-right p-icon"></i> </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-md-8">
-      <div class="filter">
-        <div class="mr-5 d-inline-block">
+      <div class="spiner-container" *ngIf="isLoading"><img src="assets/images/spin2.svg" alt="" class="spiner" /></div>
+      <div class="order-holder">
+        <div class="filter col my-3">
+          <div class="d-inline-block">
+            <mat-form-field class="mx-2 smfont-dropdown">
+              <mat-select [(value)]="isShipped" placeholder="Shipping Status">
+                <mat-option value="false">Not Shipped</mat-option>
+                <mat-option value="true">Shipped</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <mat-form-field class="mx-2 smfont-dropdown">
-            <mat-select [(value)]="isShipped" placeholder="Shipping Status">
-              <mat-option value="false">Not Shipped</mat-option>
-              <mat-option value="true">Shipped</mat-option>
+            <mat-select [(value)]="sortBy" placeholder="Sort By">
+              <mat-option value="">None</mat-option>
+              <mat-option value="orderDate">Order Date</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
-        <mat-form-field class="mx-2 smfont-dropdown">
-          <mat-select [(value)]="sortBy" placeholder="Sort By">
-            <mat-option value="">None</mat-option>
-            <mat-option value="orderDate">Order Date</mat-option>
-          </mat-select>
-        </mat-form-field>
 
-        <mat-form-field class="mx-2 smfont-dropdown">
-          <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null" placeholder="Order By">
-            <mat-option value="true">Ascending Order</mat-option>
-            <mat-option value="false">Descending Order</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-raised-button color="primary" class="mx-2" (click)="loadProducts()">Filter</button>
-        <button mat-raised-button class="mx-2" (click)="resetFilters()">Reset Filters</button>
-      </div>
-      <div class="spiner-container" *ngIf="isLoading"><img src="assets/images/spin2.svg" alt="" class="spiner" /></div>
-      <div class="mt-5 order-holder">
+          <mat-form-field class="mx-2 smfont-dropdown">
+            <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null" placeholder="Order By">
+              <mat-option value="true">Ascending Order</mat-option>
+              <mat-option value="false">Descending Order</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="ml-md-4" (click)="loadProducts()">Filter</button>
+        </div>
         <div class="card mb-5 shadow" *ngFor="let order of orders">
-          <div class="card-body">
+          <div class="card-body m-4">
             <div class="row">
-              <div class="col-md-4 border-right detail mt-2 d-flex flex-column">
+              <div class="col-md-5 border-right detail mt-2 d-flex flex-column">
                 <p class="t-head price"><span>Total Price :</span>&#8358; {{ order.totalPrice | money }}</p>
                 <p><span>Reference :</span>{{ order.reference }}</p>
                 <p><span>Order Date :</span>{{ order.orderDate | date }}</p>
@@ -49,9 +75,9 @@
                   </p>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <div class="row">
-                  <div class="col-4 d-flex flex-column pr-2" *ngFor="let item of order.items">
+                  <div class="col-md-6 d-flex flex-column pr-2" *ngFor="let item of order.items">
                     <div class="mb-2"><img src="{{ item.photoUrl }}" alt="" class="img-thumbnail" /></div>
                     <div>
                       <p class="t-head"><span>Title :</span>{{ item.title }}</p>

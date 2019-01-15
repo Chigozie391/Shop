@@ -11,7 +11,10 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   setDefaultAddress(id: number, addressObj) {
-    return this.http.put(this.baseUrl + 'user/' + id, addressObj);
+    return this.http.put(this.baseUrl + 'user/' + id + '/setdefaultaddress', addressObj);
+  }
+  updateUserInfo(id: number, infoObj) {
+    return this.http.put(this.baseUrl + 'user/' + id, infoObj);
   }
 
   createOrder(userId: number, order) {

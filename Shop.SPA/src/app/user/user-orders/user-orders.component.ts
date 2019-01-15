@@ -47,7 +47,6 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
           element.items = JSON.parse(element.items);
           this.orders.push(element);
         });
-        console.log(this.orders);
       }
     );
   }

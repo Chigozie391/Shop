@@ -28,8 +28,28 @@ namespace Shop.API.Controllers
 		}
 
 
-		[HttpPut("{id}")]
+		[HttpPut("{id}/setdefaultaddress")]
 		public async Task<IActionResult> SetDefaultAddress(int Id, UserForSetDefaultAddress userForUpdate)
+		{
+			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+			var userFromRepo = await this.repo.GetUser(Id);
+
+			if (userFromRepo == null)
+				return NotFound("User not found");
+
+			if (currentUserId != userFromRepo.Id)
+				return Unauthorized();
+
+			this.mapper.Map(userForUpdate, userFromRepo);
+
+			await this.unitOfWork.CompleteAsync();
+			var user = this.mapper.Map<UserForDetail>(userFromRepo);
+			return Ok(user);
+
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> UpdateUserInfo(int Id, UserForUpdate userForUpdate)
 		{
 			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 			var userFromRepo = await this.repo.GetUser(Id);

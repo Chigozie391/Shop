@@ -1,3 +1,9 @@
+.cart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .product-cart,
 .product-name {
   width: 100%;

@@ -47,6 +47,7 @@ import { ViewCategoriesComponent } from './user/view-categories/view-categories.
 import { ViewCategoryResolver } from './_resolver/view-category.resolver';
 import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 import { UIService } from './_services/ui.service';
+import { AccountComponent } from './user/account/account.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -76,6 +77,7 @@ export function tokenGetter() {
     ItemDetailComponent,
     CartComponent,
     UserOrdersComponent,
+    AccountComponent,
     ViewCategoriesComponent,
     ThankyouComponent,
     RegisterComponent,

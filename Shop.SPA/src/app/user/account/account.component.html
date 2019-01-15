@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="row justify-content-between">
+    <div class="col-md-4 mt-4">
+      <div class="row">
+        <div class="col-12 text-center mb-4 bg-white custom-card">
+          <div class="img-circle">
+            <label for="pp-input" class="pp-input"> <i class="fa fa-camera"></i> </label>
+            <img src="" alt="" class="ppix" /> <input type="file" name="image" id="pp-input" />
+          </div>
+          <h5 class="mb-3 text-success text-capitalize">{{ currentUser.lastName }} {{ currentUser.firstName }}</h5>
+          <button class="btn-block btn save mb-4 shadow ">Save Photo</button>
+        </div>
+        <div class="col-12 p-0">
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <a class="list-group-item " [routerLink]="['/account']"
+                >Personal Information <i class="fa fa-chevron-right p-icon "></i>
+              </a>
+              <a class="list-group-item " [routerLink]="['/myorders']"
+                >My Orders <i class="fa fa-chevron-right p-icon "></i>
+              </a>
+              <a class="list-group-item" [routerLink]="['/cart']">
+                Go to Cart <i class="fa fa-chevron-right p-icon"></i>
+              </a>
+              <a class="list-group-item" href="#"> Change Password <i class="fa fa-chevron-right p-icon"></i> </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 mt-4 offset-md-1">
+      <div class="text-center bg-white head"><h4 class="my-2">Personal Information</h4></div>
+      <div class="bg-white card custom-card p-5">
+        <form name="form" role="form" (ngSubmit)="submit()" #form="ngForm">
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>First Name</mat-label>
+              <input
+                matInput
+                type="text"
+                id="firstName"
+                name="firstName"
+                #firstName="ngModel"
+                [(ngModel)]="currentUser.firstName"
+                required
+              />
+              <mat-error *ngIf="firstName.hasError('required')"> Your first name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>Last Name</mat-label>
+
+              <input
+                matInput
+                type="text"
+                id="lastName"
+                name="lastName"
+                #lastName="ngModel"
+                [(ngModel)]="currentUser.lastName"
+                required
+              />
+              <mat-error *ngIf="lastName.hasError('required')"> Your last name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>Phone Number</mat-label>
+              <input
+                matInput
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                #phoneNumber="ngModel"
+                [(ngModel)]="currentUser.phoneNumber"
+                required
+              />
+              <mat-error *ngIf="phoneNumber.hasError('required')"> Your phone number is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label> Street Address</mat-label>
+
+              <input
+                matInput
+                type="text"
+                id="address"
+                name="address"
+                #address="ngModel"
+                [(ngModel)]="currentUser.address"
+                required
+              />
+              <mat-error *ngIf="address.hasError('required')"> Your street address name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>City</mat-label>
+
+              <input
+                matInput
+                type="text"
+                id="city"
+                name="city"
+                #city="ngModel"
+                [(ngModel)]="currentUser.city"
+                required
+              />
+              <mat-error *ngIf="address.hasError('required')"> Your city name is required.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>State</mat-label>
+
+              <input
+                matInput
+                type="text"
+                id="state"
+                name="state"
+                #state="ngModel"
+                [(ngModel)]="currentUser.state"
+                required
+              />
+              <mat-error *ngIf="state.hasError('required')"> Your state name is required.</mat-error>
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="currentUser.hasDefaultAddress" name="userAddress"
+              >Set as default shipping details</mat-checkbox
+            >
+          </div>
+          <div class="form-group mt-4 mb-0 text-center">
+            <button type="button" mat-raised-button class="mr-3 cancel" (click)="back()">Back</button>
+            <button type="submit" class="save btn shadow" [disabled]="form.invalid">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

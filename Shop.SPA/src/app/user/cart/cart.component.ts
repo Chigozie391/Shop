@@ -41,7 +41,7 @@ export class CartComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private orderService: OrderService
   ) {
-    if (this.storedItem) {
+    if (this.storedItem && this.storedItem.length > 0) {
       this.isCartEmpty = false;
       this.isLoading = true;
       let counter = 0;

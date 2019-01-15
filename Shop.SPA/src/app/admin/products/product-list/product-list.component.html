@@ -67,7 +67,7 @@
         </ng-container>
         <ng-container matColumnDef="sold">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Sold </mat-header-cell>
-          <mat-cell *matCellDef="let element"> 0 </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.sold }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="lastupdated">
           <mat-header-cell *matHeaderCellDef mat-sort-header> LastUpdated </mat-header-cell>

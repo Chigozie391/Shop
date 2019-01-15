@@ -16,8 +16,8 @@ html,
 body {
   font-family: 'Roboto', 'sans-serif';
   margin: 0;
-  background: white;
   font-weight: 300;
+  background-color: rgb(248, 249, 250);
 }
 
 .mat-spinner {
@@ -88,6 +88,7 @@ a {
   font-weight: 400;
   line-height: 1.7;
   margin: 0px;
+  color: #333;
   text-decoration: none !important;
   transition: all 0.4s;
 }
