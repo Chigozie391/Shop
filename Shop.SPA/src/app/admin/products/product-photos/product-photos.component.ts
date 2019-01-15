@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import * as _ from 'underscore';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-product-photos',

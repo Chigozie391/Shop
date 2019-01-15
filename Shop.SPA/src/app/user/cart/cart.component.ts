@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { environment } from 'src/environments/environment';
 import * as _ from 'underscore';
 import { Router } from '@angular/router';
-import { UIService } from 'src/app/_services/global/ui.service';
-import { AuthService } from 'src/app/_services/global/auth.service';
-import { DialogService } from 'src/app/_services/global/dialog.service';
+import { UIService } from 'src/app/_services/ui.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { DialogService } from 'src/app/_services/dialog.service';
 import { User } from 'src/app/_models/User';
-import { UserService } from 'src/app/_services/global/user.service';
+import { UserService } from 'src/app/_services/user.service';
 import { Order } from 'src/app/_models/Order';
 import { Subscription } from 'rxjs';
-import { OrderService } from 'src/app/_services/admin/order.service';
+import { OrderService } from 'src/app/_services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,6 +20,8 @@ import { OrderService } from 'src/app/_services/admin/order.service';
 export class CartComponent implements OnInit, OnDestroy {
   paystackSubscription: Subscription;
   orderId: number;
+  isLoading = false;
+  isCartEmpty = false;
 
   cartToken = environment.cartToken;
   products = [];
@@ -40,33 +42,42 @@ export class CartComponent implements OnInit, OnDestroy {
     private orderService: OrderService
   ) {
     if (this.storedItem) {
+      this.isCartEmpty = false;
+      this.isLoading = true;
       let counter = 0;
       const arrlength = this.storedItem.length;
       this.storedItem.forEach(element => {
-        this.productService.getProductForCart(element['productId']).subscribe(product => {
-          const sizeArr = JSON.parse(product.sizes);
-          const selectedSize: any = _.findWhere(sizeArr, { size: element['size'] });
+        this.productService.getProductForCart(element['productId']).subscribe(
+          product => {
+            const sizeArr = JSON.parse(product.sizes);
+            const selectedSize: any = _.findWhere(sizeArr, { size: element['size'] });
 
-          let item = {
-            photoUrl: product.photoUrl,
-            price: product.price,
-            title: product.title,
-            productId: element['productId'],
-            size: element['size'],
-            quantity: element['quantity'],
-            maxQuantity: selectedSize.quantity
-          };
-          this.products.push(item);
-          this.totalPrice += +element['quantity'] * product.price;
+            let item = {
+              photoUrl: product.photoUrl,
+              price: product.price,
+              title: product.title,
+              productId: element['productId'],
+              size: element['size'],
+              quantity: element['quantity'],
+              maxQuantity: selectedSize.quantity
+            };
+            this.products.push(item);
+            this.totalPrice += +element['quantity'] * product.price;
 
-          counter++;
-          if (counter == arrlength) {
-            // run this after the whole iteration
-            // updates the stored item
-            localStorage.setItem(this.cartToken, JSON.stringify(this.products));
+            counter++;
+            if (counter == arrlength) {
+              // updates the stored item
+              localStorage.setItem(this.cartToken, JSON.stringify(this.products));
+            }
+          },
+          null,
+          () => {
+            this.isLoading = false;
           }
-        });
+        );
       });
+    } else {
+      this.isCartEmpty = true;
     }
   }
 
@@ -132,8 +143,10 @@ export class CartComponent implements OnInit, OnDestroy {
   remove(productId: number, size: string) {
     const x = { productId: productId, size: size };
     this.products.splice(_.findIndex(this.products, x), 1);
-
     this.getTotalPrice();
+    if (this.products.length == 0) {
+      this.isCartEmpty = true;
+    }
   }
 
   viewProduct(productId: number) {
@@ -164,15 +177,16 @@ export class CartComponent implements OnInit, OnDestroy {
 
     itemToOrder.forEach(element => {
       this.productService.getProductForCart(element['productId']).subscribe(product => {
-        const sizeArr = JSON.parse(product.sizes);
+        let sizeArr = JSON.parse(product.sizes);
         let selectedSize: any = _.findWhere(sizeArr, { size: element['size'] });
         //substract from old quantity
         selectedSize.quantity = selectedSize.quantity - element.quantity;
 
-        //add remove the old item and add the new one
+        //remove and add old item and new one respectively
         sizeArr.splice(_.findIndex(sizeArr, { size: element['size'] }), 1, selectedSize);
 
         let x = { id: product.id, size: JSON.stringify(sizeArr) };
+
         updateSizeObj.push(x);
         counter++;
 
@@ -183,30 +197,42 @@ export class CartComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.order.reference = $event.reference;
+    // create order and send notification
+    this.order.reference = this.reference;
     this.userService.createOrder(this.currentUser.id, this.order).subscribe(
       orderId => {
         this.orderId = orderId;
       },
       null,
       () => {
+        //update sold count
+        this.updateSoldProduct(this.order.items);
+
+        //   sends notification
         this.orderService.sendNotification(this.orderId).subscribe();
+        setTimeout(() => {
+          this.router.navigate(['/thankyou', this.currentUser.id, this.order.reference]);
+        }, 100);
       }
     );
   }
 
+  // update sold count
+  updateSoldProduct(items: any) {
+    let itemArr: any[] = JSON.parse(items);
+    itemArr.forEach(element => {
+      this.productService.updateSoldCount(element.productId, element.quantity).subscribe();
+    });
+  }
+
+  // update the sizes with the new qunatity after order has been made
   updateProductSizeAfterOrder(updateSizeObj: any[]) {
     const arrlength = updateSizeObj.length;
     let counter = 0;
 
-    updateSizeObj.forEach((element, index) => {
+    updateSizeObj.forEach(element => {
       this.userService.updateProductSizeAfterOrder(element['id'], { sizes: element['size'] }).subscribe(x => {
         counter++;
-
-        if (counter == arrlength) {
-          // run this after the whole iteration
-          this.router.navigate(['/thankyou', this.currentUser.id, this.order.reference]);
-        }
       });
     });
 
@@ -215,6 +241,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.reference = null;
+    this.order = null;
     this.paystackSubscription.unsubscribe();
   }
 }

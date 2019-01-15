@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrderService } from 'src/app/_services/admin/order.service';
+import { OrderService } from 'src/app/_services/order.service';
 import { Query } from 'src/app/_models/Query';
 import { MatTable, MatPaginator } from '@angular/material';
 import { OrderForListAdmin } from 'src/app/_models/Order';

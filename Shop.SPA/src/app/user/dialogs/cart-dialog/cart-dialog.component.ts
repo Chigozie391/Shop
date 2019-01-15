@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Modal } from 'src/app/_models/modal';
-import { DialogService } from 'src/app/_services/global/dialog.service';
+import { DialogService } from 'src/app/_services/dialog.service';
 
 @Component({
   selector: 'app-cart-dialog',

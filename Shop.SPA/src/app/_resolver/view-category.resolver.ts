@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UIService } from '../_services/global/ui.service';
-import { ProductService } from '../_services/admin/product.service';
+import { UIService } from '../_services/ui.service';
+import { ProductService } from '../_services/product.service';
 import { Query } from '../_models/Query';
 
 @Injectable()

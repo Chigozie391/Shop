@@ -37,6 +37,11 @@ export class OrderService {
       }
     );
   }
+  getUserOrders(userId: number, orderQuery: Query) {
+    let params = this.queryParams(orderQuery);
+
+    return this.http.get(this.baseUrl + 'order/' + userId + '/user', { params: params });
+  }
 
   private queryParams(orderQuery: Query) {
     let params = new HttpParams();

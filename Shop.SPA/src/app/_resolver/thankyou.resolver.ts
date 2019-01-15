@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { UIService } from '../_services/global/ui.service';
+import { UIService } from '../_services/ui.service';
 import { Order } from '../_models/Order';
 import { catchError } from 'rxjs/operators';
-import { OrderService } from '../_services/admin/order.service';
+import { OrderService } from '../_services/order.service';
 
 @Injectable()
 export class ThankYouResolver implements Resolve<Order> {

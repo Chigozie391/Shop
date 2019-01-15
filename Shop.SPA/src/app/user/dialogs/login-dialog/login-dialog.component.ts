@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { User } from 'src/app/_models/User';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AuthService } from 'src/app/_services/global/auth.service';
+import { AuthService } from 'src/app/_services/auth.service';
 import { Router } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-login-dialog',

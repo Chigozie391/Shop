@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { Products } from 'src/app/_models/Products';
 import { Query } from 'src/app/_models/Query';
 import { MatPaginator } from '@angular/material';

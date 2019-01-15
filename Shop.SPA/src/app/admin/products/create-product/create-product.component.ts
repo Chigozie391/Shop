@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/_services/admin/category.service';
+import { CategoryService } from 'src/app/_services/category.service';
 import { NgForm } from '@angular/forms';
 import { Products } from 'src/app/_models/Products';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { Router } from '@angular/router';
 import * as _ from 'underscore';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-create-product',

@@ -10,7 +10,7 @@
         <nav class="menu">
           <ul class="main_menu">
             <li *ngFor="let parent of categories">
-              <span>{{ parent.name }}</span>
+              <span class="parent-cat">{{ parent.name }}</span>
               <ul class="sub_menu">
                 <li *ngFor="let child of parent['childCategories']">
                   <a [routerLink]="['/categories', child.id]">{{ child.name }}</a>
@@ -20,7 +20,6 @@
           </ul>
         </nav>
       </div>
-
       <!-- Header Icon -->
       <div class="header-icons">
         <a [routerLink]="['/cart']" class="p-2">
@@ -45,8 +44,8 @@
                   <mat-icon class="far fa-user" aria-hidden="true"></mat-icon>
                 </button>
                 <ul class="sub_menu user-menu">
-                  <li><a href="#">Orders</a></li>
-                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">My account</a></li>
+                  <li><a [routerLink]="['/myorders']">My orders</a></li>
                   <li><a href="#" (click)="logOut()">Logout</a></li>
                 </ul>
               </li>

@@ -32,7 +32,6 @@ import { FooterComponent } from './user/footer/footer.component';
 import { CarouselComponent } from './user/carousel/carousel.component';
 import { MoneyPipe } from './_utils/money.pipe';
 import { CartComponent } from './user/cart/cart.component';
-import { UIService } from './_services/global/ui.service';
 import { RegisterComponent } from './user/register/register.component';
 import { MatDialogRef } from '@angular/material';
 import { CartDialogComponent } from './user/dialogs/cart-dialog/cart-dialog.component';
@@ -46,6 +45,8 @@ import { OrderViewComponent } from './admin/orders/order-view/order-view.compone
 import { OrderViewResolver } from './_resolver/order-view.resolver';
 import { ViewCategoriesComponent } from './user/view-categories/view-categories.component';
 import { ViewCategoryResolver } from './_resolver/view-category.resolver';
+import { UserOrdersComponent } from './user/user-orders/user-orders.component';
+import { UIService } from './_services/ui.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -74,6 +75,7 @@ export function tokenGetter() {
     CartDialogComponent,
     ItemDetailComponent,
     CartComponent,
+    UserOrdersComponent,
     ViewCategoriesComponent,
     ThankyouComponent,
     RegisterComponent,

@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { Query } from 'src/app/_models/Query';
 import { tap } from 'rxjs/operators';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-product-list',

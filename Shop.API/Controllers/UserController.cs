@@ -56,11 +56,9 @@ namespace Shop.API.Controllers
 
 			this.mapper.Map(productForUpdateSize, product);
 
-			if (await this.unitOfWork.CompleteAsync())
-			{
-				return Ok();
-			}
-			return BadRequest("Could not update the product");
+			await this.unitOfWork.CompleteAsync();
+
+			return Ok(product.Sizes);
 
 		}
 	}

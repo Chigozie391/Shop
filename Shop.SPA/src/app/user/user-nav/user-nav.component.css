@@ -71,28 +71,28 @@
   font-size: 18px;
 }
 
-.main_menu > li > span {
+.main_menu > li > span.parent-cat {
   color: #777;
   padding: 0;
   border-bottom: 1px solid transparent;
   cursor: pointer;
 }
 
-.main_menu > li:hover > span {
+.main_menu > li:hover > span.parent-cat {
   text-decoration: none;
   border-bottom: 1px solid #333333;
   color: #e65540;
 }
-.main_menu > li:hover > span.no-border {
+.main_menu > li:hover > span.parent-cat.no-border {
   border: none;
 }
 
 a,
-span {
+span.parent-cat {
   color: #777;
 }
 a:hover,
-span:hover {
+span.parent-cat:hover {
   color: #e65540;
 }
 .main_menu li {

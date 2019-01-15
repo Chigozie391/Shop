@@ -22,6 +22,7 @@ import { OrderViewComponent } from './admin/orders/order-view/order-view.compone
 import { OrderViewResolver } from './_resolver/order-view.resolver';
 import { ViewCategoriesComponent } from './user/view-categories/view-categories.component';
 import { ViewCategoryResolver } from './_resolver/view-category.resolver';
+import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 
 export const appRoutes: Routes = [
   {
@@ -54,6 +55,13 @@ export const appRoutes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'myorders',
+        component: UserOrdersComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['Customer'] },
+        runGuardsAndResolvers: 'always'
       },
       {
         path: 'thankyou/:userid/:reference',

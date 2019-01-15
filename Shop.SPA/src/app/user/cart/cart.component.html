@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!storedItem || storedItem.length == 0">
+<div class="container" *ngIf="isCartEmpty">
   <div class="row flex-column  align-items-center">
     <h4>My Shopping Cart</h4>
     <div class="icon col-12 text-center my-5"><i class="fas fa-cart-plus"></i></div>
@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<ng-container *ngIf="products.length > 0; else elseTemplate">
+<ng-container *ngIf="!isLoading && products.length > 0; else elseTemplate">
   <div class="container">
     <div class="row row-pb-lg">
       <div class="col-12">
@@ -100,7 +100,7 @@
   </div>
 </ng-container>
 <ng-template #elseTemplate>
-  <div class="container" *ngIf="storedItem && storedItem.length > 0">
+  <div class="container" *ngIf="isLoading && storedItem.length > 0">
     <div class="row">
       <div class="col-12 spiner-container"><img src="assets/images/spin2.svg" alt="" class="spiner" /></div>
     </div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService } from 'src/app/_services/admin/category.service';
-import { AuthService } from 'src/app/_services/global/auth.service';
-import { UIService } from 'src/app/_services/global/ui.service';
-import { DialogService } from 'src/app/_services/global/dialog.service';
+import { CategoryService } from 'src/app/_services/category.service';
+import { AuthService } from 'src/app/_services/auth.service';
+import { UIService } from 'src/app/_services/ui.service';
+import { DialogService } from 'src/app/_services/dialog.service';
 
 @Component({
   selector: 'app-user-nav',

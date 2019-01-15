@@ -1,12 +1,12 @@
 import { User } from './User';
 
 export interface Order {
-  items?: string;
+  items?: any;
   totalPrice?: number;
   address?: string;
   city?: string;
   state?: string;
-  reference?: string;
+  reference?: any;
   phoneNumber?: string;
   phoneNumber2?: string;
 }
@@ -20,8 +20,9 @@ export interface OrderViewAdmin {
   id: number;
   user: User;
   orderDate?: Date;
+  shippingDate?: Date;
   isShipped?: boolean;
-  items?: string;
+  items?: any;
   totalPrice?: number;
   address?: string;
   city?: string;

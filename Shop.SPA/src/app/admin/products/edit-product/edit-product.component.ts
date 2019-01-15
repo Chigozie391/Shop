@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { Products } from 'src/app/_models/Products';
-import { CategoryService } from 'src/app/_services/admin/category.service';
+import { CategoryService } from 'src/app/_services/category.service';
 import { NgForm } from '@angular/forms';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-edit-product',

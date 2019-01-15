@@ -110,6 +110,17 @@ namespace Shop.API.Controllers
 
 		}
 
+		[HttpPut("{id}/{quantity}/updatesold")]
+		public async Task<IActionResult> UpdateSoldCount(int id, int quantity)
+		{
+			var product = await this.repo.GetProduct(id, false);
+			product.Sold += quantity;
+
+			await this.unitOfWork.CompleteAsync();
+
+			return Ok();
+		}
+
 		[HttpPost("{id}/setfeatured")]
 		public async Task<IActionResult> SetFeature(int id)
 		{

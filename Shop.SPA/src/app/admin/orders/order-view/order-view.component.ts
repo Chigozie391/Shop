@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderViewAdmin } from 'src/app/_models/Order';
-import { OrderService } from 'src/app/_services/admin/order.service';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { OrderService } from 'src/app/_services/order.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-order-view',

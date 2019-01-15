@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
-import { ProductService } from 'src/app/_services/admin/product.service';
+import { ProductService } from 'src/app/_services/product.service';
 import { tap } from 'rxjs/operators';
 import { Query } from 'src/app/_models/Query';
 import { ActivatedRoute } from '@angular/router';

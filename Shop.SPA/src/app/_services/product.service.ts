@@ -83,6 +83,10 @@ export class ProductService {
     return this.http.delete(this.baseUrl + 'products/' + productId + '/photos/' + photoId);
   }
 
+  updateSoldCount(productId: number, quantity: number) {
+    return this.http.put(this.baseUrl + 'products/' + productId + '/' + quantity + '/updateSold/', {});
+  }
+
   getProductForCart(id: number) {
     return this.http.get<Products>(this.baseUrl + 'products/getproductforcart/' + id).pipe(take(1));
   }

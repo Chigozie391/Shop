@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { User } from 'src/app/_models/User';
 import { environment } from 'src/environments/environment';
-import { UserService } from 'src/app/_services/global/user.service';
-import { UIService } from 'src/app/_services/global/ui.service';
+import { UserService } from 'src/app/_services/user.service';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-shipping-address-dialog',

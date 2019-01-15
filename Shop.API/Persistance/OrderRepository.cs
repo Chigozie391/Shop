@@ -32,25 +32,25 @@ namespace Shop.API.Persistance
 
 		public async Task<QueryResult<Order>> GetAllOrderedItems(OrderQueryParams queryParams)
 		{
-			var queryResult = new QueryResult<Order>();
 			var query = queryParams.IsShipped ?
 							this.context.Orders.Where(x => x.IsShipped).AsQueryable()
 							:
 							this.context.Orders.Where(x => !x.IsShipped).AsQueryable();
 
-			var columMap = new Dictionary<string, Expression<Func<Order, object>>>()
-			{
-				["orderDate"] = v => v.OrderDate,
-			};
+			return await this.ApplyPagingAndSorting(query, queryParams);
+		}
 
-			query = query.ApplyOrdering(queryParams, columMap);
+		public async Task<QueryResult<Order>> GetOrdersByUserId(int userId, OrderQueryParams queryParams)
+		{
+			var query = queryParams.IsShipped ? this.context.Orders
+									.Include(u => u.User)
+									.Where(x => x.UserId == userId && x.IsShipped).AsQueryable()
+									:
+									this.context.Orders
+									.Include(u => u.User)
+									.Where(x => x.UserId == userId && !x.IsShipped).AsQueryable();
 
-			queryResult.TotalItems = await query.CountAsync();
-
-			queryResult.Items = query.ApplyPaging(queryParams);
-
-			return queryResult;
-
+			return await this.ApplyPagingAndSorting(query, queryParams);
 		}
 
 		public async Task<Order> GetOrder(int id, bool includeUser)
@@ -94,6 +94,24 @@ namespace Shop.API.Persistance
 				await client.DisconnectAsync(true);
 			}
 			return true;
+		}
+
+		private async Task<QueryResult<Order>> ApplyPagingAndSorting(IQueryable<Order> query, OrderQueryParams queryParams)
+		{
+			var queryResult = new QueryResult<Order>();
+
+			var columMap = new Dictionary<string, Expression<Func<Order, object>>>()
+			{
+				["orderDate"] = v => v.OrderDate,
+			};
+
+			query = query.ApplyOrdering(queryParams, columMap);
+
+			queryResult.TotalItems = await query.CountAsync();
+
+			queryResult.Items = query.ApplyPaging(queryParams);
+
+			return queryResult;
 		}
 	}
 }

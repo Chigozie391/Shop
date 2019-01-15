@@ -53,8 +53,8 @@
           <mat-cell *matCellDef="let element">{{ element.orderDate | date }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="shipped">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Shipped </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="text-uppercase"> {{ element.isShipped }} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.isShipped ? 'Shipped' : 'Not Shipped' }} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -74,6 +75,29 @@ namespace Shop.API.Controllers
 
 			return Ok();
 		}
+
+		[Authorize(Policy = "RequireCustomerRole")]
+		[HttpGet("{userId}/user")]
+		public async Task<IActionResult> GetUserOrders(int userId, [FromQuery]OrderQueryParams queryParams)
+		{
+			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+			var userFromRepo = await this.userRepo.GetUser(userId);
+
+			if (userFromRepo == null)
+				return NotFound("User not found");
+
+			if (currentUserId != userFromRepo.Id)
+				return Unauthorized();
+
+			var orders = await this.orderRepo.GetOrdersByUserId(userId, queryParams);
+
+			var orderToReturn = this.mapper.Map<QueryResultResource<OrderForDetail>>(orders);
+
+			return Ok(orderToReturn);
+
+		}
+
+
 
 		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpGet]
