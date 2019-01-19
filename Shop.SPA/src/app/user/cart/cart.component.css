@@ -1,7 +1,18 @@
+div.body {
+  position: relative;
+  margin-top: 140px;
+}
+
 .cart-container {
   background: white;
   padding: 20px;
   border-radius: 10px;
+}
+.warn {
+  position: absolute;
+  top: -57px;
+  width: 100%;
+  text-align: center;
 }
 
 .product-cart,

@@ -4,11 +4,11 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UIService } from '../_services/ui.service';
 import { ProductService } from '../_services/product.service';
-import { Query } from '../_models/Query';
+import { IQuery } from '../_models/IQuery';
 
 @Injectable()
 export class ViewCategoryResolver implements Resolve<any> {
-  productQuery: Query = {
+  productQuery: IQuery = {
     sortBy: 'lastUpdated',
     isSortAscending: '',
     pageIndex: 1,

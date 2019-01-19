@@ -1,3 +1,153 @@
-<p>
-  admin-dashboard works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="text-center icon-big text-success"><i class="fas fa-money-bill-alt"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Revenue</p>
+                <p class="card-title">&#8358; {{ totalRevenue | money }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-start">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="text-center icon-big"><i class="fas fa-sort-numeric-up"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Sold</p>
+                <p class="card-title">{{ counters?.soldCount }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-start">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4 text-orders">
+              <div class="text-center icon-big "><i class="fas fa-shopping-cart"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Orders</p>
+                <p class="card-title">{{ counters?.orderCount }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+            <a [routerLink]="['/admin/orders']" class="stats"> <i class="far fa-eye"></i> View </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="text-center icon-big text-warning"><i class="fas fa-industry"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Products</p>
+                <p class="card-title">{{ counters?.productCount }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+            <a [routerLink]="['/admin/products']" class="stats"> <i class="far fa-eye"></i> View </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4 text-danger">
+              <div class="text-center icon-big"><i class="fas fa-archive"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Archives</p>
+                <p class="card-title">{{ counters?.archiveCount }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+            <a [routerLink]="['#']" class="stats"> <i class="far fa-eye"></i> View </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+      <div class="card card-stats shadow">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4 text-users">
+              <div class="text-center icon-big"><i class="fas fa-users"></i></div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category text-capitalize text-right">Total Users</p>
+                <p class="card-title">{{ counters?.userCount }}</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <hr />
+          <div class="d-flex justify-content-between">
+            <a [routerLink]="['#']" class="stats"> <i class="fas fa-sync"></i> Update Now</a>
+            <a [routerLink]="['#']" class="stats"> <i class="far fa-eye"></i> View </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

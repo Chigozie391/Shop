@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Shop.API.Dtos.AuthDto
@@ -23,5 +24,12 @@ namespace Shop.API.Dtos.AuthDto
 		[EmailAddress]
 		public string Email { get; set; }
 		public string Role = "Customer";
+		public DateTime JoinDate { get; set; }
+
+		public UserForRegister()
+		{
+			this.JoinDate = DateTime.Now;
+		}
+
 	}
 }

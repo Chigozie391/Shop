@@ -271,6 +271,8 @@ namespace Shop.Migrations
 
                     b.Property<bool>("HasDefaultAddress");
 
+                    b.Property<DateTime>("JoinDate");
+
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");

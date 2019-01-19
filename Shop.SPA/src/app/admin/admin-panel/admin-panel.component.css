@@ -1,0 +1,16 @@
+mat-sidenav-container,
+mat-sidenav-content {
+  min-height: 100%;
+}
+mat-sidenav {
+  width: 250px;
+}
+mat-nav-list > h3 {
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+}
+mat-nav-list a {
+  font-size: 14px;
+  color: #000;
+}

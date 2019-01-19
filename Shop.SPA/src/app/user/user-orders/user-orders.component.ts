@@ -3,7 +3,7 @@ import { User } from 'src/app/_models/User';
 import { AuthService } from 'src/app/_services/auth.service';
 import { OrderService } from 'src/app/_services/order.service';
 import { Order, OrderViewAdmin } from 'src/app/_models/Order';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { MatPaginator } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
@@ -24,7 +24,7 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
   sortBy: string;
   isSortAscending = '';
 
-  orderQuery: Query = {
+  orderQuery: IQuery = {
     isShipped: false,
     sortBy: '',
     isSortAscending: '',

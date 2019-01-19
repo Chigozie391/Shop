@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col text-center">
       <mat-form-field class="mx-2 smfont-dropdown">
-        <mat-select [(value)]="sortBy" placeholder="Sort By">
+        <mat-select [(value)]="productQuery.sortBy" placeholder="Sort By">
           <mat-option value="">None</mat-option>
           <mat-option value="price">Price</mat-option>
           <mat-option value="sold">Sold</mat-option>
@@ -12,12 +12,22 @@
       </mat-form-field>
 
       <mat-form-field class="mx-2 smfont-dropdown">
-        <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null" placeholder="Order By">
+        <mat-select
+          [(value)]="productQuery.isSortAscending"
+          [disabled]="productQuery.sortBy == null"
+          placeholder="Order By"
+        >
           <mat-option value="true">Ascending Order</mat-option>
           <mat-option value="false">Descending Order</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-raised-button [disabled]="sortBy == null" color="primary" class="mx-2" (click)="loadProducts()">
+      <button
+        mat-raised-button
+        [disabled]="productQuery.sortBy == null"
+        color="primary"
+        class="mx-2"
+        (click)="getProducts()"
+      >
         Filter
       </button>
       <button mat-raised-button color="primary" class="mx-2" (click)="resetFilters()">Reset Filters</button>
@@ -42,6 +52,9 @@
             </a>
             <button mat-icon-button color="warn" (click)="archiveProduct(element.id)">
               <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteProduct(element.id)">
+              <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
             </button>
           </mat-cell>
         </ng-container>

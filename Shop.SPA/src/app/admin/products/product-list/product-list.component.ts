@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/product.service';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { tap } from 'rxjs/operators';
 import { UIService } from 'src/app/_services/ui.service';
 
@@ -20,10 +20,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isLoading: boolean;
 
-  sortBy: string;
-  isSortAscending = '';
-
-  productQuery: Query = {
+  productQuery: IQuery = {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
@@ -43,7 +40,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
           this.productQuery.pageIndex = this.paginator.pageIndex + 1;
           this.productQuery.pageSize = this.paginator.pageSize;
 
-          this.loadProducts();
+          this.getProducts();
         })
       )
       .subscribe();
@@ -62,21 +59,14 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   resetFilters() {
-    this.sortBy = null;
-    this.isSortAscending = '';
-    this.productQuery.sortBy = '';
-    this.productQuery.isSortAscending = '';
+    this.productQuery = {
+      sortBy: '',
+      isSortAscending: '',
+      pageIndex: 1,
+      pageSize: 20
+    };
 
     this.getProducts();
-  }
-
-  loadProducts() {
-    this.productQuery.sortBy = this.sortBy;
-    this.productQuery.isSortAscending = this.isSortAscending;
-
-    this.productService.getProducts(this.productQuery).subscribe(result => {
-      this.dataSource = result['items'];
-    });
   }
 
   setFeatured(id: number) {
@@ -95,6 +85,20 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   archiveProduct(id) {
     this.uiService.confirm('Are you sure you want to archive the product', () => {
       this.productService.achiveProduct(id).subscribe(
+        () => {
+          const index = this.dataSource.findIndex(p => p.id == id);
+
+          this.dataSource.splice(index, 1);
+          this.uiService.success('Successfully archived');
+          this.table.renderRows();
+        },
+        error => this.uiService.error(error.error)
+      );
+    });
+  }
+  deleteProduct(id) {
+    this.uiService.confirm('Permanently delete this product ? ', () => {
+      this.productService.deleteProduct(id).subscribe(
         () => {
           const index = this.dataSource.findIndex(p => p.id == id);
 

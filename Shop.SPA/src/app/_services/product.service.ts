@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Products } from 'src/app/_models/Products';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { take } from 'rxjs/operators';
 
 @Injectable({
@@ -20,25 +20,25 @@ export class ProductService {
     return this.http.put(this.baseUrl + 'products/' + id, productObj);
   }
 
-  getProducts(productQuery: Query) {
+  getProducts(productQuery: IQuery) {
     let params = this.queryParams(productQuery);
 
     return this.http.get<Products[]>(this.baseUrl + 'products', { params: params });
   }
 
-  getArchivedProducts(productQuery: Query) {
+  getArchivedProducts(productQuery: IQuery) {
     let params = this.queryParams(productQuery);
 
     return this.http.get<Products[]>(this.baseUrl + 'products/archive', { params: params });
   }
 
-  getProductsInCategory(childId: number, productQuery: Query) {
+  getProductsInCategory(childId: number, productQuery: IQuery) {
     let params = this.queryParams(productQuery);
 
     return this.http.get<Products>(this.baseUrl + 'products/categories/' + childId, { params: params });
   }
 
-  private queryParams(productQuery: Query) {
+  private queryParams(productQuery: IQuery) {
     let params = new HttpParams();
 
     if (productQuery.sortBy != null) {
@@ -47,6 +47,9 @@ export class ProductService {
 
     if (productQuery.isSortAscending.length) {
       params = params.append('isSortAscending', productQuery.isSortAscending);
+    }
+    if (productQuery.lowItems) {
+      params = params.append('lowItems', '' + productQuery.lowItems);
     }
 
     params = params.append('page', '' + productQuery.pageIndex);
@@ -88,6 +91,10 @@ export class ProductService {
   }
 
   getProductForCart(id: number) {
+    return this.http.get<Products>(this.baseUrl + 'products/getproductforcart/' + id).pipe(take(1));
+  }
+
+  getProductForMin(id: number) {
     return this.http.get<Products>(this.baseUrl + 'products/getproductforcart/' + id).pipe(take(1));
   }
 }

@@ -1,6 +1,6 @@
 namespace Shop.API.Dtos.ProductDto
 {
-	public class ProductForCartReturn
+	public class ProductForMinDetail
 	{
 		public int Id { get; set; }
 		public string Title { get; set; }

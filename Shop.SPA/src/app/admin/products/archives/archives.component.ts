@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { ProductService } from 'src/app/_services/product.service';
 import { tap } from 'rxjs/operators';
 import { UIService } from 'src/app/_services/ui.service';
@@ -20,10 +20,7 @@ export class ArchivesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isLoading: boolean;
 
-  sortBy: string;
-  isSortAscending = '';
-
-  productQuery: Query = {
+  productQuery: IQuery = {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
@@ -42,17 +39,18 @@ export class ArchivesComponent implements OnInit {
           this.productQuery.pageIndex = this.paginator.pageIndex + 1;
           this.productQuery.pageSize = this.paginator.pageSize;
 
-          this.loadProducts();
+          this.getArchivedProducts();
         })
       )
       .subscribe();
   }
   resetFilters() {
-    this.sortBy = null;
-    this.isSortAscending = '';
-    this.productQuery.sortBy = '';
-    this.productQuery.isSortAscending = '';
-
+    this.productQuery = {
+      sortBy: '',
+      isSortAscending: '',
+      pageIndex: 1,
+      pageSize: 5
+    };
     this.getArchivedProducts();
   }
 
@@ -81,15 +79,6 @@ export class ArchivesComponent implements OnInit {
       null,
       () => (this.isLoading = true)
     );
-  }
-
-  loadProducts() {
-    this.productQuery.sortBy = this.sortBy;
-    this.productQuery.isSortAscending = this.isSortAscending;
-
-    this.productService.getArchivedProducts(this.productQuery).subscribe(result => {
-      this.dataSource = result['items'];
-    });
   }
 
   deleteProduct(id) {

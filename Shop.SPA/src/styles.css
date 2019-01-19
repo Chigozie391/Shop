@@ -16,10 +16,13 @@ html,
 body {
   font-family: 'Roboto', 'sans-serif';
   margin: 0;
+  height: 100%;
   font-weight: 300;
   background-color: rgb(248, 249, 250);
 }
-
+.container-fluid {
+  margin-top: 1.7rem;
+}
 .mat-spinner {
   width: 100px;
   height: 100px;
@@ -61,7 +64,9 @@ body {
   max-width: 100%;
   transition: 0.3s all;
 }
-
+button {
+  cursor: pointer;
+}
 button:focus,
 .btn:focus {
   outline: none;

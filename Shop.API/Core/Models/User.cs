@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,7 @@ namespace Shop.API.Core.Models
 		public string City { get; set; }
 		public string State { get; set; }
 		public bool HasDefaultAddress { get; set; }
+		public DateTime JoinDate { get; set; }
 		public ICollection<Order> Orders { get; set; }
 		public ICollection<UserRole> UserRoles { get; set; }
 		public User()

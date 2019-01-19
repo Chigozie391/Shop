@@ -52,11 +52,22 @@ namespace Shop.API.Persistance
 		public async Task<QueryResult<Product>> GetProducts(ProductQueryParams queryParams)
 		{
 
-			var query = this.context.Products
+			var query = queryParams.LowItems ? this.context.Products
+								.Select(x => new Product
+								{
+									Sizes = x.Sizes,
+									Title = x.Title,
+									Id = x.Id
+								})
+								.Where(p => !p.Deleted)
+								.AsQueryable()
+							:
+								this.context.Products
 								.Where(p => !p.Deleted)
 								.Include(x => x.Photos)
 								.Include(ch => ch.ChildCategory)
 								.ThenInclude(c => c.Category).AsQueryable();
+
 
 			return await this.ApplyPagingAndSorting(query, queryParams);
 		}

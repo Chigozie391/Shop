@@ -65,7 +65,7 @@ namespace Shop.API.Mapping
 				opt.MapFrom(src => src.ChildCategory.Category.Name);
 			});
 
-			CreateMap<Product, ProductForCartReturn>()
+			CreateMap<Product, ProductForMinDetail>()
 			.ForMember(des => des.PhotoUrl, opt =>
 			{
 				opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);

@@ -1,5 +1,6 @@
-export interface Query {
+export interface IQuery {
   isShipped?: boolean;
+	lowItems?: boolean;
   sortBy: string;
   isSortAscending: string;
   pageIndex: number;

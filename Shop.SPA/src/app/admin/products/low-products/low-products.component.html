@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 mat-spinner-cont" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+    <div class="col-12" *ngIf="!isLoading">
+      <table class="table table-striped table-hover table-bordered bg-white">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Details</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productsArr; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ item.title }}</td>
+            <td class="details">
+              <div class=" last-border d-flex flex-column" *ngFor="let size of item['sizes']">
+                <span [ngClass]="{ 'bg-danger1 py-2': size.quantity == 0 }">
+                  <span class="size-name ">Size :</span> <span class="size-size">{{ size.size }}</span>
+
+                  <span class="size-detail mx-3">Quantity :</span> <span>{{ size.quantity }}</span>
+
+                  <span class="size-detail mx-3">Threshold :</span> <span> {{ size.threshold }}</span>
+                </span>
+              </div>
+            </td>
+            <td>
+              <a mat-icon-button [routerLink]="['/admin/products', item.id]">
+                <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
+              </a>
+              <button mat-icon-button color="warn" (click)="archiveProduct(item.id)">
+                <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteProduct(item.id)">
+                <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 d-flex justify-content-center mt-4">
+      <mat-form-field class="mx-2 smfont-dropdown">
+        <mat-select [(value)]="productQuery.pageSize" (selectionChange)="getProducts()" placeholder="Page Size">
+          <mat-option value="20">20</mat-option>
+          <mat-option value="40">40</mat-option>
+          <mat-option value="60">60</mat-option>
+          <mat-option value="80">80</mat-option>
+          <mat-option value="100">100</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

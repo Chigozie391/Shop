@@ -1,0 +1,42 @@
+div.last-border:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+}
+div.last-border:not(:first-child) {
+  margin-top: 10px;
+}
+div.last-border:first-child {
+  padding-bottom: 10px;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #d9edf7;
+}
+.last-border > span {
+  padding: 5px;
+}
+.size-name {
+  width: 50px;
+}
+.size-detail {
+  width: 80px;
+}
+.size-size {
+  width: 60px;
+  display: inline-block;
+}
+td.details {
+  width: 40%;
+}
+span,
+td {
+  font-size: 14px;
+}
+span {
+  display: inline-block;
+  font-weight: 400;
+}
+.bg-danger1 {
+  background-color: #ffcdd2;
+}
+mat-form-field {
+  width: 100px;
+}

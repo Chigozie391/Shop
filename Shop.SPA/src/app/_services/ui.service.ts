@@ -12,6 +12,8 @@ export class UIService {
   private itemsInCart = new BehaviorSubject<number>(0);
   totalItemInCart = this.itemsInCart.asObservable();
   openPaystack = new Subject();
+  toggleAdminSideNav = new Subject<boolean>();
+  closeAdminSidenav = new Subject<boolean>();
 
   constructor() {
     this.updateTotalItemInCart();

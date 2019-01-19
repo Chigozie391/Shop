@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/_services/product.service';
 import { Products } from 'src/app/_models/Products';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { MatPaginator } from '@angular/material';
 import { tap } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   products: Products[];
-  productQuery: Query = {
+  productQuery: IQuery = {
     sortBy: 'featured',
     isSortAscending: '',
     pageIndex: 1,

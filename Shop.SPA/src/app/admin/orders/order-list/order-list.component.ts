@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderService } from 'src/app/_services/order.service';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { MatTable, MatPaginator } from '@angular/material';
 import { OrderForListAdmin } from 'src/app/_models/Order';
 import { tap } from 'rxjs/operators';
@@ -16,13 +16,9 @@ export class OrderListComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  isShipped = false;
   isLoading: boolean;
 
-  sortBy: string;
-  isSortAscending = '';
-
-  orderQuery: Query = {
+  orderQuery: IQuery = {
     isShipped: false,
     sortBy: '',
     isSortAscending: '',
@@ -42,7 +38,7 @@ export class OrderListComponent implements OnInit {
           this.orderQuery.pageIndex = this.paginator.pageIndex + 1;
           this.orderQuery.pageSize = this.paginator.pageSize;
 
-          this.loadProducts();
+          this.getProducts();
         })
       )
       .subscribe();
@@ -61,21 +57,14 @@ export class OrderListComponent implements OnInit {
   }
 
   resetFilters() {
-    this.sortBy = null;
-    this.isSortAscending = '';
-    this.orderQuery.sortBy = '';
-    this.orderQuery.isSortAscending = '';
+    this.orderQuery = {
+      isShipped: false,
+      sortBy: '',
+      isSortAscending: '',
+      pageIndex: 1,
+      pageSize: 5
+    };
 
     this.getProducts();
-  }
-
-  loadProducts() {
-    this.orderQuery.sortBy = this.sortBy;
-    this.orderQuery.isShipped = this.isShipped;
-    this.orderQuery.isSortAscending = this.isSortAscending;
-
-    this.orderService.getOrders(this.orderQuery).subscribe(result => {
-      this.dataSource = result['items'];
-    });
   }
 }

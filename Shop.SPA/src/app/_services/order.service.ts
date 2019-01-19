@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class OrderService {
   constructor(private http: HttpClient) {}
   baseUrl = environment.apiUrl;
 
-  getOrders(orderQuery: Query) {
+  getOrders(orderQuery: IQuery) {
     let params = this.queryParams(orderQuery);
 
     return this.http.get(this.baseUrl + 'order', { params: params });
@@ -37,13 +37,13 @@ export class OrderService {
       }
     );
   }
-  getUserOrders(userId: number, orderQuery: Query) {
+  getUserOrders(userId: number, orderQuery: IQuery) {
     let params = this.queryParams(orderQuery);
 
     return this.http.get(this.baseUrl + 'order/' + userId + '/user', { params: params });
   }
 
-  private queryParams(orderQuery: Query) {
+  private queryParams(orderQuery: IQuery) {
     let params = new HttpParams();
 
     if (orderQuery.sortBy != null) {

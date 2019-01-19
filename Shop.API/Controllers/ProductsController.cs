@@ -68,7 +68,7 @@ namespace Shop.API.Controllers
 			if (product == null)
 				return NotFound();
 
-			var productForDetail = this.mapper.Map<ProductForCartReturn>(product);
+			var productForDetail = this.mapper.Map<ProductForMinDetail>(product);
 
 			return Ok(productForDetail);
 		}

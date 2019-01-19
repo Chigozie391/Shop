@@ -1,4 +1,21 @@
-<main>
-  <router-outlet name="admin"></router-outlet>
-  <router-outlet></router-outlet>
-</main>
+<router-outlet name="admin"></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sideNav role="navigation">
+    <mat-nav-list>
+      <h3 matSubheader>Products</h3>
+      <a mat-list-item [routerLink]="['/admin/products']" (click)="sideNav.close()">Product List</a>
+      <a mat-list-item [routerLink]="['/admin/lowinventory']" (click)="sideNav.close()">Low Inventory</a>
+      <a mat-list-item [routerLink]="['/admin/archives']" (click)="sideNav.close()">Archived Product</a>
+      <mat-divider></mat-divider>
+      <h3 matSubheader>Users</h3>
+      <a mat-list-item [routerLink]="['/admin/users']" (click)="sideNav.close()">Users List</a>
+      <mat-divider></mat-divider>
+
+      <a mat-list-item [routerLink]="['/admin/category']" (click)="sideNav.close()">Category</a>
+
+      <a mat-list-item [routerLink]="['/admin/orders']" (click)="sideNav.close()">Orders</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content> <router-outlet></router-outlet> </mat-sidenav-content>
+</mat-sidenav-container>
+<a [routerLink]="['/path']">name</a>

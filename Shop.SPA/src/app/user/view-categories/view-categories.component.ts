@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material';
 import { Products } from 'src/app/_models/Products';
 import { ProductService } from 'src/app/_services/product.service';
 import { tap } from 'rxjs/operators';
-import { Query } from 'src/app/_models/Query';
+import { IQuery } from 'src/app/_models/IQuery';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class ViewCategoriesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   childId: number;
   products: Products[];
-  productQuery: Query = {
+  productQuery: IQuery = {
     sortBy: 'lastUpdated',
     isSortAscending: '',
     pageIndex: 1,

@@ -24,9 +24,9 @@ namespace Shop.API.Helper
 				{
 					var roles = new List<Role>
 					{
-					new Role{Name = "Customer"},
+					new Role{Name = "Admin"},
 					new Role{Name = "Moderator"},
-					new Role{Name = "Admin"}
+					new Role{Name = "Customer"}
 					};
 
 					foreach (var role in roles)

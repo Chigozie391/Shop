@@ -5,12 +5,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
+using Shop.API.Dtos;
 using Shop.API.Dtos.AuthDto;
 using Shop.API.Dtos.UserDto;
+using Shop.API.Helper;
 
 namespace Shop.API.Controllers
 {
-	[Authorize(Policy = "RequireCustomerRole")]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class UserController : ControllerBase
@@ -27,7 +28,18 @@ namespace Shop.API.Controllers
 			this.mapper = mapper;
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
+		[HttpGet]
+		public async Task<IActionResult> GetUsers([FromQuery]UserQueryParams queryParams)
+		{
+			var user = await this.repo.GetUsers(queryParams);
+			var userToReturn = this.mapper.Map<QueryResultResource<UserForList>>(user);
 
+			return Ok(userToReturn);
+		}
+
+
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{id}/setdefaultaddress")]
 		public async Task<IActionResult> SetDefaultAddress(int Id, UserForSetDefaultAddress userForUpdate)
 		{
@@ -48,6 +60,7 @@ namespace Shop.API.Controllers
 
 		}
 
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateUserInfo(int Id, UserForUpdate userForUpdate)
 		{
@@ -68,6 +81,7 @@ namespace Shop.API.Controllers
 
 		}
 
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{productId}/product")]
 		public async Task<IActionResult> UpdateProductSizeAfterOrder(int productId, ProductForUpdateSize productForUpdateSize)
 		{

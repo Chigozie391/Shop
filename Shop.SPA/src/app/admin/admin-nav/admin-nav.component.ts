@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { UIService } from 'src/app/_services/ui.service';
 
 @Component({
   selector: 'app-admin-nav',
@@ -8,7 +7,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./admin-nav.component.css']
 })
 export class AdminNavComponent implements OnInit {
-  constructor(private Http: HttpClient) {}
+  constructor(private uiService: UIService) {}
 
   ngOnInit() {}
+
+  toggleSideNav() {
+    this.uiService.toggleAdminSideNav.next(true);
+  }
+  closeSidenav() {
+    this.uiService.closeAdminSidenav.next(true);
+  }
 }

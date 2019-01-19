@@ -22,6 +22,7 @@ export class CartComponent implements OnInit, OnDestroy {
   orderId: number;
   isLoading = false;
   isCartEmpty = false;
+  warn = false;
 
   cartToken = environment.cartToken;
   products = [];
@@ -46,11 +47,27 @@ export class CartComponent implements OnInit, OnDestroy {
       this.isLoading = true;
       let counter = 0;
       const arrlength = this.storedItem.length;
-      this.storedItem.forEach(element => {
+      this.storedItem.forEach((element, index) => {
         this.productService.getProductForCart(element['productId']).subscribe(
           product => {
+            counter++;
             const sizeArr = JSON.parse(product.sizes);
             const selectedSize: any = _.findWhere(sizeArr, { size: element['size'] });
+
+            if (element['quantity'] > selectedSize.quantity) {
+              // remove the item
+              this.removedItem(this.storedItem, {
+                productId: element['productId'],
+                size: element['size']
+              });
+
+              // all the items have been removed
+              if (counter == arrlength && this.products.length == 0) {
+                this.isCartEmpty = true;
+              }
+
+              return;
+            }
 
             let item = {
               photoUrl: product.photoUrl,
@@ -64,19 +81,27 @@ export class CartComponent implements OnInit, OnDestroy {
             this.products.push(item);
             this.totalPrice += +element['quantity'] * product.price;
 
-            counter++;
             if (counter == arrlength) {
               // updates the stored item
               localStorage.setItem(this.cartToken, JSON.stringify(this.products));
             }
           },
-          null,
+          error => {
+            if (error.status == 404) {
+              //remove the item
+              this.removedItem(this.storedItem, {
+                productId: element['productId'],
+                size: element['size']
+              });
+            }
+          },
           () => {
             this.isLoading = false;
           }
         );
       });
     } else {
+      // if items have been removedfrom the cart and its now empty
       this.isCartEmpty = true;
     }
   }
@@ -103,7 +128,7 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTotalPrice() {
+  public getTotalPrice() {
     this.totalPrice = 0;
     localStorage.setItem(this.cartToken, JSON.stringify(this.products));
     this.products.forEach(x => {
@@ -112,7 +137,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.uiService.updateTotalItemInCart();
   }
 
-  addQuanitity(productId: number, size: string) {
+  public addQuanitity(productId: number, size: string) {
     const x = { productId: productId, size: size };
     const item: any = _.findWhere(this.products, x);
     if (item.quantity >= item.maxQuantity) {
@@ -126,7 +151,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.getTotalPrice();
   }
 
-  removeQuantity(productId: number, size: string) {
+  public removeQuantity(productId: number, size: string) {
     const x = { productId: productId, size: size };
     const item: any = _.findWhere(this.products, x);
     if (item.quantity <= 1) {
@@ -140,7 +165,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.getTotalPrice();
   }
 
-  remove(productId: number, size: string) {
+  public remove(productId: number, size: string) {
     const x = { productId: productId, size: size };
     this.products.splice(_.findIndex(this.products, x), 1);
     this.getTotalPrice();
@@ -149,15 +174,15 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  viewProduct(productId: number) {
+  public viewProduct(productId: number) {
     this.router.navigate(['detail', productId]);
   }
 
-  startShopping() {
+  public startShopping() {
     this.router.navigate(['/']);
   }
 
-  checkout() {
+  public checkout() {
     if (!this.authService.loggedIn()) {
       this.dialogService.openLoginModel();
     } else {
@@ -165,11 +190,11 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  paymentCancelled() {
+  public paymentCancelled() {
     console.log('Cancelled');
   }
 
-  paymentDone($event) {
+  public paymentDone($event) {
     let updateSizeObj = [];
     let itemToOrder: any[] = JSON.parse(localStorage.getItem(this.cartToken));
     const arrlength = itemToOrder.length;
@@ -218,7 +243,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   // update sold count
-  updateSoldProduct(items: any) {
+  public updateSoldProduct(items: any) {
     let itemArr: any[] = JSON.parse(items);
     itemArr.forEach(element => {
       this.productService.updateSoldCount(element.productId, element.quantity).subscribe();
@@ -226,7 +251,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   // update the sizes with the new qunatity after order has been made
-  updateProductSizeAfterOrder(updateSizeObj: any[]) {
+  public updateProductSizeAfterOrder(updateSizeObj: any[]) {
     const arrlength = updateSizeObj.length;
     let counter = 0;
 
@@ -237,6 +262,18 @@ export class CartComponent implements OnInit, OnDestroy {
     });
 
     localStorage.removeItem(this.cartToken);
+    this.uiService.updateTotalItemInCart();
+  }
+
+  public closeWarn() {
+    document.getElementById('closeWarn').remove();
+  }
+
+  public removedItem(storedItem: any[], item: {}) {
+    this.warn = true;
+
+    storedItem.splice(_.findIndex(storedItem, item), 1);
+    localStorage.setItem(this.cartToken, JSON.stringify(storedItem));
     this.uiService.updateTotalItemInCart();
   }
 
