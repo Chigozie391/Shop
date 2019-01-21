@@ -22,9 +22,19 @@ namespace Shop.API.Persistance
 			this.context = context;
 		}
 
-		public async Task<User> GetUser(int id)
+		// trimmed what we return for user
+		public async Task<User> GetUser(int id, bool includeRoles)
 		{
-			var user = await this.context.User.FirstOrDefaultAsync(x => x.Id == id);
+
+			var user = includeRoles ?
+							 await this.context.User
+							.Include(x => x.UserRoles)
+							.ThenInclude(x => x.Role)
+							.FirstOrDefaultAsync(x => x.Id == id)
+							:
+							 await this.context.User
+							.FirstOrDefaultAsync(x => x.Id == id);
+
 			return user;
 		}
 
@@ -39,7 +49,7 @@ namespace Shop.API.Persistance
 				FirstName = x.FirstName,
 				LastName = x.LastName,
 				Email = x.Email,
-				JoinDate = x.JoinDate,
+				LastActive = x.LastActive,
 				Roles = x.UserRoles.Where(c => c.UserId == x.Id).Select(o => o.Role.Name).ToList()
 			})
 			.AsQueryable();
@@ -48,7 +58,7 @@ namespace Shop.API.Persistance
 			var columMap = new Dictionary<string, Expression<Func<UserForList, object>>>()
 			{
 				["roles"] = v => v.Roles.Count(),
-				["joinDate"] = v => v.JoinDate,
+				["lastActive"] = v => v.LastActive,
 			};
 
 			query = query.ApplyOrdering<UserForList>(queryParams, columMap);

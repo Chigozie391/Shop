@@ -79,11 +79,7 @@ namespace Shop
 
 			services.AddMvc(options =>
 			{
-				// // lock down the whole app
-				// var policy = new AuthorizationPolicyBuilder()
-				// .RequireAuthenticatedUser()
-				// .Build();
-				// options.Filters.Add(new AuthorizeFilter(policy));
+				options.Filters.Add(typeof(LogUserAcivity));
 			})
 			.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

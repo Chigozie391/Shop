@@ -38,16 +38,37 @@ namespace Shop.API.Controllers
 			return Ok(userToReturn);
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
+		[HttpGet("{Id}")]
+		public async Task<IActionResult> GetUser(int Id)
+		{
+			var user = await this.repo.GetUser(Id, true);
+			var userToReturn = this.mapper.Map<UserForDetail>(user);
+
+			return Ok(userToReturn);
+		}
+
 
 		[Authorize(Policy = "RequireCustomerRole")]
-		[HttpPut("{id}/setdefaultaddress")]
-		public async Task<IActionResult> SetDefaultAddress(int Id, UserForSetDefaultAddress userForUpdate)
+		[HttpPut("{id}/setaddress")]
+		public async Task<IActionResult> SetAddress(int Id, UserForSetAddress userForUpdate)
 		{
-			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-			var userFromRepo = await this.repo.GetUser(Id);
+			var isAdmin = User.IsInRole("Admin");
+			var userFromRepo = await this.repo.GetUser(Id, true);
 
 			if (userFromRepo == null)
 				return NotFound("User not found");
+
+			if (isAdmin)
+			{
+				this.mapper.Map(userForUpdate, userFromRepo);
+
+				await this.unitOfWork.CompleteAsync();
+				var us = this.mapper.Map<UserForDetail>(userFromRepo);
+				return Ok(us);
+			}
+
+			var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
 			if (currentUserId != userFromRepo.Id)
 				return Unauthorized();

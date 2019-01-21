@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderViewAdmin } from 'src/app/_models/Order';
 import { OrderService } from 'src/app/_services/order.service';
 import { UIService } from 'src/app/_services/ui.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-order-view',
@@ -17,7 +18,8 @@ export class OrderViewComponent implements OnInit {
     private route: ActivatedRoute,
     private uiService: UIService,
     private router: Router,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['admin/orders']);
+    this.location.back();
   }
 
   completeOrder() {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Shop.API.Core;
@@ -49,6 +50,8 @@ namespace Shop.API.Controllers
 			return Ok(photoToReturn);
 		}
 
+
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPost]
 		public async Task<IActionResult> AddPhotoForProduct(int productId, PhotoForCreation photoForCreation)
 		{
@@ -97,7 +100,7 @@ namespace Shop.API.Controllers
 			return BadRequest("Could not add the photo");
 		}
 
-
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPost("{photoid}/setMain")]
 		public async Task<IActionResult> SetMainPhoto(int productId, int photoid)
 		{
@@ -122,6 +125,7 @@ namespace Shop.API.Controllers
 
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpDelete("{photoid}")]
 		public async Task<IActionResult> DeletePhoto(int photoid)
 		{

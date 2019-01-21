@@ -26,8 +26,8 @@ import { UserOrdersComponent } from './user/user-orders/user-orders.component';
 import { AccountComponent } from './user/account/account.component';
 import { LowProductsComponent } from './admin/products/low-products/low-products.component';
 import { UserListComponent } from './admin/users/user-list/user-list.component';
-import { UserViewComponent } from './admin/users/user-view/user-view.component';
 import { UserViewResolver } from './_resolver/user-view.resolver';
+import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
 
 export const appRoutes: Routes = [
   {
@@ -100,7 +100,7 @@ export const appRoutes: Routes = [
       },
       { path: 'category', component: CategoryComponent },
       { path: 'users', component: UserListComponent },
-      { path: 'users/:id', component: UserViewComponent,resolve: { user: UserViewResolver } },
+      { path: 'users/:id', component: UserPanelAdminComponent, resolve: { user: UserViewResolver } },
       { path: 'archives', component: ArchivesComponent },
       { path: 'lowinventory', component: LowProductsComponent },
       { path: 'orders', component: OrderListComponent },

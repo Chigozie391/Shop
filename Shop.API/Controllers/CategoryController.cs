@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.API.Core;
@@ -37,7 +38,7 @@ namespace Shop.API.Controllers
 			return Ok(result);
 		}
 
-		// create new parent category
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPost]
 		public async Task<IActionResult> AddCategory(CategoryForCreation categoryForCreation)
 		{
@@ -54,7 +55,9 @@ namespace Shop.API.Controllers
 			return BadRequest("Could not create the category");
 		}
 
+
 		// create child category of a parent
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPost("createChildCategory/{id}")]
 		public async Task<IActionResult> CreateChildCategory(int Id, ChildCategoryForCreation childCategoryDto)
 		{
@@ -75,6 +78,7 @@ namespace Shop.API.Controllers
 
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateCategory(int Id, CategoryOrChildCategoryForUpdate categoryOrChild)
 		{
@@ -89,6 +93,7 @@ namespace Shop.API.Controllers
 			return Ok(result);
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPut("updateChildCategory/{id}")]
 		public async Task<IActionResult> UpdateChildCategory(int Id, CategoryOrChildCategoryForUpdate childCategoryForUpdate)
 		{
@@ -104,6 +109,8 @@ namespace Shop.API.Controllers
 			return Ok(result);
 		}
 
+
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteCategory(int Id)
 		{
@@ -114,6 +121,8 @@ namespace Shop.API.Controllers
 			return Ok(Id);
 		}
 
+
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpDelete("deleteChildCategory/{id}")]
 		public async Task<IActionResult> DeleteChildCategory(int Id)
 		{

@@ -13,7 +13,7 @@ export class UserViewResolver implements Resolve<any> {
     return this.userService.getUser(route.params['id']).pipe(
       catchError(() => {
         this.uiService.error('Problem retrieving data');
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/users']);
         return of(null);
       })
     );

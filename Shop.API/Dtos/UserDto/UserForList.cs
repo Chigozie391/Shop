@@ -9,7 +9,7 @@ namespace Shop.API.Dtos.UserDto
 		public string Email { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public DateTime JoinDate { get; set; }
+		public DateTime LastActive { get; set; }
 		public ICollection<String> Roles { get; set; }
 	}
 }

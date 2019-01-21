@@ -25,7 +25,11 @@ namespace Shop.API.Mapping
 			CreateMap<ChildCategory, Dtos.CategoryDto.KeyValuePair>();
 
 			// Auth
-			CreateMap<User, UserForDetail>();
+			CreateMap<User, UserForDetail>()
+			.ForMember(des => des.Roles, opt =>
+			{
+				opt.MapFrom(src => src.UserRoles.Select(o => o.Role));
+			});
 
 
 			// product
@@ -92,7 +96,7 @@ namespace Shop.API.Mapping
 			CreateMap<OrderForCreation, Order>();
 
 			//User
-			CreateMap<UserForSetDefaultAddress, User>();
+			CreateMap<UserForSetAddress, User>();
 			CreateMap<UserForUpdate, User>();
 			CreateMap<ProductForUpdateSize, Product>();
 

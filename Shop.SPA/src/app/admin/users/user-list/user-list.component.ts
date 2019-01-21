@@ -10,62 +10,60 @@ import { tap } from 'rxjs/operators';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit ,AfterViewInit{
-	displayedColumns = ['action', 'name', 'email','roles', 'joinDate'];
+export class UserListComponent implements OnInit, AfterViewInit {
+  displayedColumns = ['action', 'name', 'email', 'roles', 'login'];
 
-	dataSource: UserForList[];
- 
-	@ViewChild(MatTable) table: MatTable<any>;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-	isLoading: boolean;
- 
-	userQuery: IQuery = {
-	  sortBy: 'joinDate',
-	  isSortAscending: '',
-	  pageIndex: 1,
-	  pageSize: 5
-	};
-  constructor(private userService: UserService) { }
+  dataSource: UserForList[];
 
-	ngOnInit() {
-		this.getUsers();
-	}
-	
+  @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  isLoading: boolean;
+
+  userQuery: IQuery = {
+    sortBy: 'joinDate',
+    isSortAscending: '',
+    pageIndex: 1,
+    pageSize: 5
+  };
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.getUsers();
+  }
+
   ngAfterViewInit() {
-	this.paginator.page
-	  .pipe(
-		 tap(() => {
-			this.userQuery.pageIndex = this.paginator.pageIndex + 1;
-			this.userQuery.pageSize = this.paginator.pageSize;
+    this.paginator.page
+      .pipe(
+        tap(() => {
+          this.userQuery.pageIndex = this.paginator.pageIndex + 1;
+          this.userQuery.pageSize = this.paginator.pageSize;
 
-			this.getUsers();
-		 })
-	  )
-	  .subscribe();
- }
-	
+          this.getUsers();
+        })
+      )
+      .subscribe();
+  }
+
   getUsers() {
-	this.isLoading = false;
-	this.userService.getUsers(this.userQuery).subscribe(
-	  result => {
-		 this.dataSource = result['items'];
-			this.paginator.length = result['totalItems'];
-	  },
-	  null,
-	  () => (this.isLoading = true)
-	);
+    this.isLoading = false;
+    this.userService.getUsers(this.userQuery).subscribe(
+      result => {
+        this.dataSource = result['items'];
+        this.paginator.length = result['totalItems'];
+      },
+      null,
+      () => (this.isLoading = true)
+    );
   }
   resetFilters() {
-	this.userQuery = {
-	  isShipped: false,
-	  sortBy: '',
-	  isSortAscending: '',
-	  pageIndex: 1,
-	  pageSize: 5
-	};
+    this.userQuery = {
+      isShipped: false,
+      sortBy: '',
+      isSortAscending: '',
+      pageIndex: 1,
+      pageSize: 5
+    };
 
-	this.getUsers();
- }
-
-
+    this.getUsers();
+  }
 }

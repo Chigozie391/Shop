@@ -1,0 +1,31 @@
+.img-circle {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: #ccc;
+  margin: 20px auto;
+  position: relative;
+}
+
+input#pp-input {
+  display: none;
+}
+.pp-input {
+  position: absolute;
+  right: 0px;
+  top: 70px;
+  font-size: 20px;
+  cursor: pointer;
+}
+input[type='file'] {
+  padding: 5px;
+}
+
+.p-icon {
+  position: absolute;
+  right: 20px;
+}
+
+a {
+  font-size: 14px;
+}

@@ -14,7 +14,7 @@ export class OrderViewResolver implements Resolve<OrderViewAdmin> {
     return this.orderService.getOrder(route.params['id']).pipe(
       catchError(() => {
         this.uiService.error('Problem retrieving data');
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/orders']);
         return of(null);
       })
     );

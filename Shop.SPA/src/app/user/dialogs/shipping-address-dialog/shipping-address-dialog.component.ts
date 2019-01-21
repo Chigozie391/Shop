@@ -43,10 +43,10 @@ export class ShippingAddressDialogComponent implements OnInit {
     if (this.setAsDefaultAddress) {
       // if he checks this address as the default address
       this.userAddress.hasDefaultAddress = true;
-      this.userService.setDefaultAddress(this.currentUser.id, this.userAddress).subscribe(
+      this.userService.setAddress(this.currentUser.id, this.userAddress).subscribe(
         user => {
           localStorage.setItem('user', JSON.stringify(user));
-          this.uiService.success('Sucessfully set as default shipping address');
+          this.uiService.success('Sucessfully set as default');
         },
         error => {
           return this.uiService.error('Network error');

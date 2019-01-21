@@ -13,11 +13,28 @@ export interface User {
   state?: string;
   hasDefaultAddress?: boolean;
 }
-export interface UserForList{
-	id?: number;
-	email?: string;
-	firstName?: string;
-	lastName?: string;
-	joinDate?: string;
-	roles?: string[];
+export interface UserForList {
+  id?: number;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  lastActive?: string;
+  roles?: string[];
+}
+
+export interface UserForDetailAdmin {
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  userName?: string;
+  password?: string;
+  phoneNumber?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  lastActive?: string;
+  joinDate?: string;
+  roles?: any;
+  hasDefaultAddress?: boolean;
 }

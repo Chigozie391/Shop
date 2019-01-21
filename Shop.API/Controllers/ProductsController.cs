@@ -139,7 +139,7 @@ namespace Shop.API.Controllers
 			product.LastUpdated = DateTime.Now;
 
 			await this.unitOfWork.CompleteAsync();
-			return Ok();
+			return Ok(product.Featured);
 		}
 
 		[HttpDelete("{id}")]

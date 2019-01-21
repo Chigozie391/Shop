@@ -51,6 +51,10 @@ import { AccountComponent } from './user/account/account.component';
 import { LowProductsComponent } from './admin/products/low-products/low-products.component';
 import { UserListComponent } from './admin/users/user-list/user-list.component';
 import { UserViewComponent } from './admin/users/user-view/user-view.component';
+import { UserSidenavComponent } from './user/user-sidenav/user-sidenav.component';
+import { UserViewResolver } from './_resolver/user-view.resolver';
+import { UserOrderAdminComponent } from './admin/users/user-order-admin/user-order-admin.component';
+import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -73,6 +77,7 @@ export function tokenGetter() {
     CategoryComponent,
     OrderListComponent,
     OrderViewComponent,
+    UserSidenavComponent,
     HomeComponent,
     CarouselComponent,
     UserNavComponent,
@@ -81,8 +86,10 @@ export function tokenGetter() {
     ItemDetailComponent,
     CartComponent,
     UserOrdersComponent,
+    UserPanelAdminComponent,
     UserListComponent,
     UserViewComponent,
+    UserOrderAdminComponent,
     AccountComponent,
     ViewCategoriesComponent,
     ThankyouComponent,
@@ -119,6 +126,7 @@ export function tokenGetter() {
     ThankYouResolver,
     OrderViewResolver,
     ViewCategoryResolver,
+    UserViewResolver,
     AuthGuard,
     CartDialogComponent,
     LoginDialogComponent,

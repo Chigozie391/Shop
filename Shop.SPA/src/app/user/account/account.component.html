@@ -1,33 +1,6 @@
 <div class="container">
   <div class="row justify-content-between">
-    <div class="col-md-4 mt-4">
-      <div class="row">
-        <div class="col-12 text-center mb-4 bg-white custom-card">
-          <div class="img-circle">
-            <label for="pp-input" class="pp-input"> <i class="fa fa-camera"></i> </label>
-            <img src="" alt="" class="ppix" /> <input type="file" name="image" id="pp-input" />
-          </div>
-          <h5 class="mb-3 text-success text-capitalize">{{ currentUser.lastName }} {{ currentUser.firstName }}</h5>
-          <button class="btn-block btn save mb-4 shadow ">Save Photo</button>
-        </div>
-        <div class="col-12 p-0">
-          <div class="card">
-            <ul class="list-group list-group-flush">
-              <a class="list-group-item " [routerLink]="['/account']"
-                >Personal Information <i class="fa fa-chevron-right p-icon "></i>
-              </a>
-              <a class="list-group-item " [routerLink]="['/myorders']"
-                >My Orders <i class="fa fa-chevron-right p-icon "></i>
-              </a>
-              <a class="list-group-item" [routerLink]="['/cart']">
-                Go to Cart <i class="fa fa-chevron-right p-icon"></i>
-              </a>
-              <a class="list-group-item" href="#"> Change Password <i class="fa fa-chevron-right p-icon"></i> </a>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="col-md-4 mt-4"><app-user-sidenav [currentUser]="currentUser"></app-user-sidenav></div>
     <div class="col-md-7 mt-4 offset-md-1">
       <div class="text-center bg-white head"><h4 class="my-2">Personal Information</h4></div>
       <div class="bg-white card custom-card p-5">
@@ -131,7 +104,7 @@
           </div>
           <div class="form-group mt-4 mb-0 text-center">
             <button type="button" mat-raised-button class="mr-3 cancel" (click)="back()">Back</button>
-            <button type="submit" class="save btn shadow" [disabled]="form.invalid">Update</button>
+            <button type="submit" class="save btn shadow" [disabled]="form.invalid">Save Changes</button>
           </div>
         </form>
       </div>

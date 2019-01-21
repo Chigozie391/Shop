@@ -14,6 +14,7 @@ namespace Shop.API.Core.Models
 		public string State { get; set; }
 		public bool HasDefaultAddress { get; set; }
 		public DateTime JoinDate { get; set; }
+		public DateTime LastActive { get; set; }
 		public ICollection<Order> Orders { get; set; }
 		public ICollection<UserRole> UserRoles { get; set; }
 		public User()

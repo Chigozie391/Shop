@@ -1,6 +1,6 @@
 namespace Shop.API.Dtos.UserDto
 {
-	public class UserForSetDefaultAddress
+	public class UserForSetAddress
 	{
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }

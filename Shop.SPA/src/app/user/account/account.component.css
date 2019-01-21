@@ -1,58 +1,5 @@
-.img-circle {
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  background-color: #ccc;
-  margin: 20px auto;
-  position: relative;
-}
-
-input#pp-input {
-  display: none;
-}
-.pp-input {
-  position: absolute;
-  right: 0px;
-  top: 70px;
-  font-size: 20px;
-  cursor: pointer;
-}
-input[type='file'] {
-  padding: 5px;
-}
-.custom-card {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-}
 mat-form-field {
   width: 70%;
-}
-div.head {
-  padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-bottom: 3px solid rgba(0, 0, 0, 0.125);
-}
-.p-icon {
-  position: absolute;
-  right: 20px;
-}
-
-a {
-  font-size: 14px;
-}
-.save {
-  outline: none;
-  font-size: 12px;
-  color: white;
-  transition: all 0.4s;
-  background-color: #f68b1e;
-  padding: 10px 30px;
-  border: 1px solid #f68b1e;
-  border-radius: 5px;
-}
-.save:hover {
-  background-color: #d47718;
-  color: white;
 }
 .cancel {
   padding: 2px 30px;

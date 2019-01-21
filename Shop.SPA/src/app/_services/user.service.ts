@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  setDefaultAddress(id: number, addressObj) {
-    return this.http.put(this.baseUrl + 'user/' + id + '/setdefaultaddress', addressObj);
+  setAddress(id: number, addressObj) {
+    return this.http.put(this.baseUrl + 'user/' + id + '/setaddress', addressObj);
   }
   updateUserInfo(id: number, infoObj) {
     return this.http.put(this.baseUrl + 'user/' + id, infoObj);
@@ -26,31 +26,31 @@ export class UserService {
   updateProductSizeAfterOrder(productId: number, sizeArr) {
     return this.http.put(this.baseUrl + 'user/' + productId + '/product', sizeArr);
   }
-	
+
   getUsers(userQuery: IQuery) {
-	let params = this.queryParams(userQuery);
+    let params = this.queryParams(userQuery);
 
-	return this.http.get<UserForList[]>(this.baseUrl + 'user', { params: params });
+    return this.http.get<UserForList[]>(this.baseUrl + 'user', { params: params });
   }
-	
+
   getUser(Id: number) {
-	return this.http.get(this.baseUrl + 'user/' + Id);
- }
-	
+    return this.http.get(this.baseUrl + 'user/' + Id);
+  }
+
   private queryParams(userQuery: IQuery) {
-	let params = new HttpParams();
+    let params = new HttpParams();
 
-	if (userQuery.sortBy != null) {
-	  params = params.append('sortBy', userQuery.sortBy);
-	}
+    if (userQuery.sortBy != null) {
+      params = params.append('sortBy', userQuery.sortBy);
+    }
 
-	if (userQuery.isSortAscending.length) {
-	  params = params.append('isSortAscending', userQuery.isSortAscending);
-	}
+    if (userQuery.isSortAscending.length) {
+      params = params.append('isSortAscending', userQuery.isSortAscending);
+    }
 
-	params = params.append('page', '' + userQuery.pageIndex);
-	params = params.append('pageSize', '' + userQuery.pageSize);
+    params = params.append('page', '' + userQuery.pageIndex);
+    params = params.append('pageSize', '' + userQuery.pageSize);
 
-	return params;
- }
+    return params;
+  }
 }

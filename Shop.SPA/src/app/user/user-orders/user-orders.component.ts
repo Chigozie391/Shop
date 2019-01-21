@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/User';
 import { AuthService } from 'src/app/_services/auth.service';
 import { OrderService } from 'src/app/_services/order.service';
@@ -13,8 +13,8 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./user-orders.component.css']
 })
 export class UserOrdersComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  currentUser: User;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
+  @Output() currentUser: User;
   rawOrder: any[] = [];
   orders: OrderViewAdmin[] = [];
 

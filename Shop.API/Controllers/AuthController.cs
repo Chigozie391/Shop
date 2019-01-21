@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Shop.API.Core;
 using Shop.API.Core.Models;
 using Shop.API.Dtos.AuthDto;
+using Shop.API.Dtos.UserDto;
 
 namespace Shop.API.Controllers
 {

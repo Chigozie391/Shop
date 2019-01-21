@@ -13,4 +13,8 @@ export class AdminService {
   public getCounters() {
     return this.http.get(this.baseUrl + 'admin/counters');
   }
+
+  public updateRole(email: string, roleObj: any) {
+    return this.http.put(this.baseUrl + 'admin/updateroles/' + email, roleObj);
+  }
 }

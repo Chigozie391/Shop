@@ -1,3 +1,161 @@
-<p>
-  user-view works!
-</p>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">User Role :</h6>
+          <span class="" *ngFor="let role of user.roles">{{ role.name }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">First Name :</h6>
+          <span class=""> {{ user.firstName }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Last Name :</h6>
+          <span class="">{{ user.lastName }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Email :</h6>
+          <span class=""> {{ user.email }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Address :</h6>
+          <span class="">{{ user.address }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">City :</h6>
+          <span class="">{{ user.city }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">State :</h6>
+          <span class=""> {{ user.state }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Phone Number:</h6>
+          <span class=""> {{ user.phoneNumber }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Last Active :</h6>
+          <span class=""> {{ user.lastActive | date }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h6 class="font-weight-bold">Registration Date :</h6>
+          <span class=""> {{ user.joinDate | date }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <div class="card px-5 pt-4 mb-3 shadow-sm">
+        <h5 class="text-center">Edit User Roles</h5>
+        <form name="form" role="form" #roleForm="ngForm">
+          <div class="form-group">
+            <mat-form-field class="mx-2 smfont-dropdown">
+              <mat-select placeholder="User Role" [(value)]="roles" multiple [disabled]="!isAdmin">
+                <mat-option value="Customer">Customer</mat-option>
+                <mat-option value="Moderator">Moderator</mat-option>
+                <mat-option value="Admin">Administrator</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class=" mt-2 mb-4 d-flex justify-content-end">
+            <button mat-raised-button color="primary" [disabled]="!isAdmin" (click)="updateRole(roleForm)" class="mx-2">
+              Update Roles
+            </button>
+            <button mat-raised-button type="submit" class=" mx-2">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <div class="card px-5 pt-4 shadow-sm">
+        <h5 class="text-center">Edit User Address</h5>
+        <form name="form" role="form" #addressForm="ngForm">
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>Address </mat-label>
+              <input
+                matInput
+                type="text"
+                id="address"
+                [disabled]="!isAdmin"
+                name="address"
+                #address="ngModel"
+                [(ngModel)]="user.address"
+                required
+              />
+              <mat-error *ngIf="address.hasError('required')"> Enter the user address.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>City</mat-label>
+              <input
+                matInput
+                type="text"
+                id="city"
+                [disabled]="!isAdmin"
+                name="city"
+                #city="ngModel"
+                [(ngModel)]="user.city"
+                required
+              />
+              <mat-error *ngIf="city.hasError('required')"> Enter the user city.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>State</mat-label>
+              <input
+                matInput
+                type="text"
+                id="state"
+                [disabled]="!isAdmin"
+                name="state"
+                #state="ngModel"
+                [(ngModel)]="user.state"
+                required
+              />
+              <mat-error *ngIf="state.hasError('required')"> Enter the user state.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="standard">
+              <mat-label>Phone Number</mat-label>
+              <input
+                matInput
+                type="text"
+                id="phoneNumber"
+                [disabled]="!isAdmin"
+                name="phoneNumber"
+                #phoneNumber="ngModel"
+                [(ngModel)]="user.phoneNumber"
+                minlength="10"
+                maxlength="15"
+                required
+              />
+              <mat-error *ngIf="phoneNumber.hasError('required')"> Enter the user phone number.</mat-error>
+            </mat-form-field>
+          </div>
+          <mat-checkbox [disabled]="!isAdmin" name="userAddress" [(ngModel)]="user.hasDefaultAddress"
+            >Set as default shipping details</mat-checkbox
+          >
+          <div class=" mt-2 mb-4 d-flex justify-content-end">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="addressForm.invalid || !isAdmin"
+              (click)="updateAddress(addressForm)"
+              class="mx-2"
+            >
+              Save Changes
+            </button>
+            <button mat-raised-button type="button" class=" mx-2">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

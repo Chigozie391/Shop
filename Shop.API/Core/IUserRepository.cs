@@ -8,7 +8,7 @@ namespace Shop.API.Core
 {
 	public interface IUserRepository
 	{
-		Task<User> GetUser(int id);
+		Task<User> GetUser(int id, bool includeRoles = false);
 		Task<QueryResult<UserForList>> GetUsers(UserQueryParams queryParams);
 	}
 }

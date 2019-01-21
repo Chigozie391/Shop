@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Core;
+using Shop.API.Dtos.UserDto;
 
 namespace Shop.API.Controllers
 {
@@ -24,6 +25,18 @@ namespace Shop.API.Controllers
 		{
 			var counter = await this.repo.DashboardCounter();
 			return Ok(counter);
+		}
+
+		[Authorize(Policy = "RequireAdminRole")]
+		[HttpPut("updateroles/{email}")]
+		public async Task<IActionResult> UpdateUserRoles(string email, RoleForUpdate roleForUpdate)
+		{
+			var userRoles = await this.repo.UpdateUserRole(email, roleForUpdate);
+			if (userRoles.Count > 0)
+			{
+				return Ok(userRoles);
+			}
+			return BadRequest("Unable to update roles");
 		}
 	}
 }

@@ -14,7 +14,7 @@ export class ProductViewResolver implements Resolve<Products> {
     return this.productService.getProduct(route.params['id']).pipe(
       catchError(() => {
         this.uiService.error('Problem retrieving data');
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/admin/products']);
         return of(null);
       })
     );
