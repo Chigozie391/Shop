@@ -2,18 +2,49 @@
 <mat-sidenav-container>
   <mat-sidenav #sideNav role="navigation">
     <mat-nav-list>
-      <h3 matSubheader>Products</h3>
-      <a mat-list-item [routerLink]="['/admin/products']" (click)="sideNav.close()">Product List</a>
-      <a mat-list-item [routerLink]="['/admin/lowinventory']" (click)="sideNav.close()">Low Inventory</a>
-      <a mat-list-item [routerLink]="['/admin/archives']" (click)="sideNav.close()">Archived Product</a>
-      <mat-divider></mat-divider>
-      <h3 matSubheader>Users</h3>
-      <a mat-list-item [routerLink]="['/admin/users']" (click)="sideNav.close()">Users List</a>
+      <a mat-list-item [routerLink]="['/admin']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-home" aria-hidden="true"></mat-icon>
+        Dashboard</a
+      >
+      <a mat-list-item [routerLink]="['/admin/category']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-briefcase" aria-hidden="true"></mat-icon>
+        Category</a
+      >
+
+      <a mat-list-item [routerLink]="['/admin/orders']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-shopping-cart" aria-hidden="true"></mat-icon>
+        List Orders</a
+      >
       <mat-divider></mat-divider>
 
-      <a mat-list-item [routerLink]="['/admin/category']" (click)="sideNav.close()">Category</a>
-
-      <a mat-list-item [routerLink]="['/admin/orders']" (click)="sideNav.close()">Orders</a>
+      <h3 matSubheader class="mt-2">Products</h3>
+      <a mat-list-item [routerLink]="['/admin/products']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-industry" aria-hidden="true"></mat-icon>
+        List Product
+      </a>
+      <a mat-list-item [routerLink]="['/admin/product/create']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-folder-plus" aria-hidden="true"></mat-icon>
+        Create New Products</a
+      >
+      <a mat-list-item [routerLink]="['/admin/lowinventory']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-sort-numeric-down" aria-hidden="true"></mat-icon>
+        Low Inventory</a
+      >
+      <a mat-list-item [routerLink]="['/admin/archives']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
+        Archived Product</a
+      >
+      <mat-divider></mat-divider>
+      <h3 matSubheader class="mt-2">Users</h3>
+      <a mat-list-item [routerLink]="['/admin/users']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-users" aria-hidden="true"></mat-icon>
+        List Users</a
+      >
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['/']" (click)="sideNav.close()" class="mt-2">
+        <mat-icon class="fas fa-arrow-alt-circle-left" aria-hidden="true"></mat-icon>
+        Goto Site</a
+      >
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content> <router-outlet></router-outlet> </mat-sidenav-content>

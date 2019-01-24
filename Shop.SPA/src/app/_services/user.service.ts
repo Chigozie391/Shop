@@ -37,6 +37,10 @@ export class UserService {
     return this.http.get(this.baseUrl + 'user/' + Id);
   }
 
+  changePassword(userId: number, userPassword: any) {
+    return this.http.put(this.baseUrl + 'user/' + userId + '/changepassword', userPassword);
+  }
+
   private queryParams(userQuery: IQuery) {
     let params = new HttpParams();
 

@@ -16,9 +16,5 @@ export class AdminPanelComponent implements OnInit {
     this.uiService.toggleAdminSideNav.subscribe(x => {
       this.sideNav.toggle();
     });
-
-    this.uiService.closeAdminSidenav.subscribe(x => {
-      this.sideNav.close();
-    });
   }
 }

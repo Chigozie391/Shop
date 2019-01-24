@@ -69,5 +69,26 @@ namespace Shop.API.Persistance
 
 			return queryResult;
 		}
+		public async Task<bool> VerifyPassword(User user, ChangePassword password)
+		{
+
+			var check = await this.userManager.CheckPasswordAsync(user, password.OldPassword);
+			if (check)
+				return true;
+
+			return false;
+		}
+
+
+		public async Task<bool> ChangePassword(User user, ChangePassword password)
+		{
+
+			var result = await this.userManager.ChangePasswordAsync(user, password.OldPassword, password.NewPassword);
+
+			if (result.Succeeded)
+				return true;
+
+			return false;
+		}
 	}
 }

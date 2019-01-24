@@ -55,6 +55,7 @@ import { UserSidenavComponent } from './user/user-sidenav/user-sidenav.component
 import { UserViewResolver } from './_resolver/user-view.resolver';
 import { UserOrderAdminComponent } from './admin/users/user-order-admin/user-order-admin.component';
 import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
+import { ChangepasswordComponent } from './user/changepassword/changepassword.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -97,6 +98,7 @@ export function tokenGetter() {
     FooterComponent,
     LoginDialogComponent,
     ShippingAddressDialogComponent,
+    ChangepasswordComponent,
     HasRoleDirective,
     MoneyPipe
   ],

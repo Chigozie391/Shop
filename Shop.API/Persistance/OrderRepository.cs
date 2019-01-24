@@ -40,9 +40,11 @@ namespace Shop.API.Persistance
 			return await this.ApplyPagingAndSorting(query, queryParams);
 		}
 
-		public async Task<QueryResult<Order>> GetOrdersByUserId(int userId, OrderQueryParams queryParams)
+		public async Task<QueryResult<Order>> GetOrdersByUserId(int userId, OrderQueryParams queryParams, bool includeUser)
 		{
-			var query = queryParams.IsShipped ? this.context.Orders
+			if (includeUser)
+			{
+				var query = queryParams.IsShipped ? this.context.Orders
 									.Include(u => u.User)
 									.Where(x => x.UserId == userId && x.IsShipped).AsQueryable()
 									:
@@ -50,7 +52,19 @@ namespace Shop.API.Persistance
 									.Include(u => u.User)
 									.Where(x => x.UserId == userId && !x.IsShipped).AsQueryable();
 
-			return await this.ApplyPagingAndSorting(query, queryParams);
+				return await this.ApplyPagingAndSorting(query, queryParams);
+			}
+			else
+			{
+				var query = queryParams.IsShipped ? this.context.Orders
+									.Where(x => x.UserId == userId && x.IsShipped).AsQueryable()
+									:
+									this.context.Orders
+									.Where(x => x.UserId == userId && !x.IsShipped).AsQueryable();
+
+				return await this.ApplyPagingAndSorting(query, queryParams);
+			}
+
 		}
 
 		public async Task<Order> GetOrder(int id, bool includeUser)

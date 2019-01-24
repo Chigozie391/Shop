@@ -76,6 +76,8 @@ namespace Shop.API.Controllers
 			return Ok();
 		}
 
+
+		// return customers user orders
 		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpGet("{userId}/user")]
 		public async Task<IActionResult> GetUserOrders(int userId, [FromQuery]OrderQueryParams queryParams)
@@ -98,7 +100,6 @@ namespace Shop.API.Controllers
 		}
 
 
-
 		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpGet]
 		public async Task<IActionResult> GetAllOrderedProducts([FromQuery]OrderQueryParams queryParams)
@@ -106,6 +107,17 @@ namespace Shop.API.Controllers
 			var order = await this.orderRepo.GetAllOrderedItems(queryParams);
 
 			var orderToReturn = this.mapper.Map<QueryResultResource<OrderForList>>(order);
+			return Ok(orderToReturn);
+		}
+
+		// return all user orders list
+		[Authorize(Policy = "RequireModeratorRole")]
+		[HttpGet("{userId}/user/admin")]
+		public async Task<IActionResult> GetAllUserOrders(int userId, [FromQuery]OrderQueryParams queryParams)
+		{
+			var orders = await this.orderRepo.GetOrdersByUserId(userId, queryParams, false);
+
+			var orderToReturn = this.mapper.Map<QueryResultResource<OrderForList>>(orders);
 			return Ok(orderToReturn);
 		}
 

@@ -4,10 +4,26 @@
       <mat-icon class="fas fa-bars" aria-hidden="true"></mat-icon>
     </button>
   </div>
-  <div><a [routerLink]="['/admin']" (click)="closeSidenav()">Dashboard</a></div>
   <div fxHide.xs class="d-none d-sm-flex justify-content-end flex-grow-1 ">
     <ul class="navigation-items d-flex">
-      <li class="mx-3"><a [routerLink]="['/']">Goto Site</a></li>
+      <li class="user" [matMenuTriggerFor]="menu">
+        <span class="name">{{ currentUser.lastName }}</span>
+        <div class="img-wrapper"><img src="https://img.icons8.com/color/48/000000/user.png" /></div>
+      </li>
     </ul>
   </div>
 </mat-toolbar>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="myProfile()">
+    <mat-icon class="fas fa-user" aria-hidden="true"></mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item (click)="changePassword()">
+    <mat-icon class="fas fa-key" aria-hidden="true"></mat-icon>
+    <span>Change Password</span>
+  </button>
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon class="fas fa-sign-out-alt" aria-hidden="true"></mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>

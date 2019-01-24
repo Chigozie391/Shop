@@ -65,8 +65,6 @@
               name="phoneNumber"
               #phoneNumber="ngModel"
               [(ngModel)]="user.phoneNumber"
-              minlength="10"
-              maxlength="15"
               required
             />
             <mat-error *ngIf="phoneNumber.hasError('required')"> Your phone number is required.</mat-error>
@@ -82,8 +80,8 @@
               name="password"
               #password="ngModel"
               [(ngModel)]="user.password"
-              minlength="4"
-              maxlength="50"
+              minlength="6"
+              maxlength="20"
               required
               [type]="hide ? 'password' : 'text'"
             />
@@ -101,11 +99,8 @@
               aria-hidden="true"
               matSuffix
             ></mat-icon>
-
             <mat-error *ngIf="password.hasError('required')"> Your password is required.</mat-error>
-            <mat-error *ngIf="password.hasError('minlength')">
-              Your password is required to be at least 4 characters.</mat-error
-            >
+            <mat-error *ngIf="password.hasError('minlength')">Password must be atleast 6 characters long.</mat-error>
           </mat-form-field>
         </div>
         <div class="form-group">

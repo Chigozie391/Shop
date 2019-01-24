@@ -1,26 +1,26 @@
 <div class="row">
-		<div class="col-12 text-center mb-4 bg-white custom-card">
-		  <div class="img-circle">
-			 <label for="pp-input" class="pp-input"> <i class="fa fa-camera"></i> </label>
-			 <img src="" alt="" class="ppix" /> <input type="file" name="image" id="pp-input" />
-		  </div>
-		  <h5 class="mb-3 text-success text-capitalize">{{ currentUser.lastName }} {{ currentUser.firstName }}</h5>
-		  <button class="btn-block btn save mb-4 shadow ">Save Photo</button>
-		</div>
-		<div class="col-12 p-0">
-		  <div class="card"> 
-			 <ul class="list-group list-group-flush">
-				<a class="list-group-item " [routerLink]="['/account']"
-				  >Personal Information <i class="fa fa-chevron-right p-icon "></i>
-				</a>
-				<a class="list-group-item " [routerLink]="['/myorders']"
-				  >My Orders <i class="fa fa-chevron-right p-icon "></i>
-				</a>
-				<a class="list-group-item" [routerLink]="['/cart']">
-				  Go to Cart <i class="fa fa-chevron-right p-icon"></i>
-				</a>
-				<a class="list-group-item" href="#"> Change Password <i class="fa fa-chevron-right p-icon"></i> </a>
-			 </ul>
-		  </div>
-		</div>
-	 </div>
+  <div class="col-12 text-center mb-4 bg-white custom-card">
+    <div class="img-circle">
+      <label for="pp-input" class="pp-input"> <i class="fa fa-camera"></i> </label> <img src="" alt="" class="ppix" />
+      <input type="file" name="image" id="pp-input" />
+    </div>
+    <h5 class="mb-3 text-success text-capitalize">{{ currentUser.lastName }} {{ currentUser.firstName }}</h5>
+    <button class="btn-block btn save mb-4 shadow ">Save Photo</button>
+  </div>
+  <div class="col-12 p-0">
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <a class="list-group-item " [routerLink]="['/account']"
+          >Personal Information <i class="fa fa-chevron-right p-icon "></i>
+        </a>
+        <a class="list-group-item " [routerLink]="['/myorders']"
+          >My Orders <i class="fa fa-chevron-right p-icon "></i>
+        </a>
+        <a class="list-group-item" [routerLink]="['/cart']"> Go to Cart <i class="fa fa-chevron-right p-icon"></i> </a>
+        <a class="list-group-item" [routerLink]="['/changepassword']">
+          Change Password <i class="fa fa-chevron-right p-icon"></i>
+        </a>
+      </ul>
+    </div>
+  </div>
+</div>

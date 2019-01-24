@@ -28,6 +28,7 @@ import { LowProductsComponent } from './admin/products/low-products/low-products
 import { UserListComponent } from './admin/users/user-list/user-list.component';
 import { UserViewResolver } from './_resolver/user-view.resolver';
 import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
+import { ChangepasswordComponent } from './user/changepassword/changepassword.component';
 
 export const appRoutes: Routes = [
   {
@@ -42,6 +43,13 @@ export const appRoutes: Routes = [
       {
         path: '',
         component: HomeComponent
+      },
+      {
+        path: 'changepassword',
+        component: ChangepasswordComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['Customer'] },
+        runGuardsAndResolvers: 'always'
       },
       {
         path: 'categories/:id',
@@ -63,7 +71,10 @@ export const appRoutes: Routes = [
       },
       {
         path: 'account',
-        component: AccountComponent
+        component: AccountComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['Customer'] },
+        runGuardsAndResolvers: 'always'
       },
       {
         path: 'myorders',

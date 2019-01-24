@@ -20,7 +20,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
 
   userQuery: IQuery = {
-    sortBy: 'joinDate',
+    sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
     pageSize: 5

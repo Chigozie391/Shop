@@ -17,7 +17,7 @@ namespace Shop.API.Dtos.AuthDto
 		public string LastName { get; set; }
 
 		[Required]
-		[StringLength(50, MinimumLength = 6, ErrorMessage = "You must specify a password between 6 and 8 characters")]
+		[StringLength(20, MinimumLength = 6, ErrorMessage = "You password must atleast be 6 characters long")]
 		public string Password { get; set; }
 
 		[Required]

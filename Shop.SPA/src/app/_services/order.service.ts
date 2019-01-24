@@ -16,6 +16,12 @@ export class OrderService {
     return this.http.get(this.baseUrl + 'order', { params: params });
   }
 
+  getAllUserOrders(userId: number, orderQuery: IQuery) {
+    let params = this.queryParams(orderQuery);
+
+    return this.http.get(this.baseUrl + 'order/' + userId + '/user/admin', { params: params });
+  }
+
   getOrder(id: number) {
     return this.http.get(this.baseUrl + 'order/' + id);
   }

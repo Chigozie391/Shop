@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { UserForDetailAdmin } from 'src/app/_models/User';
 
 @Component({
   selector: 'app-user-panel-admin',
@@ -7,10 +9,15 @@ import { Location } from '@angular/common';
   styleUrls: ['./user-panel-admin.component.css']
 })
 export class UserPanelAdminComponent implements OnInit {
-  tabIndex: number;
-  constructor(private location: Location) {}
+  @Output() user: UserForDetailAdmin;
 
-  ngOnInit() {}
+  constructor(private location: Location, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.data.subscribe(x => {
+      this.user = x['user'];
+    });
+  }
   back() {
     this.location.back();
   }

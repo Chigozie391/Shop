@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserForDetailAdmin } from 'src/app/_models/User';
 import { AdminService } from 'src/app/_services/admin.service';
 import { UIService } from 'src/app/_services/ui.service';
@@ -12,12 +11,11 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./user-view.component.css']
 })
 export class UserViewComponent implements OnInit {
-  user: UserForDetailAdmin;
+  @Input() user: UserForDetailAdmin;
   roles = [];
   isAdmin: boolean;
 
   constructor(
-    private route: ActivatedRoute,
     private adminService: AdminService,
     private uiService: UIService,
     private userService: UserService,
@@ -25,13 +23,9 @@ export class UserViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe(x => {
-      this.user = x['user'];
-      this.user.roles.forEach(element => {
-        this.roles.push(element.name);
-      });
+    this.user.roles.forEach(element => {
+      this.roles.push(element.name);
     });
-
     this.isAdmin = this.authService.roleMatch(['Admin']);
   }
 

@@ -28,27 +28,6 @@ namespace Shop.API.Controllers
 			this.mapper = mapper;
 		}
 
-		[Authorize(Policy = "RequireModeratorRole")]
-		[HttpGet]
-		public async Task<IActionResult> GetUsers([FromQuery]UserQueryParams queryParams)
-		{
-			var user = await this.repo.GetUsers(queryParams);
-			var userToReturn = this.mapper.Map<QueryResultResource<UserForList>>(user);
-
-			return Ok(userToReturn);
-		}
-
-		[Authorize(Policy = "RequireModeratorRole")]
-		[HttpGet("{Id}")]
-		public async Task<IActionResult> GetUser(int Id)
-		{
-			var user = await this.repo.GetUser(Id, true);
-			var userToReturn = this.mapper.Map<UserForDetail>(user);
-
-			return Ok(userToReturn);
-		}
-
-
 		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{id}/setaddress")]
 		public async Task<IActionResult> SetAddress(int Id, UserForSetAddress userForUpdate)
@@ -103,6 +82,27 @@ namespace Shop.API.Controllers
 		}
 
 		[Authorize(Policy = "RequireCustomerRole")]
+		[HttpPut("{userId}/changepassword")]
+		public async Task<IActionResult> ChangePassword(int userId, ChangePassword password)
+		{
+			var user = await this.repo.GetUser(userId, false);
+
+			var checkPassword = await this.repo.VerifyPassword(user, password);
+			if (checkPassword)
+			{
+				var result = await this.repo.ChangePassword(user, password);
+				if (result)
+				{
+					return Ok();
+				}
+				return BadRequest("Unable to change password");
+			}
+
+			return BadRequest("Password did not match the old password");
+
+		}
+
+		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{productId}/product")]
 		public async Task<IActionResult> UpdateProductSizeAfterOrder(int productId, ProductForUpdateSize productForUpdateSize)
 		{
@@ -115,6 +115,26 @@ namespace Shop.API.Controllers
 
 			return Ok(product.Sizes);
 
+		}
+
+		[Authorize(Policy = "RequireModeratorRole")]
+		[HttpGet]
+		public async Task<IActionResult> GetUsers([FromQuery]UserQueryParams queryParams)
+		{
+			var user = await this.repo.GetUsers(queryParams);
+			var userToReturn = this.mapper.Map<QueryResultResource<UserForList>>(user);
+
+			return Ok(userToReturn);
+		}
+
+		[Authorize(Policy = "RequireModeratorRole")]
+		[HttpGet("{Id}")]
+		public async Task<IActionResult> GetUser(int Id)
+		{
+			var user = await this.repo.GetUser(Id, true);
+			var userToReturn = this.mapper.Map<UserForDetail>(user);
+
+			return Ok(userToReturn);
 		}
 	}
 }

@@ -17,12 +17,16 @@
       </mat-form-field>
 
       <mat-form-field class="mx-2 smfont-dropdown">
-        <mat-select [(value)]="orderQuery.isSortAscending" [disabled]="orderQuery.sortBy == null" placeholder="Order By">
+        <mat-select
+          [(value)]="orderQuery.isSortAscending"
+          [disabled]="orderQuery.sortBy == null"
+          placeholder="Order By"
+        >
           <mat-option value="true">Ascending Order</mat-option>
           <mat-option value="false">Descending Order</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="mx-2" (click)="getProducts()">Filter</button>
+      <button mat-raised-button color="primary" class="mx-2" (click)="getOrders()">Filter</button>
       <button mat-raised-button color="primary" class="mx-2" (click)="resetFilters()">Reset Filters</button>
     </div>
     <div class="col-12 mat-spinner-cont" *ngIf="!isLoading"><mat-spinner></mat-spinner></div>

@@ -14,3 +14,10 @@ mat-nav-list a {
   font-size: 14px;
   color: #000;
 }
+mat-icon {
+  font-size: 20px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

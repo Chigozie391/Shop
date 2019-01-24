@@ -28,7 +28,7 @@ export class OrderListComponent implements OnInit {
 
   constructor(private orderService: OrderService) {}
   ngOnInit() {
-    this.getProducts();
+    this.getOrders();
   }
 
   ngAfterViewInit() {
@@ -38,13 +38,13 @@ export class OrderListComponent implements OnInit {
           this.orderQuery.pageIndex = this.paginator.pageIndex + 1;
           this.orderQuery.pageSize = this.paginator.pageSize;
 
-          this.getProducts();
+          this.getOrders();
         })
       )
       .subscribe();
   }
 
-  getProducts() {
+  getOrders() {
     this.isLoading = false;
     this.orderService.getOrders(this.orderQuery).subscribe(
       result => {
@@ -65,6 +65,6 @@ export class OrderListComponent implements OnInit {
       pageSize: 5
     };
 
-    this.getProducts();
+    this.getOrders();
   }
 }

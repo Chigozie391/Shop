@@ -10,5 +10,7 @@ namespace Shop.API.Core
 	{
 		Task<User> GetUser(int id, bool includeRoles = false);
 		Task<QueryResult<UserForList>> GetUsers(UserQueryParams queryParams);
+		Task<bool> VerifyPassword(User user, ChangePassword password);
+		Task<bool> ChangePassword(User user, ChangePassword password);
 	}
 }
