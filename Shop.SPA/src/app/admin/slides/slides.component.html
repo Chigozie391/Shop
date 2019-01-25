@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <form #form="ngForm" enctype="multipart/form-data" (submit)="addSlide(form)">
+        <div class="form-group ">
+          <mat-form-field>
+            <input matInput placeholder="Title" required name="title" [(ngModel)]="title" />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput placeholder="Caption" required name="caption" [(ngModel)]="caption" />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <input type="file" class="form-control" #fileInput ngModel required name="file" (change)="onChange($event)" />
+          <div class="mt-2" *ngIf="isUploading">
+            Queue progress:
+            <mat-progress-bar mode="indeterminate" role="progressbar"></mat-progress-bar>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="ml-2 mt-3" mat-raised-button color="primary" [disabled]="form.invalid">
+            Add Slide
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-12 mat-spinner-cont" *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+
+        <div class="col-12" *ngIf="!isLoading">
+          <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button color="warn" (click)="delete(element.id)">
+                  <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Title </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.title }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="caption">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Caption </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.caption }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="img">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Image </mat-header-cell>
+              <mat-cell *matCellDef="let element"
+                ><div class="hover_img">
+                  <a href="#"
+                    >Show Image<span><img src="{{ element.url }}" alt="image" height="100"/></span
+                  ></a></div
+              ></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IImage } from 'ng-simple-slideshow';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-carousel',
@@ -6,12 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements OnInit {
-  constructor() {}
+  captionBackground: string = 'rgba(0, 0, 0, .35)';
+  showCaptions: boolean = true;
+  captionColor: string = '#FFF';
+  imageUrls: IImage[] = [];
+  slides: any[];
+
+  constructor(private service: AdminService) {}
   ngOnInit() {
-    let arr = [
-      'http://res.cloudinary.com/chigozie391/image/upload/v1545666235/Slider/deer-3840x2160-savanna-sunset-cute-animals-4480.jpg',
-      'http://res.cloudinary.com/chigozie391/image/upload/v1545666266/Slider/moon-mow-1366x768-4k-hd-moon-minimalism-iphone-wallpaper-astronaut-13442.jpg',
-      'http://res.cloudinary.com/chigozie391/image/upload/v1545666155/Slider/moon-1366x768-planet-4k-17035.jpg'
-    ];
+    this.service.getSlides().subscribe(
+      (x: []) => {
+        this.slides = x;
+      },
+      null,
+      () => {
+        this.slides.forEach(element => {
+          const slide = { url: element.url, caption: element.caption, title: element.title };
+          this.imageUrls.push(slide);
+        });
+      }
+    );
   }
 }

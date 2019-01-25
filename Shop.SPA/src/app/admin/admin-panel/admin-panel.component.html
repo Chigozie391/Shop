@@ -13,11 +13,19 @@
 
       <a mat-list-item [routerLink]="['/admin/orders']" (click)="sideNav.close()">
         <mat-icon class="fas fa-shopping-cart" aria-hidden="true"></mat-icon>
-        List Orders</a
+        Orders</a
+      >
+      <a mat-list-item [routerLink]="['/admin/users']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-users" aria-hidden="true"></mat-icon>
+        Customers</a
+      >
+      <a mat-list-item [routerLink]="['/admin/slides']" (click)="sideNav.close()">
+        <mat-icon class="fas fa-images" aria-hidden="true"></mat-icon>
+        Slides</a
       >
       <mat-divider></mat-divider>
 
-      <h3 matSubheader class="mt-2">Products</h3>
+      <h3 matSubheader>Products</h3>
       <a mat-list-item [routerLink]="['/admin/products']" (click)="sideNav.close()">
         <mat-icon class="fas fa-industry" aria-hidden="true"></mat-icon>
         List Product
@@ -33,17 +41,6 @@
       <a mat-list-item [routerLink]="['/admin/archives']" (click)="sideNav.close()">
         <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
         Archived Product</a
-      >
-      <mat-divider></mat-divider>
-      <h3 matSubheader class="mt-2">Users</h3>
-      <a mat-list-item [routerLink]="['/admin/users']" (click)="sideNav.close()">
-        <mat-icon class="fas fa-users" aria-hidden="true"></mat-icon>
-        List Users</a
-      >
-      <mat-divider></mat-divider>
-      <a mat-list-item [routerLink]="['/']" (click)="sideNav.close()" class="mt-2">
-        <mat-icon class="fas fa-arrow-alt-circle-left" aria-hidden="true"></mat-icon>
-        Goto Site</a
       >
     </mat-nav-list>
   </mat-sidenav>

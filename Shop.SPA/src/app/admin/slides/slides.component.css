@@ -1,0 +1,22 @@
+mat-form-field {
+  width: 80%;
+}
+.form-control {
+  width: 80%;
+}
+.hover_img a {
+  position: relative;
+}
+.hover_img a span {
+  position: absolute;
+  display: none;
+  z-index: 99;
+  top: -110px;
+  left: -50%;
+}
+.hover_img a:hover span {
+  display: block;
+}
+mat-cell {
+  overflow: visible;
+}

@@ -6,7 +6,8 @@
   </div>
   <div fxHide.xs class="d-none d-sm-flex justify-content-end flex-grow-1 ">
     <ul class="navigation-items d-flex">
-      <li class="user" [matMenuTriggerFor]="menu">
+      <li class="mx-4"><a [routerLink]="['/']">Goto Site</a></li>
+      <li [matMenuTriggerFor]="menu">
         <span class="name">{{ currentUser.lastName }}</span>
         <div class="img-wrapper"><img src="https://img.icons8.com/color/48/000000/user.png" /></div>
       </li>

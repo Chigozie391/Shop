@@ -29,6 +29,7 @@ import { UserListComponent } from './admin/users/user-list/user-list.component';
 import { UserViewResolver } from './_resolver/user-view.resolver';
 import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
 import { ChangepasswordComponent } from './user/changepassword/changepassword.component';
+import { SlidesComponent } from './admin/slides/slides.component';
 
 export const appRoutes: Routes = [
   {
@@ -110,6 +111,7 @@ export const appRoutes: Routes = [
         component: AdminDashboardComponent
       },
       { path: 'category', component: CategoryComponent },
+      { path: 'slides', component: SlidesComponent },
       { path: 'users', component: UserListComponent },
       { path: 'users/:id', component: UserPanelAdminComponent, resolve: { user: UserViewResolver } },
       { path: 'archives', component: ArchivesComponent },

@@ -88,6 +88,7 @@ namespace Shop.API.Mapping
 
 			// Photo
 			CreateMap<PhotoForCreation, Photo>();
+			CreateMap<PhotoForCreation, Carousel>();
 
 			//Auth
 			CreateMap<UserForRegister, User>();

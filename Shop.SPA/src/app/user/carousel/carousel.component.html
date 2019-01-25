@@ -1,1 +1,15 @@
-<div class="container-fluid margin-spacing"></div>
+<slideshow
+  [minHeight]="'450px'"
+  [autoPlay]="true"
+  [autoPlayInterval]="10000"
+  [showArrows]="true"
+  [showDots]="true"
+  [showArrows]="false"
+  [imageUrls]="imageUrls"
+  [lazyLoad]="imageUrls?.length > 1"
+  [autoPlayWaitForLazyLoad]="true"
+  [captionBackground]="captionBackground"
+  [showCaptions]="showCaptions"
+  [captionColor]="captionColor"
+>
+</slideshow>

@@ -95,6 +95,7 @@ namespace Shop
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IOrderRepository, OrderRepository>();
 			services.AddScoped<IAdminRepository, AdminRepository>();
+			services.AddScoped<ICarouselRepository, CarouselRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 			services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));

@@ -19,6 +19,7 @@ namespace Shop.API.Persistance
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Photo> Photos { get; set; }
 		public DbSet<Order> Orders { get; set; }
+		public DbSet<Carousel> Carousels { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{

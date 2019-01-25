@@ -17,4 +17,14 @@ export class AdminService {
   public updateRole(email: string, roleObj: any) {
     return this.http.put(this.baseUrl + 'admin/updateroles/' + email, roleObj);
   }
+  public getSlides() {
+    return this.http.get(this.baseUrl + 'carousel');
+  }
+
+  public addSlide(slide) {
+    return this.http.post(this.baseUrl + 'carousel', slide, { reportProgress: true });
+  }
+  public deleteSlide(id) {
+    return this.http.delete(this.baseUrl + 'carousel/' + id);
+  }
 }

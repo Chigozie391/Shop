@@ -58,6 +58,13 @@ body {
     transform: rotate(360deg);
   }
 }
+/* carousel slider */
+.slideshow-container .arrow-container.prev:before {
+  background-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 0)) !important;
+}
+.slideshow-container .arrow-container.next:before {
+  background-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 0)) !important;
+}
 
 .img-thumbnail {
   max-height: 200px;
