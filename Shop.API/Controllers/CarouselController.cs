@@ -12,7 +12,6 @@ using Shop.API.Helper;
 
 namespace Shop.API.Controllers
 {
-	[Authorize(Policy = "RequireModeratorRole")]
 	[Route("api/[controller]")]
 	public class CarouselController : Controller
 	{
@@ -45,6 +44,7 @@ namespace Shop.API.Controllers
 			return Ok(sliders);
 		}
 
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpPost]
 		public async Task<IActionResult> AddSlide([FromForm]PhotoForCreation photoForCreation)
 		{
@@ -79,7 +79,7 @@ namespace Shop.API.Controllers
 			return BadRequest("Could not add the photo");
 
 		}
-
+		[Authorize(Policy = "RequireModeratorRole")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteSlide(int id)
 		{

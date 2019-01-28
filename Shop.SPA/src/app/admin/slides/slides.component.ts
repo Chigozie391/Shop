@@ -51,7 +51,7 @@ export class SlidesComponent implements OnInit {
       },
       errpr => {
         this.isUploading = false;
-        this.uiService.success('Network error');
+        this.uiService.error('Network error');
       },
       () => {
         this.isUploading = false;
@@ -62,17 +62,19 @@ export class SlidesComponent implements OnInit {
     );
   }
   delete(id) {
-    this.adminService.deleteSlide(id).subscribe(
-      (x: number) => {
-        this.dataSource.splice(this.dataSource.findIndex(x => x.id == id), 1);
-        this.uiService.success('Deleted Successfull');
-      },
-      error => {
-        this.uiService.error('Network error');
-      },
-      () => {
-        this.table.renderRows();
-      }
-    );
+    this.uiService.confirm('Delete this slide', () => {
+      this.adminService.deleteSlide(id).subscribe(
+        (x: number) => {
+          this.dataSource.splice(this.dataSource.findIndex(x => x.id == id), 1);
+          this.uiService.success('Deleted Successfull');
+        },
+        error => {
+          this.uiService.error('Network error');
+        },
+        () => {
+          this.table.renderRows();
+        }
+      );
+    });
   }
 }

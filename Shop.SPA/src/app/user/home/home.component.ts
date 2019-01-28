@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     sortBy: 'featured',
     isSortAscending: '',
     pageIndex: 1,
-    pageSize: 6
+    pageSize: 12
   };
 
   constructor(private productService: ProductService) {}

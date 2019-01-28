@@ -60,6 +60,27 @@ namespace Shop.API.Controllers
 			return Ok(productToList);
 		}
 
+
+		[HttpGet("popular")]
+		public async Task<IActionResult> GetPopularProducts()
+		{
+			var products = await this.repo.GetPopularProducts();
+
+			var productToList = this.mapper.Map<ICollection<ProductForList>>(products);
+
+			return Ok(productToList);
+		}
+
+		[HttpGet("related/{childId}/{productId}")]
+		public async Task<IActionResult> GetRelatedProduct(int childId, int productId)
+		{
+			var products = await this.repo.GetRelatedProduct(childId, productId);
+
+			var productToList = this.mapper.Map<ICollection<ProductForList>>(products);
+
+			return Ok(productToList);
+		}
+
 		[HttpGet("getProductForCart/{id}")]
 		public async Task<IActionResult> GetProductForCart(int id)
 		{
@@ -128,14 +149,11 @@ namespace Shop.API.Controllers
 			if (product == null)
 				return NotFound();
 
-			if (product.Featured)
-			{
-				product.Featured = false;
-			}
-			else
-			{
-				product.Featured = true;
-			}
+			if (product.Deleted)
+				return BadRequest("Can set archived product as featured");
+
+			product.Featured = product.Featured ? false : true;
+
 			product.LastUpdated = DateTime.Now;
 
 			await this.unitOfWork.CompleteAsync();

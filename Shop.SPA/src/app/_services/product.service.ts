@@ -97,4 +97,12 @@ export class ProductService {
   getProductForMin(id: number) {
     return this.http.get<Products>(this.baseUrl + 'products/getproductforcart/' + id).pipe(take(1));
   }
+
+  getRelatedProduct(childId: number, productId: number) {
+    return this.http.get<Products[]>(this.baseUrl + 'products/related/' + childId + '/' + productId);
+  }
+
+  getPopularProduct() {
+    return this.http.get<Products[]>(this.baseUrl + 'products/popular/');
+  }
 }

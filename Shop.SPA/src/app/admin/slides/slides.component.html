@@ -3,19 +3,17 @@
     <div class="col-md-4">
       <form #form="ngForm" enctype="multipart/form-data" (submit)="addSlide(form)">
         <div class="form-group ">
-          <mat-form-field>
-            <input matInput placeholder="Title" required name="title" [(ngModel)]="title" />
-          </mat-form-field>
+          <mat-form-field> <input matInput placeholder="Title" name="title" [(ngModel)]="title" /> </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput placeholder="Caption" required name="caption" [(ngModel)]="caption" />
+            <input matInput placeholder="Caption" name="caption" [(ngModel)]="caption" />
           </mat-form-field>
         </div>
         <div class="form-group">
           <input type="file" class="form-control" #fileInput ngModel required name="file" (change)="onChange($event)" />
           <div class="mt-2" *ngIf="isUploading">
-            Queue progress:
+            Uploading:
             <mat-progress-bar mode="indeterminate" role="progressbar"></mat-progress-bar>
           </div>
         </div>
@@ -36,18 +34,28 @@
             <ng-container matColumnDef="action">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button mat-icon-button color="warn" (click)="delete(element.id)">
+                <button
+                  mat-icon-button
+                  matTooltip="delete"
+                  aria-label="Delete"
+                  color="warn"
+                  (click)="delete(element.id)"
+                >
                   <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
                 </button>
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="title">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Title </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.title }} </mat-cell>
+              <mat-cell *matCellDef="let element">
+                <span *ngIf="element.title !== 'undefined'">{{ element.title }}</span></mat-cell
+              >
             </ng-container>
             <ng-container matColumnDef="caption">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Caption </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{ element.caption }} </mat-cell>
+              <mat-cell *matCellDef="let element">
+                <span *ngIf="element.caption !== 'undefined'">{{ element.caption }}</span>
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="img">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Image </mat-header-cell>

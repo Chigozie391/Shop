@@ -1,5 +1,12 @@
 <div class="container mt-3">
   <div class="row">
+    <div class="col-md-1">
+      <div class="text-center">
+        <button class="back shadow" mat-icon-button matTooltip="back" aria-label="Go back" (click)="back()">
+          <mat-icon class="fas fa-arrow-left" aria-hidden="true"></mat-icon>
+        </button>
+      </div>
+    </div>
     <div class="col-md-6">
       <ul class="list-group list-group-flush">
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -48,7 +55,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
       <div class="card px-5 pt-4 mb-3 shadow-sm">
         <h5 class="text-center">Edit User Roles</h5>
         <form name="form" role="form" #roleForm="ngForm">

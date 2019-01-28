@@ -12,6 +12,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { DragScrollModule } from 'ngx-drag-scroll';
 import { AdminNavComponent } from './admin/admin-nav/admin-nav.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -58,6 +59,8 @@ import { UserOrderAdminComponent } from './admin/users/user-order-admin/user-ord
 import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
 import { ChangepasswordComponent } from './user/changepassword/changepassword.component';
 import { SlidesComponent } from './admin/slides/slides.component';
+import { PopularComponent } from './user/popular/popular.component';
+import { RelatedComponent } from './user/related/related.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -99,6 +102,8 @@ export function tokenGetter() {
     RegisterComponent,
     FooterComponent,
     SlidesComponent,
+    PopularComponent,
+    RelatedComponent,
     LoginDialogComponent,
     ShippingAddressDialogComponent,
     ChangepasswordComponent,
@@ -112,6 +117,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     SlideshowModule,
     NgxGalleryModule,
+    DragScrollModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     MaterialModule,

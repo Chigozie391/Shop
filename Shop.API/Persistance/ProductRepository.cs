@@ -44,7 +44,7 @@ namespace Shop.API.Persistance
 
 			var query = this.context.Products
 							.Include(p => p.Photos)
-							.Where(x => x.ChildCategoryId == childId).AsQueryable();
+							.Where(x => x.ChildCategoryId == childId && !x.Deleted).AsQueryable();
 
 			return await this.ApplyPagingAndSorting(query, queryParams);
 		}
@@ -81,6 +81,28 @@ namespace Shop.API.Persistance
 							.ThenInclude(c => c.Category).AsQueryable();
 
 			return await this.ApplyPagingAndSorting(query, queryParams);
+		}
+
+		public async Task<ICollection<Product>> GetRelatedProduct(int childId, int productId)
+		{
+			var query = await this.context.Products
+							.Include(p => p.Photos)
+							.Where(x => x.ChildCategoryId == childId && x.Id != productId)
+							.OrderByDescending(x => x.Sold)
+							.Take(20).ToListAsync();
+
+			return query;
+		}
+
+		public async Task<ICollection<Product>> GetPopularProducts()
+		{
+			var query = await this.context.Products
+										 .Where(p => !p.Deleted)
+										 .Include(o => o.Photos)
+										 .OrderByDescending(x => x.Sold)
+										 .Take(20).ToListAsync();
+
+			return query;
 		}
 
 		private async Task<QueryResult<Product>> ApplyPagingAndSorting(IQueryable<Product> query, ProductQueryParams queryParams)

@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { UIService } from 'src/app/_services/ui.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-view',
@@ -19,7 +20,8 @@ export class UserViewComponent implements OnInit {
     private adminService: AdminService,
     private uiService: UIService,
     private userService: UserService,
-    private authService: AuthService
+	  private authService: AuthService,
+	 private location: Location
   ) {}
 
   ngOnInit() {
@@ -28,6 +30,10 @@ export class UserViewComponent implements OnInit {
     });
     this.isAdmin = this.authService.roleMatch(['Admin']);
   }
+	
+  back() {
+	this.location.back();
+ }
 
   updateRole() {
     const rolesObj = { roleNames: this.roles };

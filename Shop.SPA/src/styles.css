@@ -186,3 +186,36 @@ div.head {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-bottom: 3px solid rgba(0, 0, 0, 0.125);
 }
+
+/* sliders */
+div.slider-col {
+  display: flex;
+  flex: 1;
+}
+drag-scroll {
+  height: 250px;
+  width: 300px;
+  display: flex;
+  flex: 1;
+}
+drag-scroll-content {
+  overflow: hidden;
+}
+.slider-img img {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+div.slider-wrapper {
+  margin-bottom: 10px;
+  border-radius: 0 0 5px 5px;
+  background: white;
+  width: 180px;
+}
+
+div.slider-title {
+  margin-top: 5px;
+}
+.slider-wrapper span {
+  font-size: 14px;
+}

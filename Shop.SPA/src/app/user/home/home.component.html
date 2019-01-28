@@ -6,7 +6,7 @@
     <div class="col-md-4"></div>
     <!-- New Product -->
     <section class="bg-white col-md-8 col-xs-12 col-sm-12">
-      <div class=" pt-4 pb-5"><h2 class="m-0 text-center text-uppercase">Featured Products</h2></div>
+      <div class=" pt-4"><h2 class="m-2 text-center text-uppercase">Featured Products</h2></div>
       <div class="container-fluid">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let product of products">
@@ -33,7 +33,11 @@
           </div>
         </div>
       </div>
-      <div class="col-12 my-3"><mat-paginator [pageSizeOptions]="[6]"> </mat-paginator></div>
+      <div class="col-12 my-3"><mat-paginator [pageSizeOptions]="[12]"> </mat-paginator></div>
     </section>
+  </div>
+  <div class="row bg-white my-5 pb-2">
+    <div class="col-12 px-5"><h4 class="text-center pt-3 pb-2 mb-3 border-bottom">POPULAR PRODUCT</h4></div>
+    <app-popular></app-popular>
   </div>
 </div>

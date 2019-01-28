@@ -23,7 +23,11 @@ export class CarouselComponent implements OnInit {
       null,
       () => {
         this.slides.forEach(element => {
-          const slide = { url: element.url, caption: element.caption, title: element.title };
+          const slide = {
+            url: element.url,
+            caption: element.caption === 'undefined' ? '' : element.caption,
+            title: element.title === 'undefined' ? '' : element.title
+          };
           this.imageUrls.push(slide);
         });
       }
