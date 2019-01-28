@@ -27,13 +27,25 @@
               </div>
             </td>
             <td>
-              <a mat-icon-button [routerLink]="['/admin/products', item.id]">
+              <a mat-icon-button matTooltip="edit" aria-label="Edit" [routerLink]="['/admin/products', item.id]">
                 <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
               </a>
-              <button mat-icon-button color="warn" (click)="archiveProduct(item.id)">
+              <button
+                mat-icon-button
+                matTooltip="archive"
+                aria-label="Archive"
+                color="warn"
+                (click)="archiveProduct(item.id)"
+              >
                 <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteProduct(item.id)">
+              <button
+                mat-icon-button
+                matTooltip="delete"
+                aria-label="Delete"
+                color="warn"
+                (click)="deleteProduct(item.id)"
+              >
                 <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
               </button>
             </td>

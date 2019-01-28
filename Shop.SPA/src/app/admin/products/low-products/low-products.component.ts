@@ -19,7 +19,7 @@ export class LowProductsComponent implements OnInit {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
-    pageSize: 5
+    pageSize: 20
   };
 
   constructor(private productService: ProductService, private uiService: UIService) {}

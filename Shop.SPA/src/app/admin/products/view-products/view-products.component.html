@@ -1,8 +1,6 @@
 <mat-tab-group mat-align-tabs="center" mat-stretch-tabs [(selectedIndex)]="indexTab">
   <mat-tab label="Product Details">
-    <ng-template matTabContent>
-      <app-product-detail [product]="product"></app-product-detail>
-    </ng-template>
+    <ng-template matTabContent> <app-product-detail [product]="product"></app-product-detail> </ng-template>
   </mat-tab>
   <mat-tab label="Product Photo Manager">
     <ng-template matTabContent>
@@ -17,10 +15,7 @@
   </mat-tab>
   <mat-tab label="Edit Product">
     <ng-template matTabContent>
-      <app-edit-product
-        [product]="product"
-        (updatedProduct)="updateProductEvent($event)"
-      ></app-edit-product>
+      <app-edit-product [product]="product" (updatedProduct)="updateProductEvent($event)"></app-edit-product>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

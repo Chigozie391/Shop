@@ -103,7 +103,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
           const index = this.dataSource.findIndex(p => p.id == id);
 
           this.dataSource.splice(index, 1);
-          this.uiService.success('Successfully archived');
+          this.uiService.success('Successfully deleted');
           this.table.renderRows();
         },
         error => this.uiService.error(error.error)

@@ -1,7 +1,45 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-12 text-center my-2" *ngIf="product.deleted">
-      <h5 class="text-danger">This is an archived product</h5>
+      <div class="alert alert-danger" role="alert">This product is archived</div>
+    </div>
+    <div class="col-md-1">
+      <div class=" text-center">
+        <button class="shadow" mat-icon-button matTooltip="back" aria-label="Go back" (click)="back()">
+          <mat-icon class="fas fa-arrow-left" aria-hidden="true"></mat-icon>
+        </button>
+        <button
+          class="shadow"
+          mat-icon-button
+          color="warn"
+          matTooltip="archive"
+          aria-label="Archive"
+          (click)="archiveProduct(product.id)"
+          *ngIf="!product.deleted"
+        >
+          <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="restore"
+          aria-label="Restore"
+          class="text-primary shadow"
+          (click)="restoreProduct(product.id)"
+          *ngIf="product.deleted"
+        >
+          <mat-icon class="fas fa-undo" aria-hidden="true"></mat-icon>
+        </button>
+        <button
+          class="shadow"
+          mat-icon-button
+          matTooltip="delete"
+          aria-label="Delete"
+          color="warn"
+          (click)="deleteProduct(product.id)"
+        >
+          <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
+        </button>
+      </div>
     </div>
     <div class="col-md-6">
       <ul class="list-group list-group-flush">
@@ -49,7 +87,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
       <div class="col">
         <div class="form-group">
           <h6 class="font-weight-bold">Main Photo :</h6>

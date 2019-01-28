@@ -36,10 +36,10 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <a mat-icon-button [routerLink]="['/admin/orders', element.id]">
+            <a mat-icon-button matTooltip="view" aria-label="View" [routerLink]="['/admin/orders', element.id]">
               <mat-icon class="far fa-eye" aria-hidden="true"></mat-icon>
             </a>
-            <button mat-icon-button color="warn">
+            <button mat-icon-button matTooltip="archive" aria-label="Archive" color="warn">
               <mat-icon class="fas fa-archive" aria-hidden="true"></mat-icon>
             </button>
           </mat-cell>

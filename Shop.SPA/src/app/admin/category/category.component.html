@@ -16,28 +16,18 @@
               (selectionChange)="onSelectChange()"
             >
               <mat-option value="0">Main Category</mat-option>
-              <mat-option *ngFor="let parent of categories" value="{{ parent.id }}">{{
-                parent.name
-              }}</mat-option>
+              <mat-option *ngFor="let parent of categories" value="{{ parent.id }}">{{ parent.name }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input
-              matInput
-              placeholder="{{ placeholderForInput }}"
-              required
-              name="name"
-              [(ngModel)]="obj.name"
-            />
+            <input matInput placeholder="{{ placeholderForInput }}" required name="name" [(ngModel)]="obj.name" />
           </mat-form-field>
         </div>
 
         <div class="form-group">
-          <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
-            {{ buttonText }}
-          </button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">{{ buttonText }}</button>
 
           <button
             type="button"
@@ -62,26 +52,36 @@
             <td class=" ">
               <h6 class="mt-2 mb-0 d-inline-block font-weight-bold">{{ parent.name }}</h6>
               <span class="d-inline-block float-right">
-                <button mat-icon-button (click)="populateForCategory(parent.id)">
+                <button mat-icon-button matTooltip="edit" aria-label="Edit" (click)="populateForCategory(parent.id)">
                   <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="deleteCategory(parent.id)">
+                <button
+                  mat-icon-button
+                  matTooltip="delete"
+                  aria-label="Delete"
+                  color="warn"
+                  (click)="deleteCategory(parent.id)"
+                >
                   <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
                 </button>
               </span>
             </td>
             <td class="py-0">
-              <div
-                class="row justify-content-between px-3 last-border"
-                *ngFor="let child of parent['childCategories']"
-              >
+              <div class="row justify-content-between px-3 last-border" *ngFor="let child of parent['childCategories']">
                 <h6 class="d-inline mt-3 mb-0 mx-3">{{ child.name }}</h6>
                 <span class="d-inline-block mt-2">
-                  <button mat-icon-button (click)="populateForChild(child.id, parent.id)">
+                  <button
+                    mat-icon-button
+                    matTooltip="edit"
+                    aria-label="Edit"
+                    (click)="populateForChild(child.id, parent.id)"
+                  >
                     <mat-icon class="far fa-edit" aria-hidden="true"></mat-icon>
                   </button>
                   <button
                     class="ml-3"
+                    matTooltip="delete"
+                    aria-label="Delete"
                     mat-icon-button
                     color="warn"
                     (click)="deleteChildCategory(child.id, parent.id)"

@@ -34,13 +34,19 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <a mat-icon-button [routerLink]="['/admin/products', element.id]">
+            <a mat-icon-button matTooltip="view" aria-label="View" [routerLink]="['/admin/products', element.id]">
               <mat-icon class="far fa-eye" aria-hidden="true"></mat-icon>
             </a>
-            <button mat-icon-button (click)="restoreProduct(element.id)">
+            <button mat-icon-button matTooltip="restore" aria-label="Restore" (click)="restoreProduct(element.id)">
               <mat-icon class="fas fa-undo" aria-hidden="true"></mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteProduct(element.id)">
+            <button
+              mat-icon-button
+              matTooltip="delete"
+              aria-label="Delete"
+              color="warn"
+              (click)="deleteProduct(element.id)"
+            >
               <mat-icon class="far fa-trash-alt" aria-hidden="true"></mat-icon>
             </button>
           </mat-cell>

@@ -1,5 +1,4 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserForDetailAdmin } from 'src/app/_models/User';
 
@@ -11,14 +10,12 @@ import { UserForDetailAdmin } from 'src/app/_models/User';
 export class UserPanelAdminComponent implements OnInit {
   @Output() user: UserForDetailAdmin;
 
-  constructor(private location: Location, private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.data.subscribe(x => {
       this.user = x['user'];
     });
   }
-  back() {
-    this.location.back();
-  }
+
 }
