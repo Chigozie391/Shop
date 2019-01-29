@@ -149,9 +149,6 @@ namespace Shop.API.Controllers
 			if (product == null)
 				return NotFound();
 
-			if (product.Deleted)
-				return BadRequest("Can set archived product as featured");
-
 			product.Featured = product.Featured ? false : true;
 
 			product.LastUpdated = DateTime.Now;

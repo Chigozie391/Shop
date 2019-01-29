@@ -72,7 +72,11 @@
 
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <h6 class="font-weight-bold">Featured :</h6>
-          <mat-slide-toggle color="primary" (toggleChange)="setFeatured(product.id)" checked="{{ product.featured }}"
+          <mat-slide-toggle
+            color="primary"
+            (toggleChange)="setFeatured(product.id)"
+            [disabled]="product.deleted"
+            checked="{{ product.featured }}"
             >Featured</mat-slide-toggle
           >
         </li>
