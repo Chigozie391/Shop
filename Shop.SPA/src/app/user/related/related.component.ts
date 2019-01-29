@@ -17,7 +17,6 @@ export class RelatedComponent implements OnInit {
   ngOnInit() {
     this.productService.getRelatedProduct(this.childId, this.productId).subscribe(x => {
       this.products = x;
-      console.log(x);
     });
   }
 }

@@ -42,6 +42,10 @@ namespace Shop.API.Mapping
 			{
 				opt.MapFrom(src => src.ChildCategory.Name);
 			})
+			.ForMember(des => des.ChildCategoryId, opt =>
+			{
+				opt.MapFrom(src => src.ChildCategory.Id);
+			})
 			.ForMember(des => des.CategoryName, opt =>
 			{
 				opt.MapFrom(src => src.ChildCategory.Category.Name);

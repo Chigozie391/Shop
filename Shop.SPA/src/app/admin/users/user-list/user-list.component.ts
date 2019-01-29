@@ -65,5 +65,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
     };
 
     this.getUsers();
+    this.paginator.firstPage();
   }
 }

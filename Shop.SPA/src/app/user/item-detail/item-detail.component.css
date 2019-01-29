@@ -20,3 +20,6 @@ button.add-cart:hover {
   background-color: #e65540;
   color: white;
 }
+.outofstock h6 {
+  font-weight: 600;
+}

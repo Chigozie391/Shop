@@ -1,6 +1,7 @@
 export interface IQuery {
   isShipped?: boolean;
-	lowItems?: boolean;
+  lowItems?: boolean;
+  deleted?: boolean;
   sortBy: string;
   isSortAscending: string;
   pageIndex: number;

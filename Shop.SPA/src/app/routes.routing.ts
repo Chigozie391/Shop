@@ -30,6 +30,7 @@ import { UserViewResolver } from './_resolver/user-view.resolver';
 import { UserPanelAdminComponent } from './admin/users/user-panel-admin/user-panel-admin.component';
 import { ChangepasswordComponent } from './user/changepassword/changepassword.component';
 import { SlidesComponent } from './admin/slides/slides.component';
+import { ProductCategoryComponent } from './admin/products/product-category/product-category.component';
 
 export const appRoutes: Routes = [
   {
@@ -119,6 +120,7 @@ export const appRoutes: Routes = [
       { path: 'orders', component: OrderListComponent },
       { path: 'orders/:id', component: OrderViewComponent, resolve: { order: OrderViewResolver } },
       { path: 'products', component: ProductListComponent },
+      { path: 'products/category/:id', component: ProductCategoryComponent },
       {
         path: 'products/:id',
         component: ViewProductsComponent,

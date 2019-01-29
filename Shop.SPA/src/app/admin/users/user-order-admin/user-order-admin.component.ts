@@ -45,6 +45,11 @@ export class UserOrderAdminComponent implements OnInit {
       .subscribe();
   }
 
+  filter() {
+    this.getAllUserOrders();
+    this.paginator.firstPage();
+  }
+
   getAllUserOrders() {
     this.isLoading = false;
     this.orderService.getAllUserOrders(this.userId, this.orderQuery).subscribe(
@@ -67,5 +72,6 @@ export class UserOrderAdminComponent implements OnInit {
     };
 
     this.getAllUserOrders();
+    this.paginator.firstPage();
   }
 }

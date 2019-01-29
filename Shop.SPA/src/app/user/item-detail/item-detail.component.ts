@@ -28,6 +28,7 @@ export class ItemDetailComponent implements OnInit {
   cartToken = environment.cartToken;
   cartItems = [];
   oldCartItems = [];
+  outOfStock: boolean;
   modalBody: Modal = {};
 
   constructor(
@@ -45,6 +46,8 @@ export class ItemDetailComponent implements OnInit {
     this.slider();
     const rawSizes = JSON.parse(this.product.sizes);
     this.sizeArray = rawSizes.filter(x => x.quantity > 0);
+    // sets the product as out of stock and disable size selection
+    if (this.sizeArray.length == 0) this.outOfStock = true;
   }
 
   onSelectChange() {

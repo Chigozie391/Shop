@@ -5,6 +5,7 @@ import { IQuery } from 'src/app/_models/IQuery';
 import { ProductService } from 'src/app/_services/product.service';
 import { tap } from 'rxjs/operators';
 import { UIService } from 'src/app/_services/ui.service';
+import { CategoryService } from 'src/app/_services/category.service';
 
 @Component({
   selector: 'app-archives',
@@ -16,20 +17,44 @@ export class ArchivesComponent implements OnInit {
 
   dataSource: Products[];
 
+  parentCategory = [];
+  childCategory = [];
+  parentId: any;
+  childId = null;
+
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isLoading: boolean;
 
   productQuery: IQuery = {
     sortBy: '',
+    deleted: true,
     isSortAscending: '',
     pageIndex: 1,
     pageSize: 5
   };
 
-  constructor(private productService: ProductService, private alertify: UIService) {}
+  constructor(
+    private productService: ProductService,
+    private cateService: CategoryService,
+    private alertify: UIService
+  ) {}
   ngOnInit() {
+    this.cateService.getCategoryWithChildren().subscribe((x: []) => {
+      this.parentCategory = x;
+    });
+
     this.getArchivedProducts();
+  }
+
+  parentSelectionChange() {
+    if (this.parentId == 0) {
+      this.childId = null;
+      this.parentId = null;
+    } else {
+      this.childCategory = this.parentCategory.find(x => x.id == this.parentId).childCategories;
+      this.childId = '' + this.childCategory[0].id;
+    }
   }
 
   ngAfterViewInit() {
@@ -39,11 +64,33 @@ export class ArchivesComponent implements OnInit {
           this.productQuery.pageIndex = this.paginator.pageIndex + 1;
           this.productQuery.pageSize = this.paginator.pageSize;
 
-          this.getArchivedProducts();
+          this.filter();
         })
       )
       .subscribe();
   }
+
+  filter() {
+    if (this.childId != null) {
+      this.getProductInCategory();
+      this.paginator.firstPage();
+    } else {
+      this.getArchivedProducts();
+    }
+  }
+
+  getProductInCategory() {
+    this.isLoading = false;
+    this.productService.getProductsInCategory(this.childId, this.productQuery).subscribe(
+      result => {
+        this.dataSource = result['items'];
+        this.paginator.length = result['totalItems'];
+      },
+      null,
+      () => (this.isLoading = true)
+    );
+  }
+
   resetFilters() {
     this.productQuery = {
       sortBy: '',
@@ -51,7 +98,10 @@ export class ArchivesComponent implements OnInit {
       pageIndex: 1,
       pageSize: 5
     };
+    this.parentId = '';
+    this.childId = null;
     this.getArchivedProducts();
+    this.paginator.firstPage();
   }
 
   restoreProduct(id: number) {

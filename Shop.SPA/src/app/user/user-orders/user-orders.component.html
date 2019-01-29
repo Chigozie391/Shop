@@ -1,34 +1,36 @@
 <div class="container">
   <div class="row mt-5">
-    <div class="col-md-4 sidebar">
-		<app-user-sidenav [currentUser]="currentUser" ></app-user-sidenav>
-    </div>
+    <div class="col-md-4 sidebar"><app-user-sidenav [currentUser]="currentUser"></app-user-sidenav></div>
     <div class="col-md-8">
       <div class="spiner-container" *ngIf="isLoading"><img src="assets/images/spin2.svg" alt="" class="spiner" /></div>
       <div class="order-holder">
         <div class="filter col my-3">
           <div class="d-inline-block">
             <mat-form-field class="mx-2 smfont-dropdown">
-              <mat-select [(value)]="isShipped" placeholder="Shipping Status">
+              <mat-select [(ngModel)]="'' + orderQuery.isShipped" placeholder="Shipping Status">
                 <mat-option value="false">Not Shipped</mat-option>
                 <mat-option value="true">Shipped</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <mat-form-field class="mx-2 smfont-dropdown">
-            <mat-select [(value)]="sortBy" placeholder="Sort By">
+            <mat-select [(value)]="orderQuery.sortBy" placeholder="Sort By">
               <mat-option value="">None</mat-option>
               <mat-option value="orderDate">Order Date</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="mx-2 smfont-dropdown">
-            <mat-select [(value)]="isSortAscending" [disabled]="sortBy == null" placeholder="Order By">
+            <mat-select
+              [(value)]="orderQuery.isSortAscending"
+              [disabled]="orderQuery.sortBy == null"
+              placeholder="Order By"
+            >
               <mat-option value="true">Ascending Order</mat-option>
               <mat-option value="false">Descending Order</mat-option>
             </mat-select>
           </mat-form-field>
-          <button mat-raised-button color="primary" class="ml-md-4" (click)="loadProducts()">Filter</button>
+          <button mat-raised-button color="primary" class="ml-md-4" (click)="filter()">Filter</button>
         </div>
         <div class="card mb-5 shadow" *ngFor="let order of orders">
           <div class="card-body m-4">

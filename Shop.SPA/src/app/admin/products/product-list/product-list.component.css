@@ -1,0 +1,7 @@
+a.category {
+  font-weight: 300;
+  color: #007bff !important;
+}
+a.category:hover {
+  text-decoration: underline !important;
+}

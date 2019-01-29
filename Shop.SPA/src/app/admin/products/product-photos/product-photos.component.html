@@ -1,31 +1,18 @@
-<div class="container-fluid">
+<div class="container mt-3">
   <div class="row">
     <div class="col-12 text-center my-2" *ngIf="isDeleted">
-      <h5 class="text-danger">This is an archived product</h5>
+      <div class="alert alert-danger" role="alert">This product is archived</div>
     </div>
     <div class="col-md-6">
       <div class="row mt-3 ml-3">
         <div class="col-md-12">
           <div class="form-group">
             <label for="multiple">Multiple Upload</label>
-            <input
-              type="file"
-              class="form-control-file"
-              id="multiple"
-              ng2FileSelect
-              [uploader]="uploader"
-              multiple
-            />
+            <input type="file" class="form-control-file" id="multiple" ng2FileSelect [uploader]="uploader" multiple />
           </div>
           <div class="form-group">
             <label for="single">Single Upload</label>
-            <input
-              type="file"
-              class="form-control-file"
-              id="single"
-              ng2FileSelect
-              [uploader]="uploader"
-            />
+            <input type="file" class="form-control-file" id="single" ng2FileSelect [uploader]="uploader" />
           </div>
         </div>
 
@@ -115,7 +102,9 @@
           </div>
         </div>
       </ng-container>
-      <ng-template #elseTemplate> <h5>No Photos has been uploaded yet</h5> </ng-template>
+      <ng-template #elseTemplate>
+        <div class="alert alert-danger" role="alert">No photo has been uploaded for this product</div>
+      </ng-template>
     </div>
   </div>
 </div>

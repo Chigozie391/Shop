@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/_models/User';
 import { AuthService } from 'src/app/_services/auth.service';
 import { OrderService } from 'src/app/_services/order.service';
-import { Order, OrderViewAdmin } from 'src/app/_models/Order';
+import { OrderViewAdmin } from 'src/app/_models/Order';
 import { IQuery } from 'src/app/_models/IQuery';
 import { MatPaginator } from '@angular/material';
 import { tap } from 'rxjs/operators';
@@ -13,16 +13,12 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./user-orders.component.css']
 })
 export class UserOrdersComponent implements OnInit, AfterViewInit {
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-  @Output() currentUser: User;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  currentUser: User;
   rawOrder: any[] = [];
   orders: OrderViewAdmin[] = [];
 
-  isShipped = false;
   isLoading: boolean;
-
-  sortBy: string;
-  isSortAscending = '';
 
   orderQuery: IQuery = {
     isShipped: false,
@@ -36,19 +32,7 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
-    this.orderService.getUserOrders(this.currentUser.id, this.orderQuery).subscribe(
-      x => {
-        this.rawOrder = x['items'];
-        this.paginator.length = x['totalItems'];
-      },
-      null,
-      () => {
-        this.rawOrder.forEach(element => {
-          element.items = JSON.parse(element.items);
-          this.orders.push(element);
-        });
-      }
-    );
+    this.loadOrders();
   }
 
   ngAfterViewInit() {
@@ -58,17 +42,18 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
           this.orderQuery.pageIndex = this.paginator.pageIndex + 1;
           this.orderQuery.pageSize = this.paginator.pageSize;
 
-          this.loadProducts();
+          this.loadOrders();
         })
       )
       .subscribe();
   }
 
-  loadProducts() {
-    this.orderQuery.sortBy = this.sortBy;
-    this.orderQuery.isShipped = this.isShipped;
-    this.orderQuery.isSortAscending = this.isSortAscending;
+  filter() {
+    this.loadOrders();
+    this.paginator.firstPage();
+  }
 
+  loadOrders() {
     this.orderService.getUserOrders(this.currentUser.id, this.orderQuery).subscribe(
       x => {
         this.rawOrder = x['items'];
@@ -81,17 +66,14 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
           element.items = JSON.parse(element.items);
           this.orders.push(element);
         });
-        console.log(this.orders);
       }
     );
   }
 
   resetFilters() {
-    this.sortBy = null;
-    this.isSortAscending = '';
     this.orderQuery.sortBy = '';
     this.orderQuery.isSortAscending = '';
 
-    this.loadProducts();
+    this.loadOrders();
   }
 }

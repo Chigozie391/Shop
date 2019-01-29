@@ -1,60 +1,39 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ProductService } from 'src/app/_services/product.service';
-import { MatTable, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Products } from 'src/app/_models/Products';
+import { MatTable, MatPaginator } from '@angular/material';
 import { IQuery } from 'src/app/_models/IQuery';
-import { tap } from 'rxjs/operators';
+import { ProductService } from 'src/app/_services/product.service';
 import { UIService } from 'src/app/_services/ui.service';
-import { CategoryService } from 'src/app/_services/category.service';
+import { tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-product-category',
+  templateUrl: './product-category.component.html',
+  styleUrls: ['./product-category.component.css']
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductCategoryComponent implements OnInit {
   displayedColumns = ['action', 'name', 'category', 'price', 'featured', 'sold', 'lastupdated'];
 
   dataSource: Products[];
 
-  parentCategory = [];
-  childCategory = [];
-  parentId: any;
-  childId = null;
-
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isLoading: boolean;
+  childCategoryId: number;
 
   productQuery: IQuery = {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
-    pageSize: 10
+    pageSize: 20
   };
 
-  constructor(
-    private productService: ProductService,
-    private uiService: UIService,
-    private cateService: CategoryService
-  ) {}
+  constructor(private productService: ProductService, private uiService: UIService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.cateService.getCategoryWithChildren().subscribe((x: []) => {
-      this.parentCategory = x;
-    });
-
+    this.childCategoryId = this.route.params['value'].id;
     this.getProducts();
-  }
-
-  parentSelectionChange() {
-    if (this.parentId == 0) {
-      this.childId = null;
-      this.parentId = null;
-    } else {
-      this.childCategory = this.parentCategory.find(x => x.id == this.parentId).childCategories;
-      this.childId = '' + this.childCategory[0].id;
-    }
   }
 
   ngAfterViewInit() {
@@ -64,39 +43,19 @@ export class ProductListComponent implements OnInit, AfterViewInit {
           this.productQuery.pageIndex = this.paginator.pageIndex + 1;
           this.productQuery.pageSize = this.paginator.pageSize;
 
-          this.filter();
+          this.getProducts();
         })
       )
       .subscribe();
   }
 
-  filter() {
-    if (this.childId != null) {
-      this.getProductInCategory();
-      this.paginator.firstPage();
-    } else {
-      this.getProducts();
-    }
-  }
-
   getProducts() {
     this.isLoading = false;
-    this.productService.getProducts(this.productQuery).subscribe(
+    this.productService.getProductsInCategory(this.childCategoryId, this.productQuery).subscribe(
       result => {
         this.dataSource = result['items'];
         this.paginator.length = result['totalItems'];
-      },
-      null,
-      () => (this.isLoading = true)
-    );
-  }
-
-  getProductInCategory() {
-    this.isLoading = false;
-    this.productService.getProductsInCategory(this.childId, this.productQuery).subscribe(
-      result => {
-        this.dataSource = result['items'];
-        this.paginator.length = result['totalItems'];
+        console.log(result);
       },
       null,
       () => (this.isLoading = true)
@@ -110,11 +69,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       pageIndex: 1,
       pageSize: 20
     };
-    this.parentId = '';
-    this.childId = null;
 
     this.getProducts();
-    this.paginator.firstPage();
   }
 
   setFeatured(id: number) {

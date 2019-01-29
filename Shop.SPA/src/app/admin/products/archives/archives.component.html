@@ -2,6 +2,23 @@
   <div class="row justify-content-center">
     <div class="col mt-4 text-center">
       <mat-form-field class="mx-2 smfont-dropdown">
+        <mat-select
+          placeholder="Parent Category"
+          name="parent"
+          (selectionChange)="parentSelectionChange()"
+          [(ngModel)]="parentId"
+        >
+          <mat-option value="0">All</mat-option>
+          <mat-option value="{{ parent.id }}" *ngFor="let parent of parentCategory">{{ parent.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="mx-2 smfont-dropdown">
+        <mat-select placeholder="Child Category" name="child" [disabled]="!parentId" [(ngModel)]="childId">
+          <mat-option value="{{ child.id }}" *ngFor="let child of childCategory">{{ child.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="mx-2 smfont-dropdown">
         <mat-select [(value)]="productQuery.sortBy">
           <mat-option value="">None</mat-option>
           <mat-option value="price">Price</mat-option>
@@ -21,7 +38,7 @@
         [disabled]="productQuery.sortBy == null"
         color="primary"
         class="mx-2"
-        (click)="getArchivedProducts()"
+        (click)="filter()"
       >
         Filter
       </button>
@@ -57,7 +74,11 @@
         </ng-container>
         <ng-container matColumnDef="category">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Category </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{ element.categoryName }} - {{ element.childCategoryName }} </mat-cell>
+          <mat-cell *matCellDef="let element"
+            ><a class="category" [routerLink]="['/admin/products/category', element.childCategoryId]"
+              >{{ element.categoryName }} - {{ element.childCategoryName }}</a
+            ></mat-cell
+          >
         </ng-container>
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
@@ -66,7 +87,7 @@
 
         <ng-container matColumnDef="sold">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Sold </mat-header-cell>
-          <mat-cell *matCellDef="let element"> 0 </mat-cell>
+          <mat-cell *matCellDef="let element"> {{ element.sold }} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="lastupdated">
           <mat-header-cell *matHeaderCellDef mat-sort-header> LastUpdated </mat-header-cell>

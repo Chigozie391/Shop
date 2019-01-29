@@ -51,6 +51,9 @@ export class ProductService {
     if (productQuery.lowItems) {
       params = params.append('lowItems', '' + productQuery.lowItems);
     }
+    if (productQuery.deleted) {
+      params = params.append('deleted', '' + productQuery.deleted);
+    }
 
     params = params.append('page', '' + productQuery.pageIndex);
     params = params.append('pageSize', '' + productQuery.pageSize);

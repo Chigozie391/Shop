@@ -61,6 +61,7 @@ import { ChangepasswordComponent } from './user/changepassword/changepassword.co
 import { SlidesComponent } from './admin/slides/slides.component';
 import { PopularComponent } from './user/popular/popular.component';
 import { RelatedComponent } from './user/related/related.component';
+import { ProductCategoryComponent } from './admin/products/product-category/product-category.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -75,6 +76,7 @@ export function tokenGetter() {
     LowProductsComponent,
     ViewProductsComponent,
     ProductListComponent,
+    ProductCategoryComponent,
     ProductPhotosComponent,
     ProductDetailComponent,
     ArchivesComponent,

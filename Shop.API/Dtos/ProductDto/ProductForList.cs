@@ -16,6 +16,7 @@ namespace Shop.API.Dtos.ProductDto
 		public int Sold { get; set; }
 		public string PhotoUrl { get; set; }
 		public string ChildCategoryName { get; set; }
+		public string ChildCategoryId { get; set; }
 		public string CategoryName { get; set; }
 		public bool Featured { get; set; }
 		public string Description { get; set; }

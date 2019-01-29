@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit {
     sortBy: '',
     isSortAscending: '',
     pageIndex: 1,
-    pageSize: 5
+    pageSize: 20
   };
 
   constructor(private orderService: OrderService) {}
@@ -42,6 +42,10 @@ export class OrderListComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+  filter() {
+    this.getOrders();
+    this.paginator.firstPage();
   }
 
   getOrders() {
@@ -65,6 +69,6 @@ export class OrderListComponent implements OnInit {
       pageSize: 5
     };
 
-    this.getOrders();
+    this.filter();
   }
 }

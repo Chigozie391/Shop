@@ -43,15 +43,16 @@ export class CreateProductComponent implements OnInit {
       },
       {
         size: form.value.size1,
-        quantity: form.value.quantity1,
-        threshold: form.value.threshold1
+        quantity: form.value.quantity1 == '' || form.value.quantity1 == null ? '0' : form.value.quantity1,
+        threshold: form.value.threshold1 == '' || form.value.threshold1 == null ? '0' : form.value.threshold1
       },
       {
         size: form.value.size2,
-        quantity: form.value.quantity2,
-        threshold: form.value.threshold2
+        quantity: form.value.quantity2 == '' || form.value.quantity2 == null ? '0' : form.value.quantity2,
+        threshold: form.value.threshold2 == '' || form.value.threshold2 == null ? '0' : form.value.threshold2
       }
     ];
+
     let trimmedSize = sizes.filter(x => x.size != null && x.size != '');
 
     const productObj: Products = {

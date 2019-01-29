@@ -94,12 +94,17 @@ export class CategoryComponent implements OnInit {
     const childCategory: any[] = this.categories.find(p => p.id == pId).childCategories;
     const child = childCategory.find(c => c.id == childid);
 
-    this.uiService.confirm('Are you sure you wantb to delete <b>' + child.name + '</b> sub category', () => {
-      this.adminCatService.deleteChildCategory(childid).subscribe(() => {
-        childCategory.splice(_.findIndex(childCategory, child), 1);
-        this.uiService.success('Deleted Successfully');
-      });
-    });
+    this.uiService.confirm(
+      'Are you sure you wantb to delete <b>' +
+        child.name +
+        '</b> sub category, this will also delete all the product associated with it',
+      () => {
+        this.adminCatService.deleteChildCategory(childid).subscribe(() => {
+          childCategory.splice(_.findIndex(childCategory, child), 1);
+          this.uiService.success('Deleted Successfully');
+        });
+      }
+    );
   }
 
   deleteCategory(pid) {
