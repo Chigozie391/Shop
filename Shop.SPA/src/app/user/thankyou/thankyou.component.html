@@ -13,30 +13,30 @@
       <div class="card info">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <p><span>Name: </span> {{ orderForThankyou?.user.firstName }} {{ orderForThankyou?.user.lastName }}</p>
+            <p><span>Name: </span> {{ order?.user.firstName }} {{ order?.user.lastName }}</p>
           </li>
           <li class="list-group-item">
-            <p><span>Email: </span> {{ orderForThankyou?.user.email }}</p>
+            <p><span>Email: </span> {{ order?.user.email }}</p>
           </li>
           <li class="list-group-item">
-            <p><span>Phone Number: </span> {{ orderForThankyou?.phoneNumber }}</p>
+            <p><span>Phone Number: </span> {{ order?.phoneNumber }}</p>
           </li>
-          <li class="list-group-item" *ngIf="orderForThankyou?.phoneNumber2">
-            <p><span>Phone Number 2: </span> {{ orderForThankyou?.phoneNumber2 }}</p>
-          </li>
-          <li class="list-group-item">
-            <p><span>Address: </span> {{ orderForThankyou?.address }}</p>
+          <li class="list-group-item" *ngIf="order?.phoneNumber2">
+            <p><span>Phone Number 2: </span> {{ order?.phoneNumber2 }}</p>
           </li>
           <li class="list-group-item">
-            <p><span>City: </span> {{ orderForThankyou?.city }}</p>
+            <p><span>Address: </span> {{ order?.address }}</p>
           </li>
           <li class="list-group-item">
-            <p><span>State: </span> {{ orderForThankyou?.state }}</p>
+            <p><span>City: </span> {{ order?.city }}</p>
+          </li>
+          <li class="list-group-item">
+            <p><span>State: </span> {{ order?.state }}</p>
           </li>
           <li class="list-group-item">
             <p>
               <span>Your Reference Number: </span>
-              <strong style="color: #CC0000;">{{ orderForThankyou?.reference }}</strong>
+              <strong style="color: #CC0000;">{{ order?.reference }}</strong>
             </p>
           </li>
         </ul>
@@ -65,7 +65,7 @@
       </table>
       <div class="d-flex justify-content-end mt-3">
         <h5>Grand Total:</h5>
-        <h5 class="ml-3 text-success">&#8358; {{ orderForThankyou.totalPrice | money }}</h5>
+        <h5 class="ml-3 text-success">&#8358; {{ order.totalPrice | money }}</h5>
       </div>
     </div>
   </div>

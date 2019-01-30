@@ -23,7 +23,7 @@ export class UserService {
     return this.http.post<number>(this.baseUrl + 'order/' + userId, order);
   }
 
-  updateProductSizeAfterOrder(productId: number, sizeArr) {
+  updateSizeOnOrder(productId: number, sizeArr) {
     return this.http.put(this.baseUrl + 'user/' + productId + '/product', sizeArr);
   }
 

@@ -19,9 +19,9 @@ import { OrderService } from 'src/app/_services/order.service';
 })
 export class CartComponent implements OnInit, OnDestroy {
   paystackSubscription: Subscription;
-  orderId: number;
   isLoading = false;
   isCartEmpty = false;
+  paymentStart: boolean;
   warn = false;
 
   cartToken = environment.cartToken;
@@ -109,6 +109,8 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.reference = Math.floor(Math.random() * 1000000000 + 1);
     this.paystackSubscription = this.uiService.openPaystack.subscribe(address => {
+      //looading icon
+      this.paymentStart = true;
       // sets the address
       this.userAddress = address;
 
@@ -191,78 +193,48 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   public paymentCancelled() {
+    this.paymentStart = false;
     console.log('Cancelled');
   }
 
-  public paymentDone($event) {
-    let updateSizeObj = [];
+  public async paymentDone($event) {
     let itemToOrder: any[] = JSON.parse(localStorage.getItem(this.cartToken));
-    const arrlength = itemToOrder.length;
-    let counter = 0;
 
-    itemToOrder.forEach(element => {
-      this.productService.getProductForCart(element['productId']).subscribe(product => {
-        let sizeArr = JSON.parse(product.sizes);
-        let selectedSize: any = _.findWhere(sizeArr, { size: element['size'] });
-        //substract from old quantity
-        selectedSize.quantity = selectedSize.quantity - element.quantity;
+    for (let i = 0; i < itemToOrder.length; i++) {
+      let product = await this.productService.getProductForCart(itemToOrder[i]['productId']).toPromise();
 
-        //remove and add old item and new one respectively
-        sizeArr.splice(_.findIndex(sizeArr, { size: element['size'] }), 1, selectedSize);
+      let sizeArr = JSON.parse(product.sizes);
+      let selectedSize: any = _.findWhere(sizeArr, { size: itemToOrder[i]['size'] });
+      //substract from old quantity
+      selectedSize.quantity = selectedSize.quantity - itemToOrder[i].quantity;
 
-        let x = { id: product.id, size: JSON.stringify(sizeArr) };
+      //remove and add old item and new one respectively
+      sizeArr.splice(_.findIndex(sizeArr, { size: itemToOrder[i]['size'] }), 1, selectedSize);
 
-        updateSizeObj.push(x);
-        counter++;
-
-        if (counter == arrlength) {
-          // run this after the whole iteration
-          this.updateProductSizeAfterOrder(updateSizeObj);
-        }
-      });
-    });
+      await this.userService.updateSizeOnOrder(product.id, { sizes: JSON.stringify(sizeArr) }).toPromise();
+    }
 
     // create order and send notification
     this.order.reference = this.reference;
-    this.userService.createOrder(this.currentUser.id, this.order).subscribe(
-      orderId => {
-        this.orderId = orderId;
-      },
-      null,
-      () => {
-        //update sold count
-        this.updateSoldProduct(this.order.items);
+    this.updateSoldProduct(this.order.items);
+    let orderId = await this.userService.createOrder(this.currentUser.id, this.order).toPromise();
+    this.orderService.sendNotification(orderId).toPromise();
 
-        //   sends notification
-        this.orderService.sendNotification(this.orderId).subscribe();
-        setTimeout(() => {
-          this.router.navigate(['/thankyou', this.currentUser.id, this.order.reference]);
-        }, 100);
-      }
-    );
+    this.navigateToThankyou();
   }
 
   // update sold count
-  public updateSoldProduct(items: any) {
+  public async updateSoldProduct(items: any) {
     let itemArr: any[] = JSON.parse(items);
-    itemArr.forEach(element => {
-      this.productService.updateSoldCount(element.productId, element.quantity).subscribe();
-    });
+    for (let i = 0; i < itemArr.length; i++) {
+      await this.productService.updateSoldCount(itemArr[i].productId, itemArr[i].quantity).toPromise();
+    }
   }
 
-  // update the sizes with the new qunatity after order has been made
-  public updateProductSizeAfterOrder(updateSizeObj: any[]) {
-    const arrlength = updateSizeObj.length;
-    let counter = 0;
-
-    updateSizeObj.forEach(element => {
-      this.userService.updateProductSizeAfterOrder(element['id'], { sizes: element['size'] }).subscribe(x => {
-        counter++;
-      });
-    });
-
+  navigateToThankyou() {
     localStorage.removeItem(this.cartToken);
     this.uiService.updateTotalItemInCart();
+    this.router.navigate(['/thankyou', this.currentUser.id, this.order.reference]);
   }
 
   public closeWarn() {
@@ -278,6 +250,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.paymentStart = false;
     this.reference = null;
     this.order = null;
     this.paystackSubscription.unsubscribe();

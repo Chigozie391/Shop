@@ -1,10 +1,12 @@
 <div class="col-12 p-0 slider-col">
   <drag-scroll [scrollbar-hidden]="true" [snap-disabled]="true">
     <div class="slider-wrapper shadow mx-3" *ngFor="let product of products" drag-scroll-item>
-      <div class="slider-img"><img src="{{ product.photoUrl }}" alt="{{ product.title }}" class="img-fluid" /></div>
-      <div class="title d-flex justify-content-between">
-        <span class="p-2">{{ product.title }}</span> <span class="p-2"> &#8358; {{ product.price | money }} </span>
-      </div>
+      <a [routerLink]="['/detail', product.id]">
+        <div class="slider-img"><img src="{{ product.photoUrl }}" alt="{{ product.title }}" class="img-fluid" /></div>
+        <div class="title d-flex justify-content-between">
+          <span class="p-2">{{ product.title }}</span> <span class="p-2"> &#8358; {{ product.price | money }} </span>
+        </div>
+      </a>
     </div>
   </drag-scroll>
 </div>

@@ -104,7 +104,7 @@ namespace Shop.API.Controllers
 
 		[Authorize(Policy = "RequireCustomerRole")]
 		[HttpPut("{productId}/product")]
-		public async Task<IActionResult> UpdateProductSizeAfterOrder(int productId, ProductForUpdateSize productForUpdateSize)
+		public async Task<IActionResult> UpdateSizeOnOrder(int productId, ProductForUpdateSize productForUpdateSize)
 		{
 			var product = await this.productRepo.GetProduct(productId, false);
 			product.LastUpdated = DateTime.Now;

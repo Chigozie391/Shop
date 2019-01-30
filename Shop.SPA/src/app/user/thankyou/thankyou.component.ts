@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'underscore';
 
@@ -8,15 +8,15 @@ import * as _ from 'underscore';
   styleUrls: ['./thankyou.component.css']
 })
 export class ThankyouComponent implements OnInit {
-  orderForThankyou: any;
+  order: any;
   itemsArr: any[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.orderForThankyou = data['order'];
-      this.itemsArr = JSON.parse(this.orderForThankyou.items);
+      this.order = data['order'];
+      this.itemsArr = JSON.parse(this.order.items);
     });
   }
 

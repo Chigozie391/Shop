@@ -138,6 +138,16 @@ export class ItemDetailComponent implements OnInit {
 
   getImages() {
     const imageUrls = [];
+
+    let photos = _.findWhere(this.product.photos, { isMain: true });
+    imageUrls.push({
+      small: photos.url,
+      medium: photos.url,
+      big: photos.url
+    });
+
+    this.product.photos.splice(_.findIndex(this.product.photos, photos), 1);
+
     for (let i = 0; i < this.product.photos.length; i++) {
       imageUrls.push({
         small: this.product.photos[i].url,

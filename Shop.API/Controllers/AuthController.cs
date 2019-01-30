@@ -97,7 +97,7 @@ namespace Shop.API.Controllers
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claim),
-				Expires = DateTime.Now.AddDays(1),
+				Expires = DateTime.Now.AddDays(10),
 				SigningCredentials = cred
 			};
 
